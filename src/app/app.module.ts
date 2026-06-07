@@ -9,7 +9,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule, DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { DataLoaderComponent } from './Activities/data-loader/data-loader.component';
 import { ProjectsManagerComponent } from './Activities/projects-manager/projects-manager.component';
@@ -93,7 +93,6 @@ declare var $: any;
   providers: [
 
     { provide: API_BASE_URL, useFactory: getBaseUrl },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService,
     // { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptcha.siteKey },
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
