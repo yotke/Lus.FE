@@ -9,7 +9,9 @@ import { TabNavWidgetService } from './Infrastructure/Services/TabNav/tab-nav-wi
 })
 export class AppComponent implements OnInit {
   title = 'Loz-Information';
-  isHomePage: boolean = true;
+  // The app shell (nav bar) is hidden on the public / authentication routes.
+  private static readonly PUBLIC_ROUTES = ['/login', '/register', '/privacy', '/terms'];
+  showHeader: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -19,11 +21,19 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.updateHeaderVisibility(this.router.url);
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.isHomePage = event.urlAfterRedirects === '/Home';
+        this.updateHeaderVisibility(event.urlAfterRedirects);
       }
     });
+  }
+
+  private updateHeaderVisibility(url: string): void {
+    const path = (url.split('?')[0].split('#')[0] || '').toLowerCase();
+    this.showHeader = !AppComponent.PUBLIC_ROUTES.some(
+      route => path === route || path.startsWith(`${route}/`)
+    );
   }
 
 }

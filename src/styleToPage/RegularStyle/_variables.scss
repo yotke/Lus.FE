@@ -1,3 +1,55 @@
+// =============================================================================
+// Global CSS custom properties derived from the Lus design tokens.
+// This file emits a single `:root` block and is imported once from
+// `regularStyle.scss` (a global stylesheet registered in angular.json).
+//
+// Components may consume these at runtime via `var(--lus-*)`, or import the
+// SCSS tokens directly from `_tokens.scss`.
+// =============================================================================
+
+@use 'tokens' as t;
+
+// ── Legacy variables (kept for backwards compatibility) ──────────────────────
 $base-size-input: 1rem;
-$base-height-input:1rem;
+$base-height-input: 1rem;
 $base-size-label: 1rem;
+
+:root {
+  // Brand
+  --lus-primary: #{t.$lus-primary};
+  --lus-primary-dark: #{t.$lus-primary-dark};
+  --lus-primary-light: #{t.$lus-primary-light};
+  --lus-primary-050: #{t.$lus-primary-050};
+  --lus-primary-100: #{t.$lus-primary-100};
+  --lus-accent: #{t.$lus-accent};
+  --lus-gradient-brand: #{t.$lus-gradient-brand};
+
+  // The accessibility widget (TabNavWidgetService) reads this.
+  --org-primary-color: #{t.$lus-primary};
+
+  // Neutrals & text
+  --lus-surface: #{t.$lus-surface};
+  --lus-bg: #{t.$lus-bg};
+  --lus-text: #{t.$lus-text};
+  --lus-text-muted: #{t.$lus-text-muted};
+  --lus-border: #{t.$lus-border};
+  --lus-border-strong: #{t.$lus-border-strong};
+
+  // Feedback
+  --lus-error: #{t.$lus-error};
+  --lus-error-bg: #{t.$lus-error-bg};
+  --lus-success: #{t.$lus-success};
+  --lus-success-bg: #{t.$lus-success-bg};
+
+  // Radius / elevation
+  --lus-radius-sm: #{t.$lus-radius-sm};
+  --lus-radius-md: #{t.$lus-radius-md};
+  --lus-radius-lg: #{t.$lus-radius-lg};
+  --lus-shadow-sm: #{t.$lus-shadow-sm};
+  --lus-shadow-md: #{t.$lus-shadow-md};
+  --lus-shadow-lg: #{t.$lus-shadow-lg};
+
+  // Fields
+  --lus-field-radius: #{t.$lus-field-radius};
+  --lus-field-focus: #{t.$lus-field-focus};
+}

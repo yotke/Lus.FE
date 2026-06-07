@@ -1,3 +1,5 @@
+@use '../../../styleToPage/RegularStyle/tokens' as t;
+
 :host {
   display: block;
   height: 100%;
@@ -8,18 +10,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  background: linear-gradient(135deg, #1f3a5f 0%, #2d5b8a 100%);
+  padding: t.$lus-space-5;
+  background: t.$lus-gradient-brand;
   box-sizing: border-box;
 }
 
 .login-card {
   width: 100%;
   max-width: 400px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
-  padding: 40px 32px;
+  background: t.$lus-surface;
+  border-radius: t.$lus-radius-lg;
+  box-shadow: t.$lus-shadow-lg;
+  padding: t.$lus-space-7 t.$lus-space-6;
   box-sizing: border-box;
 }
 
@@ -32,13 +34,13 @@
   margin: 0;
   font-size: 28px;
   font-weight: 700;
-  color: #1f3a5f;
+  color: t.$lus-primary-dark;
 }
 
 .login-subtitle {
   margin: 8px 0 0;
   font-size: 15px;
-  color: #6b7280;
+  color: t.$lus-text-muted;
 }
 
 .login-form {
@@ -55,9 +57,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #fdecea;
-  color: #b71c1c;
-  border-radius: 8px;
+  background: t.$lus-error-bg;
+  color: t.$lus-error;
+  border-radius: t.$lus-radius-sm;
   padding: 10px 12px;
   font-size: 14px;
   margin-bottom: 8px;

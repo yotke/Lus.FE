@@ -1,0 +1,69 @@
+// =============================================================================
+// Lus design tokens (SCSS variables only — NO CSS output).
+// Adapted from the ArmyLuz token system and tuned to the Lus brand
+// (navy / indigo). Safe to `@use` from any component stylesheet:
+//
+//   @use 'src/styleToPage/RegularStyle/tokens' as t;
+//   color: t.$lus-primary;
+//
+// The same values are mirrored to CSS custom properties in `_variables.scss`
+// so they can also be consumed at runtime via `var(--lus-*)`.
+// =============================================================================
+
+// ── Brand palette ────────────────────────────────────────────────────────────
+$lus-primary:        #2d5b8a;
+$lus-primary-dark:   #1f3a5f;
+$lus-primary-light:  #5b86b3;
+$lus-primary-050:    #eef3f9;
+$lus-primary-100:    #e8eef5;
+$lus-accent:         #3f51b5; // indigo — also the accessibility-widget colour
+
+// Brand gradient used on the authentication backdrop.
+$lus-gradient-brand: linear-gradient(135deg, #{$lus-primary-dark} 0%, #{$lus-primary} 100%);
+
+// ── Neutrals & text ──────────────────────────────────────────────────────────
+$lus-surface:        #ffffff;
+$lus-bg:             #f5f6f8;
+$lus-text:           #1f2937;
+$lus-text-muted:     #6b7280;
+$lus-border:         #d1d5db;
+$lus-border-strong:  #9aa3af;
+
+// ── Feedback ─────────────────────────────────────────────────────────────────
+$lus-error:          #b71c1c;
+$lus-error-bg:       #fdecea;
+$lus-success:        #1b5e20;
+$lus-success-bg:     #e8f5e9;
+
+// ── Spacing scale ────────────────────────────────────────────────────────────
+$lus-space-1: 4px;
+$lus-space-2: 8px;
+$lus-space-3: 12px;
+$lus-space-4: 16px;
+$lus-space-5: 24px;
+$lus-space-6: 32px;
+$lus-space-7: 40px;
+
+// ── Radius ───────────────────────────────────────────────────────────────────
+$lus-radius-sm: 8px;
+$lus-radius-md: 12px;
+$lus-radius-lg: 16px;
+
+// ── Elevation ────────────────────────────────────────────────────────────────
+$lus-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
+$lus-shadow-md: 0 4px 24px rgba(0, 0, 0, 0.08);
+$lus-shadow-lg: 0 18px 45px rgba(0, 0, 0, 0.25);
+
+// ── Motion ───────────────────────────────────────────────────────────────────
+$lus-transition: 0.2s ease;
+
+// ── Typography ───────────────────────────────────────────────────────────────
+$lus-font-family: 'Rubik', 'Assistant', 'Heebo', 'Segoe UI', sans-serif;
+
+// ── Form fields ──────────────────────────────────────────────────────────────
+$lus-field-radius:      $lus-radius-md;
+$lus-field-font-size:   15px;
+$lus-field-label-size:  14px;
+$lus-field-border:      $lus-border;
+$lus-field-border-hover: $lus-border-strong;
+$lus-field-focus:       $lus-primary;

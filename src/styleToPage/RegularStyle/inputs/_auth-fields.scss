@@ -1,0 +1,74 @@
+// =============================================================================
+// Shared styling for the authentication form fields (login / register).
+// Global (un-encapsulated) so it can reach the Material MDC outline internals.
+// Driven entirely by the Lus CSS custom properties from `_variables.scss`.
+// =============================================================================
+
+.login-field,
+.register-field {
+  width: 100%;
+
+  // Rounded outline corners.
+  .mat-mdc-text-field-wrapper {
+    border-radius: var(--lus-field-radius);
+  }
+
+  .mdc-notched-outline__leading {
+    border-radius: var(--lus-field-radius) 0 0 var(--lus-field-radius);
+  }
+
+  .mdc-notched-outline__trailing {
+    border-radius: 0 var(--lus-field-radius) var(--lus-field-radius) 0;
+  }
+
+  // Default border colour.
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: var(--lus-border);
+    transition: border-color 0.2s ease;
+  }
+
+  // Hover.
+  &:hover:not(.mat-focused) {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--lus-border-strong);
+    }
+  }
+
+  // Focus — brand colour + emphasised border.
+  &.mat-focused {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--lus-field-focus);
+      border-width: 2px;
+    }
+
+    .mat-mdc-form-field-label,
+    .mdc-floating-label {
+      color: var(--lus-field-focus);
+    }
+
+    .mat-mdc-form-field-icon-suffix .mat-icon,
+    .mat-icon[matSuffix] {
+      color: var(--lus-field-focus);
+    }
+  }
+
+  // Suffix icons sit calmly in the muted text colour by default.
+  .mat-mdc-form-field-icon-suffix .mat-icon {
+    color: var(--lus-text-muted);
+  }
+
+  // Error state.
+  &.mat-form-field-invalid {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--lus-error);
+    }
+  }
+}
