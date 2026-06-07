@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../Infrastructure/Services/Auth/auth.service';
 import { environment } from 'src/environments/environment';
 
@@ -18,7 +18,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.loginForm = this.fb.group({
       email: [environment.production ? '' : environment.SignIn_Email, [Validators.required, Validators.email]],
@@ -50,7 +51,8 @@ export class LoginComponent {
         this.isSubmitting = false;
         const isSuccess = response?.isSuccess ?? response?.IsSuccess;
         if (isSuccess) {
-          this.router.navigate(['/Home']);
+          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/Home';
+          this.router.navigateByUrl(returnUrl);
         } else {
           this.errorMessage = this.mapError(response);
         }
