@@ -43,4 +43,5 @@ Thumbs.db
 
 # build artifacts
 /dist
+dist.zip
 /.angular
