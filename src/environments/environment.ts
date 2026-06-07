@@ -13,7 +13,7 @@ export const environment = {
   googleClientId: '723643081325-utbs2uqkvo38dc6tl1mghpmnp3tp40li.apps.googleusercontent.com',
   // Production domains: frontend = https://shiftiz.com, backend API = https://api.shiftiz.com
   // (dev uses localhost; see environment.prod.ts for the live shiftiz.com values)
-  target: "http://localhost:8088",
+  target: "http://localhost:5236",
   // target: "https://localhost:7236",
   frontTarget: "http://localhost:4200",
   setIdle: 600,  // how long can they be inactive before considered idle, in seconds **[10 hours]**
