@@ -29,11 +29,15 @@ import { HistoryProjectsComponent } from './Activities/history-projects/history-
 import { ProjectRowComponent } from './Activities/history-projects/project-row/project-row.component';
 import { ProjectTextRowComponent } from './Activities/history-projects/project-text-row/project-text-row.component';
 import { LoginComponent } from './Activities/login/login.component';
+import { RegisterComponent } from './Activities/register/register.component';
+import { PrivacyComponent } from './Activities/legal/privacy.component';
+import { TermsComponent } from './Activities/legal/terms.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonHelpersModule } from './Adapters/Common/common-helpers.module';
 import { AuthInterceptor } from './Adapters/Interceptors/auth.interceptors/auth.interceptor';
 import { CsrfInterceptor } from './Adapters/Interceptors/auth.interceptors/csrf.interceptor';
+import { HttpErrorInterceptor } from './Adapters/Interceptors/error/http-error-interceptor';
 // import { RECAPTCHA_V3_SITE_KEY, ReCaptchaV3Service, RecaptchaModule } from 'ng-recaptcha';
 
 
@@ -58,6 +62,9 @@ declare var $: any;
     ProjectRowComponent,
     ProjectTextRowComponent,
     LoginComponent,
+    RegisterComponent,
+    PrivacyComponent,
+    TermsComponent,
 
   ],
   imports: [
@@ -95,6 +102,7 @@ declare var $: any;
   ),
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: CsrfInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: MAT_DATE_LOCALE, useValue: 'he-IL' },
     AuthService,
     { provide: DatePipe },

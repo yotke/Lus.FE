@@ -3,6 +3,8 @@ export const environment = {
   recaptcha: {
     siteKey: '6Lc3p-YnAAAAAAUjmk-ty7qYv70wHnQlxX66Z2uz',
   },
+  googleClientId: 'REPLACE_WITH_GOOGLE_OAUTH_WEB_CLIENT_ID.apps.googleusercontent.com',
+  // Production domains: frontend = https://shiftiz.com, backend API = https://api.shiftiz.com
   // target: '#{target}#',
   // frontTarget: '#{frontTarget}#',
   target: "http://localhost:8080",

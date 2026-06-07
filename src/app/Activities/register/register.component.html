@@ -1,0 +1,135 @@
+<div class="register-page" dir="rtl">
+  <div class="register-card">
+    <div class="register-header">
+      <h1 class="register-title">מערכת לוז</h1>
+      <p class="register-subtitle">יצירת חשבון חדש</p>
+    </div>
+
+    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="register-row">
+        <mat-form-field appearance="outline" class="register-field">
+          <mat-label>שם פרטי</mat-label>
+          <input matInput type="text" formControlName="firstName" autocomplete="given-name" />
+          <mat-error *ngIf="firstName?.hasError('required')">יש להזין שם פרטי.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="register-field">
+          <mat-label>שם משפחה</mat-label>
+          <input matInput type="text" formControlName="lastName" autocomplete="family-name" />
+          <mat-error *ngIf="lastName?.hasError('required')">יש להזין שם משפחה.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="register-field">
+        <mat-label>דוא"ל</mat-label>
+        <input matInput type="email" formControlName="email" autocomplete="username" dir="ltr" />
+        <mat-icon matSuffix>mail_outline</mat-icon>
+        <mat-error *ngIf="email?.hasError('required')">יש להזין כתובת דוא"ל.</mat-error>
+        <mat-error *ngIf="email?.hasError('email')">כתובת הדוא"ל אינה תקינה.</mat-error>
+      </mat-form-field>
+
+      <div class="register-row">
+        <mat-form-field appearance="outline" class="register-field">
+          <mat-label>טלפון</mat-label>
+          <input matInput type="tel" formControlName="phone" autocomplete="tel" dir="ltr" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="register-field">
+          <mat-label>תעודת זהות</mat-label>
+          <input matInput type="text" formControlName="idNumber" dir="ltr" />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="register-field">
+        <mat-label>סיסמה</mat-label>
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          autocomplete="new-password"
+          dir="ltr"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="hidePassword ? 'הצג סיסמה' : 'הסתר סיסמה'"
+          [attr.aria-pressed]="!hidePassword"
+        >
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="password?.hasError('required')">יש להזין סיסמה.</mat-error>
+        <mat-error *ngIf="password?.hasError('minlength')">הסיסמה חייבת להכיל לפחות 6 תווים.</mat-error>
+        <mat-error *ngIf="password?.hasError('pattern')">
+          הסיסמה חייבת לכלול אות גדולה, אות קטנה, ספרה ותו מיוחד.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="register-field">
+        <mat-label>אימות סיסמה</mat-label>
+        <input
+          matInput
+          [type]="hideConfirmPassword ? 'password' : 'text'"
+          formControlName="confirmPassword"
+          autocomplete="new-password"
+          dir="ltr"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hideConfirmPassword = !hideConfirmPassword"
+          [attr.aria-label]="hideConfirmPassword ? 'הצג סיסמה' : 'הסתר סיסמה'"
+          [attr.aria-pressed]="!hideConfirmPassword"
+        >
+          <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="confirmPassword?.hasError('required')">יש לאמת את הסיסמה.</mat-error>
+      </mat-form-field>
+
+      <div class="register-mismatch" *ngIf="registerForm.hasError('passwordMismatch') && confirmPassword?.touched">
+        הסיסמאות אינן תואמות.
+      </div>
+
+      <label class="register-terms">
+        <mat-checkbox formControlName="acceptTerms" color="primary"></mat-checkbox>
+        <span>
+          אני מסכים/ה ל<a routerLink="/Terms" target="_blank">תנאי השימוש</a>
+          ול<a routerLink="/Privacy" target="_blank">מדיניות הפרטיות</a>.
+        </span>
+      </label>
+      <div class="register-terms-error" *ngIf="acceptTerms?.hasError('required') && acceptTerms?.touched">
+        יש לאשר את תנאי השימוש ומדיניות הפרטיות.
+      </div>
+
+      <div class="register-error" *ngIf="errorMessage">
+        <mat-icon>error_outline</mat-icon>
+        <span>{{ errorMessage }}</span>
+      </div>
+
+      <div class="register-success" *ngIf="successMessage">
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>{{ successMessage }}</span>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="register-submit"
+        [disabled]="isSubmitting"
+      >
+        <span *ngIf="!isSubmitting">הרשמה</span>
+        <span *ngIf="isSubmitting" class="register-submit-loading">
+          <mat-spinner diameter="20"></mat-spinner>
+          נרשם...
+        </span>
+      </button>
+
+      <button mat-button type="button" class="register-login-link" (click)="goToLogin()">
+        כבר יש לך חשבון? התחברות
+      </button>
+    </form>
+  </div>
+</div>

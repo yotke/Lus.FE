@@ -3,8 +3,10 @@ export const environment = {
   recaptcha: {
     siteKey: '6Lc3p-YnAAAAAAUjmk-ty7qYv70wHnQlxX66Z2uz',
   },
-  target: "http://localhost:8088",
-  frontTarget: "http://localhost:4200",
+  googleClientId: 'REPLACE_WITH_GOOGLE_OAUTH_WEB_CLIENT_ID.apps.googleusercontent.com',
+  // Production domains: frontend = https://shiftiz.com, backend API = https://api.shiftiz.com
+  target: "https://api.shiftiz.com",
+  frontTarget: "https://shiftiz.com",
   setIdle: 600,  // how long can they be inactive before considered idle, in seconds **[10 minutes]**
   setTimeout: 120, // how long can they be idle before considered timed out, in seconds **[2 minutes]**
   keepalive_interval: 30, // will ping at this interval while not idle, in seconds **[30 seconds]**

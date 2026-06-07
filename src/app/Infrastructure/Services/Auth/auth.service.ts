@@ -85,6 +85,49 @@ export class AuthService {
     return this.logout().toPromise();
   }
 
+  // Google Sign-In. Sends the Google ID token (credential) to the API which
+  // verifies it, finds-or-creates the user and sets the session cookies, then
+  // hydrates the local auth state.
+  loginWithGoogle(idToken: string): Observable<any> {
+    return this.http
+      .post<any>(`${environment.target}/api/auth/google`, { IdToken: idToken }, { withCredentials: true })
+      .pipe(
+        tap(response => {
+          const isSuccess = response?.isSuccess ?? response?.IsSuccess;
+          if (isSuccess) {
+            const user = response?.user ?? response?.User ?? {};
+            this.doLogIn(user).subscribe();
+          }
+        })
+      );
+  }
+
+  // Self-service registration. Creates an unconfirmed account; the user must
+  // confirm via e-mail before they can sign in.
+  register(payload: {
+    email: string;
+    password: string;
+    confirmPassword?: string;
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+    idNumber?: string;
+  }): Observable<any> {
+    return this.http.post<any>(
+      `${environment.target}/api/auth/register`,
+      {
+        Email: payload.email,
+        Password: payload.password,
+        ConfirmPassword: payload.confirmPassword ?? payload.password,
+        FirstName: payload.firstName ?? '',
+        LastName: payload.lastName ?? '',
+        Phone: payload.phone ?? '',
+        IdNumber: payload.idNumber ?? ''
+      },
+      { withCredentials: true }
+    );
+  }
+
   logout(): Observable<void> {
     return this.http.post<void>(`${environment.target}/api/auth/logout`, {}, { withCredentials: true }).pipe(
       catchError(() => of(void 0)),

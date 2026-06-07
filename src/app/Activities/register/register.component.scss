@@ -3,7 +3,7 @@
   height: 100%;
 }
 
-.login-page {
+.register-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -13,9 +13,9 @@
   box-sizing: border-box;
 }
 
-.login-card {
+.register-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 520px;
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
@@ -23,35 +23,65 @@
   box-sizing: border-box;
 }
 
-.login-header {
+.register-header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
-.login-title {
+.register-title {
   margin: 0;
   font-size: 28px;
   font-weight: 700;
   color: #1f3a5f;
 }
 
-.login-subtitle {
+.register-subtitle {
   margin: 8px 0 0;
   font-size: 15px;
   color: #6b7280;
 }
 
-.login-form {
+.register-form {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
-.login-field {
+.register-row {
+  display: flex;
+  gap: 12px;
+
+  .register-field {
+    flex: 1;
+  }
+}
+
+.register-field {
   width: 100%;
 }
 
-.login-error {
+.register-terms {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #374151;
+  margin: 4px 0;
+
+  a {
+    color: #2d5b8a;
+    text-decoration: underline;
+  }
+}
+
+.register-terms-error,
+.register-mismatch {
+  color: #b71c1c;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.register-error {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -70,45 +100,38 @@
   }
 }
 
-.login-submit {
+.register-success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e6f4ea;
+  color: #1e4620;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  margin-bottom: 8px;
+
+  mat-icon {
+    flex-shrink: 0;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.register-submit {
   height: 46px;
   font-size: 16px;
   font-weight: 600;
   margin-top: 8px;
 }
 
-.login-submit-loading {
+.register-submit-loading {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
-.login-divider {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 16px 0 4px;
-  color: rgba(0, 0, 0, 0.45);
-  font-size: 13px;
-
-  &::before,
-  &::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  }
-
-  span {
-    padding: 0 12px;
-  }
-}
-
-.login-google {
-  display: flex;
-  justify-content: center;
-}
-
-.login-google-button {
-  display: inline-block;
-  min-height: 40px;
+.register-login-link {
+  margin-top: 4px;
 }

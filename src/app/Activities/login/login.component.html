@@ -60,6 +60,18 @@
           מתחבר...
         </span>
       </button>
+
+      <button mat-button type="button" class="login-register-link" routerLink="/Register">
+        אין לך חשבון? הרשמה
+      </button>
+
+      <div class="login-divider" *ngIf="googleEnabled">
+        <span>או</span>
+      </div>
+
+      <div class="login-google" *ngIf="googleEnabled">
+        <div #googleButton class="login-google-button"></div>
+      </div>
     </form>
   </div>
 </div>

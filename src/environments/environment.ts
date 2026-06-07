@@ -8,6 +8,11 @@ export const environment = {
   recaptcha: {
     siteKey: '6Lc3p-YnAAAAAAUjmk-ty7qYv70wHnQlxX66Z2uz',
   },
+  // Google Sign-In OAuth 2.0 Web client id (from Google Cloud console).
+  // Replace the placeholder once the real client id is provisioned.
+  googleClientId: 'REPLACE_WITH_GOOGLE_OAUTH_WEB_CLIENT_ID.apps.googleusercontent.com',
+  // Production domains: frontend = https://shiftiz.com, backend API = https://api.shiftiz.com
+  // (dev uses localhost; see environment.prod.ts for the live shiftiz.com values)
   target: "http://localhost:8088",
   // target: "https://localhost:7236",
   frontTarget: "http://localhost:4200",
