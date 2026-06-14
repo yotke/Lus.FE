@@ -5,7 +5,7 @@
      }">
 
   <!-- Optional external label -->
-  <label *ngIf="showLabel" class="external-label">{{ titleText }}</label>
+  <label *ngIf="showTitle || showLabel" class="external-label">{{ titleText }}</label>
 
   <!-- Reactive Forms -->
   <div *ngIf="control" class="modern-input-container" [ngClass]="{
@@ -26,7 +26,7 @@
         [placeholder]="shouldFloatLabel ? placeholder : ''" [attr.dir]="dir" (focus)="onFocus()" (blur)="onBlur()"
         (input)="onInput($event)" />
 
-      <label *ngIf="!showLabel" class="floating-label" [ngClass]="{ 'floated': shouldFloatLabel }">{{ titleText }}</label>
+      <label *ngIf="!(showTitle || showLabel)" class="floating-label" [ngClass]="{ 'floated': shouldFloatLabel }">{{ titleText }}</label>
 
       <div class="suffix-icons">
         <app-svg-icon *ngIf="showSearchIcon" name="search" class="search-icon" [size]="20"
@@ -57,7 +57,7 @@
         (ngModelChange)="emitSelectedValueChange($event)" (focus)="onFocus()" (blur)="onBlur()"
         (input)="onInput($event)" />
 
-      <label *ngIf="!showLabel" class="floating-label" [ngClass]="{ 'floated': shouldFloatLabel }">{{ titleText }}</label>
+      <label *ngIf="!(showTitle || showLabel)" class="floating-label" [ngClass]="{ 'floated': shouldFloatLabel }">{{ titleText }}</label>
 
       <div class="suffix-icons">
         <app-svg-icon *ngIf="showSearchIcon" name="search" class="search-icon" [size]="20"

@@ -19,7 +19,8 @@ import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/
 export class DatePickerComponent implements ControlValueAccessor {
   @Input() placeholder = 'אנא בחר תאריך';
   @Input() title: string = 'מתאריך';
-  @Input() showLabel: boolean = true;
+  @Input() showTitle: boolean = false;
+  () showLabel: boolean = false;
   @Input() formGroup: FormGroup;
   @Input() formControlName: string | null = null;
   @Input() selectedValue: any | null = null;

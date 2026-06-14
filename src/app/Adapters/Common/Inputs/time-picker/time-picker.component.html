@@ -1,9 +1,9 @@
 <div class="date-container">
     <!-- Optional label -->
-    <mat-label *ngIf="showLabel">{{ title }}</mat-label>
+    <mat-label *ngIf="showTitle || showLabel">{{ title }}</mat-label>
 
     <mat-form-field *ngIf="control" class="data-loader-mat-form-field" appearance="fill">
-        <mat-label *ngIf="!showLabel">{{ title }}</mat-label>
+        <mat-label *ngIf="!(showTitle || showLabel)">{{ title }}</mat-label>
         <input matInput [ngxTimepicker]="timepicker" [formControl]="control" [format]="24" placeholder="12:00"
             [min]="min" [max]="max" />
 
@@ -11,7 +11,7 @@
         <ngx-material-timepicker #timepicker></ngx-material-timepicker>
     </mat-form-field>
     <mat-form-field *ngIf="!control" class="data-loader-mat-form-field" appearance="fill">
-        <mat-label *ngIf="!showLabel">{{ title }}</mat-label>
+        <mat-label *ngIf="!(showTitle || showLabel)">{{ title }}</mat-label>
         <input matInput [ngxTimepicker]="timepicker" [(ngModel)]="selectedValue" [format]="24" placeholder="12:00"
             [min]="min" [max]="max" />
 

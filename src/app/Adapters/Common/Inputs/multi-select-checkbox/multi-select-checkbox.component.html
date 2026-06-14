@@ -1,6 +1,6 @@
 <div class="multi-select-container">
   <!-- Optional label -->
-  <mat-label *ngIf="showLabel">{{ title }}</mat-label>
+  <mat-label *ngIf="showTitle || showLabel">{{ title }}</mat-label>
 
   <div [class]="class" [attr.data-name]="name" style="position: relative;"
     [ngClass]="{ 'with-search-icon': searchIcon }">
@@ -8,6 +8,7 @@
     <!-- REACTIVE FORMS BLOCK -->
     <ng-select *ngIf="control" [disabled]="disabled" [attr.name]="'ng-multiselect_checkbox_'+title+'_' + uniqueId"
       appearance="fill" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true" clearable="true"
+      [placeholder]="placeholder === 'placeholder' ? title : placeholder"
       [formControl]="control">
       <!-- Prevent default selection by stopping propagation -->
       <ng-option *ngFor="let item of listInput" (click)="$event.stopPropagation()">
@@ -22,7 +23,7 @@
 
     <!-- TEMPLATE-DRIVEN BLOCK -->
     <ng-select *ngIf="!control" [disabled]="disabled" [attr.name]="'ng-multiselect_checkbox_'+title+'_' + uniqueId"
-      appearance="fill" [multiple]="true" [closeOnSelect]="false" [placeholder]="placeholder" clearable="true"
+      appearance="fill" [multiple]="true" [closeOnSelect]="false" [placeholder]="placeholder === 'placeholder' ? title : placeholder" clearable="true"
       [hideSelected]="true" [(ngModel)]="selectedValues">
       <ng-option *ngFor="let item of listInput" (click)="$event.stopPropagation()">
         <!-- Clicking the checkbox toggles selection -->

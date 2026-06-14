@@ -39,6 +39,7 @@ export class RegularInputComponent implements ControlValueAccessor {
   @Input() formControlName: string | null = null;
   @Input() selectedValue: any | null = null;
   @Input() title: string | null = null;
+  @Input() showTitle: boolean = false;
   @Input() showLabel: boolean = false;
   @Input() inputType: string = 'text';
   @Input() inputClass: string | null = null;

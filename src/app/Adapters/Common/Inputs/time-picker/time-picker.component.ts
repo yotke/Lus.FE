@@ -16,7 +16,8 @@ import { FormGroup, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from 
 export class TimePickerComponent implements ControlValueAccessor {
   @Input() placeholder: string | undefined = 'בחר שעה';
   @Input() title: string = 'משעה';
-  @Input() showLabel: boolean = true;
+  @Input() showTitle: boolean = false;
+  () showLabel: boolean = false;
   @Input() formGroup: FormGroup;
   @Input() formControlName: string | null = null;
   @Input() selectedValue: any | null = null;

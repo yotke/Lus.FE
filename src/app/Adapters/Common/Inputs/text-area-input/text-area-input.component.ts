@@ -16,7 +16,8 @@ import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR } from 
 export class TextAreaInputComponent {
   @Input() placeholder: string = 'הכנס טקסט חופשי';
   @Input() title: string | undefined = '';
-  @Input() showLabel: boolean = true;
+  @Input() showTitle: boolean = false;
+  () showLabel: boolean = false;
   @Input() formGroup: FormGroup | null = null;
   @Input() formControlName: string | null = 'empty';
   @Input() selectedValue: any | null = null;

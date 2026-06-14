@@ -20,7 +20,8 @@ export class MonthPickerComponent implements ControlValueAccessor {
 
   @Input() placeholder = 'אנא בחר חודש';
   @Input() title: string = 'מחודש';
-  @Input() showLabel: boolean = true;
+  @Input() showTitle: boolean = false;
+  () showLabel: boolean = false;
   @Input() formGroup: FormGroup | null = null;
   @Input() formControlName: string | null = null;
   @Input() selectedValue: any | null = null;
