@@ -56,6 +56,32 @@
   width: 100%;
 }
 
+.auth-field-icon {
+  width: 48px;
+  height: 48px;
+  margin-inline: 2px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted, #{t.$lus-text-muted});
+}
+
+.auth-field-icon-button {
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--org-primary-color, #{t.$lus-primary});
+    background: rgba(var(--org-primary-rgb, 15, 118, 110), 0.1);
+    outline: none;
+  }
+}
+
 .login-error {
   display: flex;
   align-items: center;
