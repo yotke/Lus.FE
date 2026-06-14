@@ -6,7 +6,6 @@
             <li><a routerLink="./contact">עזרה</a></li>
         </ul>
         <app-month-picker class="system-date" [(selectedValue)]="CurrSystemDate" [placeholder]="'תאריך עבודה נוכחי'"
-            [classes]="'system-date'"
             (selectedValueChange)="onCurrSystemDateChange($event)"></app-month-picker>
         <button type="button" class="theme-toggle-btn" (click)="themeService.toggleDarkMode()"
             [attr.aria-label]="themeService.isDark ? 'מצב יום' : 'מצב לילה'" title="מצב יום / לילה">
