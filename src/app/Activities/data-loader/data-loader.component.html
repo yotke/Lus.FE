@@ -21,7 +21,7 @@
                 <div class="time-data-container"
                     *ngFor="let dateTimeGroup of DateTimeFormArray.controls; let i = index">
                     <div class="time-headline-container">
-                        <mat-icon (click)="RemoveDateTimeRow(i)">delete_outline</mat-icon>
+                        <app-svg-icon (click)="RemoveDateTimeRow(i)" name="delete" [size]="20"></app-svg-icon>
                         <h3>פרויקט - זמני עבודה</h3>
                     </div>
                     <div [formGroup]="GetFormGroup(dateTimeGroup)" class="date-time-group-container row col-md-12">

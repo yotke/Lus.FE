@@ -1,0 +1,75 @@
+// =============================================================================
+// App base theming — flips the whole shell between light/dark using the theme
+// CSS custom properties. Global stylesheet (registered via basicStyle.scss).
+// Individual screens can still override, but this gives every view a coherent
+// themed background + text color with zero per-component work.
+// =============================================================================
+
+html,
+body {
+  background: var(--bg-page, #f8fafc);
+  color: var(--text-primary, #1f2937);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+// App shell container (app.component)
+.home-page-container {
+  background: var(--bg-page, #f8fafc);
+  color: var(--text-primary, #1f2937);
+  min-height: 100vh;
+}
+
+main {
+  color: var(--text-primary, #1f2937);
+}
+
+// ── Generic surfaces that should follow the theme ────────────────────────────
+// Common card/panel class names used across the Lus screens. Kept conservative:
+// only background + text + border so layout/spacing is untouched.
+.card,
+.panel,
+.content-card,
+.section-card,
+.data-card,
+.modal-content,
+.dialog-content,
+.mat-mdc-card,
+.mat-mdc-dialog-surface,
+.mat-mdc-menu-panel,
+.mat-mdc-table {
+  background: var(--bg-card, #ffffff);
+  color: var(--text-primary, #1f2937);
+  border-color: var(--border-default, #e5e7eb);
+}
+
+// Tables — themed header + row separators (read-friendly in dark mode)
+.mat-mdc-table {
+  .mat-mdc-header-row {
+    background: var(--bg-muted, #f9fafb);
+  }
+  .mat-mdc-header-cell {
+    color: var(--text-secondary, #374151);
+  }
+  .mat-mdc-cell {
+    color: var(--text-primary, #1f2937);
+    border-bottom-color: var(--border-subtle, #f3f4f6);
+  }
+  .mat-mdc-row:hover .mat-mdc-cell {
+    background: rgba(var(--org-primary-rgb, 30, 136, 229), 0.05);
+  }
+}
+
+// Headings inherit the themed text color instead of staying hard black
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary, #1f2937);
+}
+
+// Material dialog/menu surfaces in dark mode
+[data-theme="dark"] {
+  .mat-mdc-dialog-surface,
+  .mat-mdc-menu-panel,
+  .mat-mdc-card {
+    background: var(--bg-card, #1e293b);
+    color: var(--text-primary, #ffffff);
+  }
+}

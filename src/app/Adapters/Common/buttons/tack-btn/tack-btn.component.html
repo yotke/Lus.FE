@@ -5,7 +5,7 @@
     class="tack-btn"
     [title]="isPined ? 'Unpin' : 'Pin'"
   >
-    <mat-icon *ngIf="isPined">push_pin</mat-icon>
-    <mat-icon *ngIf="!isPined" [class]="'not-pined'">push_pin</mat-icon>
+    <app-svg-icon *ngIf="isPined" name="push-pin" [size]="20"></app-svg-icon>
+    <app-svg-icon *ngIf="!isPined" class="not-pined" name="push-pin" [size]="20"></app-svg-icon>
   </button>
 </div>

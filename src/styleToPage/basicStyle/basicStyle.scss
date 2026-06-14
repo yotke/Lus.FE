@@ -22,3 +22,9 @@
 @use 'ng-deep/app-auto-complete.deep';
 @use 'ng-deep/app-checkbox-input';
 @use 'ng-deep/app-radio-button';
+
+// Global modern look for ALL Material/ng-select fields (not just app-regular-input).
+@use 'ng-deep/material-modern';
+
+// Global base theming — themed shell/surfaces/tables for light + dark mode.
+@use 'ng-deep/app-base';

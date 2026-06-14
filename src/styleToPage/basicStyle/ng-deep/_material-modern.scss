@@ -1,0 +1,123 @@
+// =============================================================================
+// Modern Material form-field theme — applies the Weekeye-style input look to
+// EVERY Angular Material field in the app (mat-form-field / matInput / mat-select
+// / ng-select), not just <app-regular-input>. Uses the theme CSS custom
+// properties so it adapts to light/dark mode automatically.
+//
+// Global stylesheet (registered via basicStyle.scss in angular.json) — no
+// component template changes required.
+// =============================================================================
+
+// ── Material form fields (fill + outline) ───────────────────────────────────
+.mat-mdc-form-field {
+  width: 100%;
+
+  .mat-mdc-text-field-wrapper {
+    border-radius: var(--theme-border-radius, 8px);
+    background: var(--input-bg, #ffffff);
+    border: 1.5px solid var(--input-border, #e5e7eb);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+
+  // Hover
+  &:hover:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
+    border-color: var(--org-primary-light, #64b5f6);
+  }
+
+  // Focus — themed border + soft glow
+  &.mat-focused .mat-mdc-text-field-wrapper {
+    border-color: var(--org-primary-color, #1e88e5);
+    box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb, 30, 136, 229), 0.15);
+  }
+
+  // Invalid
+  &.mat-form-field-invalid .mat-mdc-text-field-wrapper {
+    border-color: var(--theme-error, #ef4444);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+  }
+
+  // The MDC underline + focus overlay fight the bordered-box look — drop them.
+  .mdc-line-ripple::before,
+  .mdc-line-ripple::after {
+    display: none !important;
+  }
+  .mat-mdc-form-field-focus-overlay {
+    background: transparent !important;
+  }
+
+  // Outline appearance: hide the notched outline (we use the wrapper border)
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: transparent !important;
+  }
+
+  // Text + label + placeholder colors follow the theme
+  input.mat-mdc-input-element,
+  textarea.mat-mdc-input-element,
+  .mat-mdc-select-value-text {
+    color: var(--input-text, var(--text-primary, #1f2937));
+  }
+  .mat-mdc-form-field-infix input::placeholder {
+    color: var(--text-placeholder, #9ca3af);
+  }
+  .mdc-floating-label,
+  .mat-mdc-form-field-label {
+    color: var(--text-muted, #6b7280);
+  }
+  &.mat-focused .mdc-floating-label {
+    color: var(--org-primary-color, #1e88e5);
+  }
+}
+
+// ── ng-select (used across the app) ─────────────────────────────────────────
+.ng-select {
+  .ng-select-container {
+    border-radius: var(--theme-border-radius, 8px) !important;
+    background: var(--input-bg, #ffffff) !important;
+    border: 1.5px solid var(--input-border, #e5e7eb) !important;
+    color: var(--input-text, var(--text-primary, #1f2937)) !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  &:hover .ng-select-container {
+    border-color: var(--org-primary-light, #64b5f6) !important;
+  }
+  &.ng-select-focused .ng-select-container {
+    border-color: var(--org-primary-color, #1e88e5) !important;
+    box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb, 30, 136, 229), 0.15) !important;
+  }
+  .ng-placeholder {
+    color: var(--text-placeholder, #9ca3af) !important;
+  }
+}
+
+.ng-dropdown-panel {
+  background: var(--bg-elevated, #ffffff) !important;
+  border-color: var(--border-default, #e5e7eb) !important;
+  color: var(--text-primary, #1f2937) !important;
+
+  .ng-option {
+    background: transparent !important;
+    color: var(--text-primary, #1f2937) !important;
+
+    &.ng-option-marked,
+    &.ng-option-selected {
+      background: rgba(var(--org-primary-rgb, 30, 136, 229), 0.12) !important;
+      color: var(--org-primary-color, #1e88e5) !important;
+    }
+  }
+}
+
+// ── mat-select dropdown panel ───────────────────────────────────────────────
+.mat-mdc-select-panel {
+  background: var(--bg-elevated, #ffffff) !important;
+
+  .mat-mdc-option {
+    color: var(--text-primary, #1f2937);
+
+    &.mdc-list-item--selected,
+    &:hover:not(.mdc-list-item--disabled) {
+      background: rgba(var(--org-primary-rgb, 30, 136, 229), 0.1);
+    }
+  }
+}
