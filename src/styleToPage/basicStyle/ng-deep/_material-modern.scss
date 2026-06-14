@@ -6,6 +6,43 @@
 // with no background/notch, which looked like a broken placeholder.
 // =============================================================================
 
+// ── Primary buttons follow the brand color (was Material's indigo default) ───
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-unelevated-button.mat-primary,
+.mat-mdc-fab.mat-primary,
+.mat-mdc-mini-fab.mat-primary {
+  --mdc-protected-button-container-color: var(--org-primary-color, #0f766e);
+  --mdc-filled-button-container-color: var(--org-primary-color, #0f766e);
+  --mdc-protected-button-label-text-color: #ffffff;
+  --mdc-filled-button-label-text-color: #ffffff;
+  background-color: var(--org-primary-color, #0f766e) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 16px rgba(var(--org-primary-rgb, 15, 118, 110), 0.28);
+
+  &:hover:not(:disabled) {
+    background-color: var(--org-primary-dark, #0c5d57) !important;
+  }
+}
+
+.mat-mdc-button.mat-primary,
+.mat-mdc-outlined-button.mat-primary {
+  --mdc-text-button-label-text-color: var(--org-primary-color, #0f766e);
+  --mdc-outlined-button-label-text-color: var(--org-primary-color, #0f766e);
+  color: var(--org-primary-color, #0f766e) !important;
+}
+
+// mat-checkbox / slide-toggle / progress / spinner primary accents
+.mat-mdc-checkbox.mat-primary {
+  --mdc-checkbox-selected-icon-color: var(--org-primary-color, #0f766e);
+  --mdc-checkbox-selected-focus-icon-color: var(--org-primary-color, #0f766e);
+  --mdc-checkbox-selected-hover-icon-color: var(--org-primary-color, #0f766e);
+}
+.mat-mdc-progress-spinner,
+.mat-mdc-progress-bar {
+  --mdc-circular-progress-active-indicator-color: var(--org-primary-color, #0f766e);
+  --mdc-linear-progress-active-indicator-color: var(--org-primary-color, #0f766e);
+}
+
 .mat-mdc-form-field {
   width: 100%;
   --mdc-outlined-text-field-container-shape: var(--theme-border-radius, 10px);
