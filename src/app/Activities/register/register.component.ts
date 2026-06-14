@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../Infrastructure/Services/Auth/auth.service';
+import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notify: NotificationService
   ) {
     this.registerForm = this.fb.group(
       {
@@ -99,15 +101,18 @@ export class RegisterComponent {
           if (isSuccess) {
             this.successMessage =
               'נרשמת בהצלחה! שלחנו אליך דוא"ל לאימות החשבון. יש לאמת לפני ההתחברות.';
+            this.notify.success(this.successMessage);
             this.registerForm.disable();
             setTimeout(() => this.router.navigateByUrl('/Login'), 4000);
           } else {
             this.errorMessage = this.mapError(response);
+            this.notify.error(this.errorMessage);
           }
         },
         error: () => {
           this.isSubmitting = false;
           this.errorMessage = 'אירעה שגיאה בהרשמה. נסו שוב מאוחר יותר.';
+          this.notify.error(this.errorMessage);
         },
       });
   }

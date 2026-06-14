@@ -173,7 +173,9 @@
 // so we override that token PLUS the inner `.mdc-snackbar__surface` so the
 // green/red colour is unmistakable in either light or dark theme.
 .mat-mdc-snack-bar-container.success-snackbar,
-.mat-mdc-snack-bar-container.error-snackbar {
+.mat-mdc-snack-bar-container.error-snackbar,
+.mat-mdc-snack-bar-container.warning-snackbar,
+.mat-mdc-snack-bar-container.info-snackbar {
   // Desktop: lift the toast 16px above the viewport's very bottom edge so
   // it reads as a floating notification, not as a sibling of an inline
   // bottom footer. Mobile keeps the default flush placement so it doesn't
@@ -212,6 +214,44 @@
   .mdc-snackbar__surface {
     background: #dc2626 !important;
     box-shadow: 0 10px 32px rgba(220, 38, 38, .45), 0 2px 8px rgba(0, 0, 0, .15);
+    border-radius: 12px;
+  }
+  .mdc-snackbar__label {
+    color: #ffffff !important;
+    font-weight: 600;
+  }
+  .mat-mdc-button.mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+  }
+}
+
+.mat-mdc-snack-bar-container.warning-snackbar {
+  --mdc-snackbar-container-color: #d97706;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #ffffff;
+
+  .mdc-snackbar__surface {
+    background: #d97706 !important;
+    box-shadow: 0 10px 32px rgba(217, 119, 6, .42), 0 2px 8px rgba(0, 0, 0, .15);
+    border-radius: 12px;
+  }
+  .mdc-snackbar__label {
+    color: #ffffff !important;
+    font-weight: 600;
+  }
+  .mat-mdc-button.mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+  }
+}
+
+.mat-mdc-snack-bar-container.info-snackbar {
+  --mdc-snackbar-container-color: var(--org-primary-color, #0f766e);
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #ffffff;
+
+  .mdc-snackbar__surface {
+    background: var(--org-primary-color, #0f766e) !important;
+    box-shadow: 0 10px 32px rgba(var(--org-primary-rgb, 15, 118, 110), .38), 0 2px 8px rgba(0, 0, 0, .15);
     border-radius: 12px;
   }
   .mdc-snackbar__label {

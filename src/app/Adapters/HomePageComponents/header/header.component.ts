@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ProjectTemplateService } from 'src/app/Infrastructure/Services/projectTemplateService/project-template.service';
 import { AuthService } from 'src/app/Infrastructure/Services/Auth/auth.service';
 import { ThemeService } from 'src/app/Infrastructure/Services/themeService/theme.service';
+import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +23,8 @@ export class HeaderComponent {
     private projectTemplateSvc: ProjectTemplateService,
     private authService: AuthService,
     private router: Router,
-    public themeService: ThemeService
+    public themeService: ThemeService,
+    private notify: NotificationService
   ) {
     const storedDate = sessionStorage.getItem('currSystemDate');
     if (storedDate) {
@@ -50,8 +52,14 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    this.authService.logout().subscribe(() => {
-      this.router.navigate(['/Login']);
+    this.authService.logout().subscribe({
+      next: () => {
+        this.notify.success('התנתקת בהצלחה.');
+        this.router.navigate(['/Login']);
+      },
+      error: err => {
+        this.notify.errorFrom(err, 'ההתנתקות נכשלה. אנא נסו שוב.');
+      }
     });
   }
 }

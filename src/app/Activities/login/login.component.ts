@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../Infrastructure/Services/Auth/auth.service';
 import { environment } from 'src/environments/environment';
+import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
 
 declare const google: any;
 
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private zone: NgZone
+    private zone: NgZone,
+    private notify: NotificationService
   ) {
     this.loginForm = this.fb.group({
       email: [environment.production ? '' : environment.SignIn_Email, [Validators.required, Validators.email]],
@@ -74,15 +76,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.isSubmitting = false;
         const isSuccess = response?.isSuccess ?? response?.IsSuccess;
         if (isSuccess) {
+          this.notify.success('התחברת בהצלחה.');
           const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/Home';
           this.router.navigateByUrl(returnUrl);
         } else {
           this.errorMessage = this.mapError(response);
+          this.notify.error(this.errorMessage);
         }
       },
       error: () => {
         this.isSubmitting = false;
         this.errorMessage = 'אירעה שגיאה בהתחברות. נסו שוב מאוחר יותר.';
+        this.notify.error(this.errorMessage);
       },
     });
   }
@@ -125,15 +130,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.isSubmitting = false;
           const isSuccess = result?.isSuccess ?? result?.IsSuccess;
           if (isSuccess) {
+            this.notify.success('התחברת בהצלחה.');
             const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/Home';
             this.router.navigateByUrl(returnUrl);
           } else {
             this.errorMessage = this.mapError(result);
+            this.notify.error(this.errorMessage);
           }
         },
         error: () => {
           this.isSubmitting = false;
           this.errorMessage = 'ההתחברות עם Google נכשלה. נסו שוב.';
+          this.notify.error(this.errorMessage);
         },
       });
     });
