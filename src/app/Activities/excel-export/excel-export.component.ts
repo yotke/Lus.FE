@@ -2,6 +2,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { ProjectTemplate } from 'src/app/Infrastructure/Classes & Models/Classes/project-template';
 import { ProjectTime, TimesArray } from 'src/app/Infrastructure/Classes & Models/Classes/project-time';
 import { ProjectTemplateService } from 'src/app/Infrastructure/Services/projectTemplateService/project-template.service';
+import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
 import * as XLSX from 'xlsx-js-style';
 
 @Component({
@@ -78,7 +79,10 @@ export class ExcelExportComponent {
     bottom: { style: 'double', color: { auto: 1 } }
   };
 
-  constructor(private projectSvc: ProjectTemplateService) { }
+  constructor(
+    private projectSvc: ProjectTemplateService,
+    private notify: NotificationService
+  ) { }
 
 
   ngOnInit() {
@@ -89,12 +93,13 @@ export class ExcelExportComponent {
 
   async exportToExcel() {
     await this.projectSvc.currSystemDate$.subscribe(async date => {
-      await this.projectSvc.GetMonthlyProjects(date ?? new Date()).subscribe(monthlyProjects => {
-        this.MonthlyProjects = monthlyProjects;
-    
-        
-        this.initExelOutputArray(this.MonthlyProjects);
-        this.createExels()
+      await this.projectSvc.GetMonthlyProjects(date ?? new Date()).subscribe({
+        next: monthlyProjects => {
+          this.MonthlyProjects = monthlyProjects;
+          this.initExelOutputArray(this.MonthlyProjects);
+          this.createExels()
+        },
+        error: err => this.notify.errorFrom(err, 'טעינת הנתונים לייצוא נכשלה. אנא נסו שוב.')
       })
 
     })
@@ -102,6 +107,7 @@ export class ExcelExportComponent {
   }
   createExels() {
     if (this.hasCollision) {
+      this.notify.warning('לא ניתן לייצא לפני תיקון התנגשויות השעות.');
       return;
     }
     const ws1 = XLSX.utils.json_to_sheet([...this.excelOutputData]);
@@ -130,7 +136,12 @@ export class ExcelExportComponent {
     XLSX.utils.book_append_sheet(wb, ws1, 'Sheet1');
     XLSX.utils.book_append_sheet(wb, ws2, 'Sheet2'); // append the second sheet
 
-    XLSX.writeFile(wb, 'data.xlsx');
+    try {
+      XLSX.writeFile(wb, 'data.xlsx');
+      this.notify.success('קובץ האקסל נוצר בהצלחה.');
+    } catch (err) {
+      this.notify.errorFrom(err, 'יצירת קובץ האקסל נכשלה. אנא נסו שוב.');
+    }
   }
   initSummiraizeExelOutput(MonthlyProjects: ProjectTemplate[] | undefined) {
     console.log(MonthlyProjects);

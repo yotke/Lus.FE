@@ -7,6 +7,7 @@ import { ProjectTemplate } from 'src/app/Infrastructure/Classes & Models/Classes
 import { ProjectTime, TimeRow, TimesArray } from 'src/app/Infrastructure/Classes & Models/Classes/project-time';
 import { ProjectTimeService } from 'src/app/Infrastructure/Services/projectTimeService/project-time.service';
 import { ProjectTemplateService } from 'src/app/Infrastructure/Services/projectTemplateService/project-template.service';
+import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
 
 
 @Component({
@@ -43,7 +44,13 @@ export class DataLoaderComponent {
   DateTimeFormArray: FormArray;
 
 
-  constructor(private projectTimeSvc: ProjectTimeService, private projectSvc: ProjectTemplateService, private formBuilder: FormBuilder, private datePipe: DatePipe) {
+  constructor(
+    private projectTimeSvc: ProjectTimeService,
+    private projectSvc: ProjectTemplateService,
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe,
+    private notify: NotificationService
+  ) {
     this.TimeFormArray = this.formBuilder.array([]);
     this.DateTimeFormArray = this.formBuilder.array([]);
     this.ProjectTimeForm = this.formBuilder.group({
@@ -91,12 +98,18 @@ export class DataLoaderComponent {
         JsonTime: JSON.stringify({ WorkingTimes: DateTimeRow.TimeFormArray })
       };
     });
-    this.projectTimeSvc.ModifyProject(projectTimes).subscribe(projectTimesRes => {
-      if (this.CurrProject) {
-        this.CurrProject.ProjectTimes = projectTimesRes;
-        this.initProjectForm(this.CurrProject);
-        this.projectSvc.notifyProjectChange(true);
-        this.projectSvc.GetAllProjects;
+    this.projectTimeSvc.ModifyProject(projectTimes).subscribe({
+      next: projectTimesRes => {
+        if (this.CurrProject) {
+          this.CurrProject.ProjectTimes = projectTimesRes;
+          this.initProjectForm(this.CurrProject);
+          this.projectSvc.notifyProjectChange(true);
+          this.projectSvc.GetAllProjects;
+        }
+        this.notify.success('נתוני השעות נשמרו בהצלחה.');
+      },
+      error: err => {
+        this.notify.errorFrom(err, 'שמירת נתוני השעות נכשלה. אנא נסו שוב.');
       }
     });
 
@@ -218,12 +231,17 @@ export class DataLoaderComponent {
 
     if (projectTimeId) {
 
-      this.projectTimeSvc.DeleteProjectTime(projectTimeId).subscribe(res => {
-        this.DateTimeFormArray.removeAt(idx);
+      this.projectTimeSvc.DeleteProjectTime(projectTimeId).subscribe({
+        next: () => {
+          this.DateTimeFormArray.removeAt(idx);
+          this.notify.success('שורת השעות נמחקה בהצלחה.');
+        },
+        error: err => this.notify.errorFrom(err, 'מחיקת שורת השעות נכשלה. אנא נסו שוב.')
       })
     }
     else {
       this.DateTimeFormArray.removeAt(idx);
+      this.notify.info('השורה הוסרה מהטופס.');
     }
   }
 
