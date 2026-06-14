@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ProjectTemplate } from 'src/app/Infrastructure/Classes & Models/Classes/project-template';
 import { ProjectTemplateService } from 'src/app/Infrastructure/Services/projectTemplateService/project-template.service';
+import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
 
 @Component({
   selector: 'app-create-project',
@@ -15,7 +16,11 @@ export class CreateProjectComponent implements OnChanges {
   @Output() OnSaveCallback = new EventEmitter<any>(); // Emit changes
 
   CreateProjectForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private projectSvc: ProjectTemplateService,) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private projectSvc: ProjectTemplateService,
+    private notify: NotificationService
+  ) {
     this.initProjectForm();
   }
   ngAfterViewInit() {
@@ -78,16 +83,23 @@ export class CreateProjectComponent implements OnChanges {
       // console.log(this.CurrProject);
 
       if (!this.CurrProject.Id) {
-        this.projectSvc.CreateNewProject(this.CurrProject).subscribe(savedProject => {
-          this.CurrProject = savedProject;
-          this.OnSaveCallback.emit(savedProject);
+        this.projectSvc.CreateNewProject(this.CurrProject).subscribe({
+          next: savedProject => {
+            this.CurrProject = savedProject;
+            this.notify.success('הפרויקט נוצר בהצלחה.');
+            this.OnSaveCallback.emit(savedProject);
+          },
+          error: err => this.notify.errorFrom(err, 'יצירת הפרויקט נכשלה. אנא נסו שוב.')
         });
       }
       else {
-        this.projectSvc.ModifyProject(this.CurrProject).subscribe(savedProject => {
-          this.CurrProject = savedProject;
-          this.OnSaveCallback.emit(savedProject);
-          // console.log(savedProject);
+        this.projectSvc.ModifyProject(this.CurrProject).subscribe({
+          next: savedProject => {
+            this.CurrProject = savedProject;
+            this.notify.success('פרטי הפרויקט נשמרו בהצלחה.');
+            this.OnSaveCallback.emit(savedProject);
+          },
+          error: err => this.notify.errorFrom(err, 'שמירת הפרויקט נכשלה. אנא נסו שוב.')
         });
       }
     }
