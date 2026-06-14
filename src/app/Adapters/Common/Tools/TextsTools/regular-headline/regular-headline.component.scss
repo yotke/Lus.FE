@@ -1,29 +1,34 @@
 :host {
-    display: block;
-    width: 100%;
-
-    &.regular .mat-toolbar {
-        width: 100%;
-    }
+  display: block;
+  width: 100%;
 }
 
 .mat-toolbar {
-    display: flex;
-    justify-content: center; // Center the title horizontally
-    position: relative; // Ensure the content can be positioned correctly
+  display: flex;
+  justify-content: center;
+  position: relative;
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 12px;
+  background: var(--bg-muted, #f3f4f6) !important;
+  color: var(--text-primary, #172033) !important;
+  border: 1px solid var(--border-default, #e5e7eb);
 
-    h1 {
-        flex-grow: 1;
-        text-align: start;
-    }
+  h1 {
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    text-align: start;
+    color: var(--text-primary, #172033);
+    font-size: 20px;
+    font-weight: 750;
+    letter-spacing: 0;
+  }
 
-    [left-content] {
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+  [left-content] {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
-
-
-

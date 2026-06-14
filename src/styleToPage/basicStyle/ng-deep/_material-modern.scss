@@ -23,7 +23,7 @@
   --mdc-filled-text-field-focus-label-text-color: var(--org-primary-color, #1e88e5);
   --mdc-filled-text-field-input-text-color: var(--input-text, var(--text-primary, #1f2937));
   --mat-form-field-container-text-size: 15px;
-  --mat-form-field-container-height: 52px;
+  --mat-form-field-container-height: 56px;
 
   .mat-mdc-text-field-wrapper {
     border-radius: var(--theme-border-radius, 10px);
@@ -35,10 +35,39 @@
     align-items: center;
   }
 
+  // Symmetric vertical padding so the text/placeholder sits centered in the
+  // taller field (ArmyLuz-style) instead of dropping toward the bottom.
   .mat-mdc-form-field-infix {
-    min-height: 52px;
-    padding-top: 15px;
-    padding-bottom: 8px;
+    min-height: 56px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  // ── Prefix / suffix icons: keep them vertically centered + symmetrical,
+  //    whether they are a bare <app-svg-icon> or wrapped in a mat-icon-button.
+  .mat-mdc-form-field-icon-prefix,
+  .mat-mdc-form-field-icon-suffix {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    padding: 0 10px;
+    color: var(--text-muted, #6b7280);
+
+    > app-svg-icon,
+    > .mat-mdc-icon-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mat-mdc-icon-button {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      line-height: 40px;
+    }
   }
 
   input.mat-mdc-input-element,

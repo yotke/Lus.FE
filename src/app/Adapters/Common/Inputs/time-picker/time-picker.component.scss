@@ -1,6 +1,23 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
 .date-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
+  width: 100%;
+  color: var(--text-primary, #172033);
+
+  > mat-label {
+    display: block;
+    margin: 0 4px 6px;
+    color: var(--text-secondary, #334155);
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+  direction: rtl;
 }

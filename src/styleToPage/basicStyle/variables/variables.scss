@@ -21,26 +21,26 @@
   // ═══════════════════════════════════════════════════════════════════════════
   // ORGANIZATION BRANDING — overridden at runtime by ThemeService
   // ═══════════════════════════════════════════════════════════════════════════
-  --org-primary-color: #1E88E5;
-  --org-secondary-color: #424242;
-  --org-accent-color: #FF9800;
+  --org-primary-color: #0F766E;
+  --org-secondary-color: #334155;
+  --org-accent-color: #F59E0B;
 
   // Derived shades (recalculated by ThemeService at runtime)
-  --org-primary-light: #{color.adjust(#1E88E5, $lightness: 20%)};
-  --org-primary-dark: #{color.adjust(#1E88E5, $lightness: -20%)};
-  --org-primary-50: #{color.mix(white, #1E88E5, 90%)};
-  --org-primary-100: #{color.mix(white, #1E88E5, 80%)};
-  --org-primary-200: #{color.mix(white, #1E88E5, 60%)};
-  --org-primary-500: #1E88E5;
-  --org-primary-700: #{color.adjust(#1E88E5, $lightness: -15%)};
-  --org-primary-900: #{color.adjust(#1E88E5, $lightness: -30%)};
+  --org-primary-light: #{color.adjust(#0F766E, $lightness: 20%)};
+  --org-primary-dark: #{color.adjust(#0F766E, $lightness: -20%)};
+  --org-primary-50: #{color.mix(white, #0F766E, 90%)};
+  --org-primary-100: #{color.mix(white, #0F766E, 80%)};
+  --org-primary-200: #{color.mix(white, #0F766E, 60%)};
+  --org-primary-500: #0F766E;
+  --org-primary-700: #{color.adjust(#0F766E, $lightness: -15%)};
+  --org-primary-900: #{color.adjust(#0F766E, $lightness: -30%)};
 
   // RGB channels for runtime alpha compositing  (e.g.  rgba(var(--org-primary-rgb), 0.2))
-  --org-primary-rgb: 30, 136, 229;
-  --org-primary-light-rgb: 99, 185, 247;
-  --org-primary-dark-rgb: 13, 71, 161;
-  --org-secondary-rgb: 66, 66, 66;
-  --org-accent-rgb: 255, 152, 0;
+  --org-primary-rgb: 15, 118, 110;
+  --org-primary-light-rgb: 36, 166, 154;
+  --org-primary-dark-rgb: 7, 79, 74;
+  --org-secondary-rgb: 51, 65, 85;
+  --org-accent-rgb: 245, 158, 11;
 
   // ═══════════════════════════════════════════════════════════════════════════
   // THEME COLORS — aliases for compatibility, same as org colors
@@ -50,7 +50,7 @@
   --theme-primary-dark: var(--org-primary-dark);
   --theme-secondary: var(--org-secondary-color);
   --theme-accent: var(--org-accent-color);
-  --theme-accent-light: #{color.adjust(#FF9800, $lightness: 15%)};
+  --theme-accent-light: #{color.adjust(#F59E0B, $lightness: 15%)};
 
   // Status colors (not org-dependent)
   --theme-success: #10b981;
@@ -79,14 +79,14 @@
   // ═══════════════════════════════════════════════════════════════════════════
   // LIGHT MODE DEFAULTS
   // ═══════════════════════════════════════════════════════════════════════════
-  --bg-page: linear-gradient(180deg, #f0f9ff 0%, #f8fafc 100%);
+  --bg-page: linear-gradient(180deg, #eefcf9 0%, #f8fafc 45%, #edf4f2 100%);
   --bg-card: #ffffff;
   --bg-elevated: #ffffff;
   --bg-muted: #f9fafb;
   --bg-subtle: #f3f4f6;
 
-  --text-primary: #1f2937;
-  --text-secondary: #374151;
+  --text-primary: #172033;
+  --text-secondary: #334155;
   --text-muted: #6b7280;
   --text-placeholder: #9ca3af;
   --text-inverted: #ffffff;
@@ -110,11 +110,11 @@
 // ═══════════════════════════════════════════════════════════════════════════
 [data-theme="dark"],
 .dark-theme {
-  --bg-page: linear-gradient(180deg, #0f172a 0%, #020617 100%);
-  --bg-card: #1e293b;
-  --bg-elevated: #334155;
-  --bg-muted: #374151;
-  --bg-subtle: #4b5563;
+  --bg-page: radial-gradient(circle at top right, rgba(20, 184, 166, 0.14), transparent 32rem), linear-gradient(180deg, #071114 0%, #0b1620 52%, #05080d 100%);
+  --bg-card: #111827;
+  --bg-elevated: #172033;
+  --bg-muted: #1f2937;
+  --bg-subtle: #253244;
 
   --text-primary: #ffffff;
   --text-secondary: #e5e7eb;
@@ -127,7 +127,7 @@
   --border-strong: #6b7280;
   --border-focus: var(--org-primary-light);
 
-  --input-bg: #374151;
+  --input-bg: #172033;
   --input-text: var(--text-primary);
   --input-border: var(--border-default);
 

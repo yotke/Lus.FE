@@ -41,11 +41,11 @@ export interface ThemeConfig {
 const DEFAULT_THEME: ThemeConfig = {
   mode: 'auto',
   colors: {
-    primaryColor: '#1E88E5',
-    secondaryColor: '#424242',
-    accentColor: '#FF9800',
-    backgroundColor: '#f8fafc',
-    textColor: '#1f2937',
+    primaryColor: '#0F766E',
+    secondaryColor: '#334155',
+    accentColor: '#F59E0B',
+    backgroundColor: '#f6fbfb',
+    textColor: '#172033',
     errorColor: '#ef4444',
     successColor: '#10b981',
   },
@@ -86,6 +86,12 @@ export class ThemeService {
     if (savedConfig) {
       try {
         config = { ...DEFAULT_THEME, ...JSON.parse(savedConfig) };
+        if (config.colors?.primaryColor?.toUpperCase() === '#1E88E5') {
+          config = {
+            ...config,
+            colors: { ...DEFAULT_THEME.colors },
+          };
+        }
       } catch {
         /* ignore malformed config */
       }

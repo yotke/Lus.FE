@@ -1,62 +1,45 @@
 :host {
-    display: block;
-    width: 100%;
-
-    &.regular .mat-toolbar {
-        width: 100%;
-    }
+  display: block;
+  width: 100%;
 }
 
 .mat-toolbar {
-    display: flex;
-    justify-content: center; // Center the title horizontally
-    position: relative; // Ensure the content can be positioned correctly
+  display: flex;
+  justify-content: center;
+  position: relative;
+  min-height: 58px;
+  padding: 0 18px;
+  border-radius: 14px;
+  background: var(--bg-card, #ffffff) !important;
+  color: var(--text-primary, #172033) !important;
+  border: 1px solid var(--border-default, #e5e7eb);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(15, 23, 42, 0.08));
 
-    h1 {
-        flex-grow: 1;
-        text-align: start;
-    }
+  h1 {
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    text-align: start;
+    color: var(--text-primary, #172033);
+    font-size: clamp(22px, 2.2vw, 30px);
+    font-weight: 800;
+    letter-spacing: 0;
+  }
 
-    [left-content] {
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+  h1::after {
+    content: '';
+    display: block;
+    width: 72px;
+    height: 4px;
+    margin-top: 8px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--org-primary-color, #0F766E), var(--org-accent-color, #F59E0B));
+  }
+
+  [left-content] {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
-
-
-
-
-// :host {
-//     display: block;
-//     width: 100%;
-
-//     &.regular .mat-toolbar {
-//         width: 100%;
-//     }
-// }
-
-// .mat-toolbar {
-//     display: flex;
-//     justify-content: center; // Center the title horizontally
-//     position: relative; // Ensure the content can be positioned correctly
-//     background-color: #00A8D4;
-
-//     h1 {
-//         flex-grow: 1;
-//         text-align: flex-start;
-//         justify-content: center;
-//         padding-right: 2rem;
-//         font-size: 2rem;
-//         font-weight: bold;
-//         letter-spacing: .1rem;
-//     }
-
-//     [left-content] {
-//         position: absolute;
-//         left: 0;
-//         top: 50%;
-//         transform: translateY(-50%);
-//     }
-// }
