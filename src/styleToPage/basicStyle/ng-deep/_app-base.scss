@@ -59,9 +59,186 @@ main {
   }
 }
 
+// Legacy table/list class names from RegularStyle. These had hardcoded grays
+// and whites, so dark mode could not be complete without overriding them here.
+.table-container,
+.history-projects-container,
+.history-projects-main-container,
+.project-row-container,
+.project-text-row-container,
+.data-loader-container,
+.project-validator-container,
+.create-project-container,
+.excel-export-container {
+  color: var(--text-primary, #1f2937);
+}
+
+.table-container,
+.data-loader-container,
+.project-validator-container,
+.create-project-container,
+.excel-export-container {
+  background: var(--bg-card, #ffffff) !important;
+  border-color: var(--border-default, #e5e7eb) !important;
+  box-shadow: var(--shadow-md, 0 12px 30px rgba(15, 23, 42, 0.08)) !important;
+}
+
+.history-projects-container,
+.project-row-container,
+.project-text-row-container {
+  background: var(--bg-card, #ffffff) !important;
+  color: var(--text-primary, #1f2937) !important;
+  border-color: var(--border-default, #e5e7eb) !important;
+
+  * {
+    border-color: var(--border-default, #e5e7eb) !important;
+  }
+}
+
+.history-projects-container .project-row-container:hover,
+.project-row-container:hover {
+  background: rgba(var(--org-primary-rgb, 30, 136, 229), 0.08) !important;
+}
+
+// ── Stepper — TimeManagement primary workflow ────────────────────────────────
+.mat-stepper-horizontal,
+.mat-stepper-vertical,
+.mat-mdc-stepper-horizontal,
+.mat-mdc-stepper-vertical,
+.stepper-container {
+  background: transparent !important;
+  color: var(--text-primary, #1f2937);
+
+  .mat-horizontal-stepper-header-container,
+  .mat-vertical-stepper-header {
+    background: var(--bg-card, #ffffff);
+    border: 1px solid var(--border-default, #e5e7eb);
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(15, 23, 42, 0.08));
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+
+  .mat-horizontal-stepper-header {
+    min-height: 68px;
+    padding: 0 18px;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(var(--org-primary-rgb, 30, 136, 229), 0.07);
+    }
+  }
+
+  .mat-step-icon {
+    background: var(--bg-muted, #f3f4f6);
+    color: var(--text-secondary, #374151);
+    border: 1px solid var(--border-default, #e5e7eb);
+  }
+
+  .mat-step-icon-selected,
+  .mat-step-icon-state-edit,
+  .mat-step-icon-state-done {
+    background: var(--org-primary-color, #1e88e5);
+    color: #ffffff;
+    border-color: var(--org-primary-color, #1e88e5);
+    box-shadow: 0 0 0 4px rgba(var(--org-primary-rgb, 30, 136, 229), 0.14);
+  }
+
+  .mat-step-label,
+  .mat-step-text-label {
+    color: var(--text-secondary, #374151);
+    font-weight: 700;
+  }
+
+  .mat-step-label-selected {
+    color: var(--org-primary-color, #1e88e5);
+  }
+
+  .mat-horizontal-content-container,
+  .mat-vertical-content-container {
+    background: var(--bg-card, #ffffff);
+    border: 1px solid var(--border-default, #e5e7eb);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md, 0 12px 30px rgba(15, 23, 42, 0.08));
+    padding: 24px;
+  }
+}
+
+// ── Buttons — keep existing commands but make them theme-aware ───────────────
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-outlined-button,
+button.mat-button,
+button.mat-mdc-button {
+  border-radius: 10px !important;
+  font-weight: 700;
+}
+
+.mat-mdc-button:not(:disabled),
+button.mat-button:not(:disabled),
+button.mat-mdc-button:not(:disabled) {
+  color: var(--org-primary-color, #1e88e5);
+}
+
+.stepper-btns-container button,
+.regular-btn,
+.save-btn,
+.add-btn,
+.edit-btn,
+.delete-btn,
+.return-btn,
+.submit-btn {
+  border-radius: 10px !important;
+  border: 1px solid var(--border-default, #e5e7eb) !important;
+  background: var(--bg-card, #ffffff) !important;
+  color: var(--text-primary, #1f2937) !important;
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(15, 23, 42, 0.08));
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    border-color: var(--org-primary-color, #1e88e5) !important;
+    box-shadow: var(--shadow-md, 0 12px 30px rgba(15, 23, 42, 0.1));
+    transform: translateY(-1px);
+  }
+}
+
+// Month/date/time picker wrappers from the old RegularStyle layer.
+.date-mat-form-field,
+.data-loader-mat-form-field,
+.textarea-mat-form-field {
+  background: transparent !important;
+  color: var(--text-primary, #1f2937) !important;
+}
+
+.mat-datepicker-content,
+.mat-calendar,
+.ngx-material-timepicker-content,
+.timepicker,
+.clock-face {
+  background: var(--bg-elevated, #ffffff) !important;
+  color: var(--text-primary, #1f2937) !important;
+}
+
 // Headings inherit the themed text color instead of staying hard black
 h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary, #1f2937);
+}
+
+a {
+  color: var(--link, var(--org-primary-color, #1e88e5));
+}
+
+[data-theme="dark"] {
+  img {
+    filter: none;
+  }
+
+  .mat-mdc-tooltip-surface {
+    background: var(--bg-elevated, #111827) !important;
+    color: var(--text-primary, #ffffff) !important;
+    border: 1px solid var(--border-default, rgba(255, 255, 255, 0.14));
+  }
 }
 
 // Material dialog/menu surfaces in dark mode

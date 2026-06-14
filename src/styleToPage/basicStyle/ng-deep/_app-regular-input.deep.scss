@@ -18,6 +18,15 @@ app-regular-input {
 
     &.rtl-layout {
       direction: rtl;
+
+      .floating-label {
+        right: 16px;
+        left: auto;
+      }
+
+      .modern-input {
+        text-align: right;
+      }
     }
 
     &.ltr-layout {
@@ -252,6 +261,7 @@ app-regular-input {
         color: var(--text-secondary);
         border-radius: 0.4rem;
         background-color: var(--bg-card);
+        box-shadow: 0 0 0 4px var(--bg-card);
 
       }
     }
@@ -261,6 +271,14 @@ app-regular-input {
     &.has-prefix-icon {
       .floating-label:not(.floated) {
         left: 44px;
+      }
+
+      .rtl-layout &,
+      &.rtl-layout {
+        .floating-label:not(.floated) {
+          right: 44px;
+          left: auto;
+        }
       }
     }
 

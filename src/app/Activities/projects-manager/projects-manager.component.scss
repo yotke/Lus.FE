@@ -1,42 +1,88 @@
-.project-manager-container{
- ::ng-deep .mat-horizontal-content-container{
+.project-manager-container {
+  direction: rtl;
   min-height: 100vh;
- }
-    h1 {
-        text-shadow: 0.1rem 0.1rem 0 rgba(0, 0, 0, 0.1);
-        transition: text-shadow 0.3s ease-in-out;
-      }
-      
-      h1:hover {
-        text-shadow: 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.2);
-      }
-      h1 {
-        padding: 1rem;
-        background: linear-gradient(45deg, #89c2ff, #696969); /* Choose your gradient colors */
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-    direction: rtl;
-    .input-container{
-     direction: rtl;
-    }
-    .exel-step-container{
-      position: relative;
-    }
-    .stepper-btns-container{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 1rem 0 ;
-    
-      button{
-        background-color: rgb(255, 113, 113);
-        color: rgb(255, 255, 255);
-        &.create-new-project{
-          background-color: rgb(113, 158, 255);
-        }
-      }
+  padding: 24px clamp(12px, 3vw, 36px);
+  background:
+    radial-gradient(circle at top right, rgba(var(--org-primary-rgb, 30, 136, 229), 0.12), transparent 34rem),
+    var(--bg-page, #f8fafc);
+  color: var(--text-primary, #1f2937);
 
+  ::ng-deep .mat-horizontal-content-container {
+    min-height: calc(100vh - 210px);
+  }
+
+  ::ng-deep .mat-horizontal-stepper-header-container {
+    position: sticky;
+    top: 10px;
+    z-index: 5;
+  }
+
+  h1 {
+    width: fit-content;
+    margin: 0 0 18px;
+    padding: 0 0 8px;
+    color: var(--text-primary, #1f2937);
+    font-size: clamp(24px, 2.8vw, 34px);
+    font-weight: 800;
+    letter-spacing: 0;
+    border-bottom: 4px solid rgba(var(--org-primary-rgb, 30, 136, 229), 0.28);
+  }
+
+  .inputs-project-container {
+    min-height: 360px;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .input-container {
+    direction: rtl;
+  }
+
+  .exel-step-container {
+    position: relative;
+    display: grid;
+    gap: 18px;
+  }
+
+  .stepper-btns-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 22px 0 0;
+
+    button {
+      min-width: 112px;
+      min-height: 42px;
+      padding: 0 18px;
+
+      &.create-new-project {
+        background: var(--org-primary-color, #1e88e5) !important;
+        color: #ffffff !important;
+        border-color: var(--org-primary-color, #1e88e5) !important;
+      }
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .project-manager-container {
+    padding: 12px;
+
+    ::ng-deep .mat-horizontal-content-container {
+      padding: 16px;
+    }
+
+    ::ng-deep .mat-horizontal-stepper-header {
+      padding: 0 8px;
+    }
+
+    .stepper-btns-container {
+      flex-wrap: wrap;
+
+      button {
+        flex: 1 1 140px;
+      }
+    }
+  }
 }

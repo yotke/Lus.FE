@@ -1,5 +1,7 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectTemplateService } from 'src/app/Infrastructure/Services/projectTemplateService/project-template.service';
+import { AuthService } from 'src/app/Infrastructure/Services/Auth/auth.service';
 import { ThemeService } from 'src/app/Infrastructure/Services/themeService/theme.service';
 
 @Component({
@@ -18,6 +20,8 @@ export class HeaderComponent {
 
   constructor(
     private projectTemplateSvc: ProjectTemplateService,
+    private authService: AuthService,
+    private router: Router,
     public themeService: ThemeService
   ) {
     const storedDate = sessionStorage.getItem('currSystemDate');
@@ -39,5 +43,15 @@ export class HeaderComponent {
     const verticalPosition = window?.pageYOffset || document?.documentElement?.scrollTop || document?.body?.scrollTop || 0;
     this.verticalPosition = verticalPosition;
     return verticalPosition > 0;
+  }
+
+  get isLoggedIn$() {
+    return this.authService.isLoggedIn$;
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/Login']);
+    });
   }
 }

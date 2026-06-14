@@ -1,66 +1,62 @@
-.loader-data-container{
-  .inputs-select-row{
+.loader-data-container {
+  direction: rtl;
+  color: var(--text-primary, #1f2937);
+
+  .inputs-select-row {
     margin: 1rem;
   }
-  .time-data-container{
-    box-shadow: 0.5rem 0.5rem 1rem rgb(163, 163, 163);
-    // margin-bottom: 1rem;
-    border: 0.1rem solid rgb(200, 200, 200);;
-    padding: 1rem;
-    padding-bottom: 2rem;
+
+  .time-data-container {
     margin-bottom: 1rem;
+    padding: 1rem 1rem 2rem;
+    background: var(--bg-card, #ffffff);
+    border: 1px solid var(--border-default, #e5e7eb);
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm, 0 1px 3px rgba(15, 23, 42, 0.08));
   }
-  .date-time-group-container{
-    position:relative;
+
+  .date-time-group-container {
+    position: relative;
   }
-  .time-headline-container{
+
+  .time-headline-container {
     display: flex;
     align-items: center;
-  
-    // justify-content:space-between;
-    mat-icon{
+    gap: 10px;
+
+    app-svg-icon,
+    mat-icon {
+      color: var(--org-primary-color, #1e88e5);
       cursor: pointer;
-      // margin: 0 10vw;
-      text-shadow: 0.1rem 0.1rem 0 rgba(0, 0, 0, 0.1);
-      transition: text-shadow 0.3s ease-in-out;
-      &:hover {
-        text-shadow: 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.2);
-      }
-      background: linear-gradient(45deg, #89c2ff, #696969); /* Choose your gradient colors */
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
     }
   }
- 
-  h1,h2,h3,h4,h5 {
-        text-shadow: 0.1rem 0.1rem 0 rgba(0, 0, 0, 0.1);
-        transition: text-shadow 0.3s ease-in-out;
-      }   
-      h1,h2,h3,h4,h5:hover {
-        text-shadow: 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.2);
-      }
-      h1,h2,h3,h4,h5 {
-        padding: 1rem;
-        background: linear-gradient(45deg, #89c2ff, #696969); /* Choose your gradient colors */
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    width: fit-content;
+    margin: 0 0 12px;
+    padding: 0 0 6px;
+    color: var(--text-primary, #1f2937);
+    font-weight: 800;
+    border-bottom: 3px solid rgba(var(--org-primary-rgb, 30, 136, 229), 0.22);
+  }
+
+  .input-container {
     direction: rtl;
-    .input-container{
-     direction: rtl;
+  }
+
+  .data-loader-mat-form-field {
+    width: 100%;
+
+    ::ng-deep .mat-mdc-form-field-infix {
+      display: flex;
     }
-    .data-loader-mat-form-field{
-        width: 100%;
-        ::ng-deep .mat-mdc-form-field-infix{
-          display: flex;
-        }
-    }
-    // .textarea-input{
-    //   min-height: 50vh;
-    // }
-    .table-conainer{
-        direction: rtl;
-    }
+  }
+
+  .table-conainer {
+    direction: rtl;
+  }
 }

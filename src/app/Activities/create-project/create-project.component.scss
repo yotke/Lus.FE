@@ -1,22 +1,52 @@
-.create-project-container{
+.create-project-container {
+  direction: rtl;
+  color: var(--text-primary, #1f2937);
 
-    h1,h2,h3 {
-        text-shadow: 0.1rem 0.1rem 0 rgba(0, 0, 0, 0.1);
-        transition: text-shadow 0.3s ease-in-out;
-    }
-    
-    h1,h2,h3:hover {
-        text-shadow: 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.2);
-    }
-    h1,h2,h3 {
-        padding: 1rem;
-        background: linear-gradient(45deg, #89c2ff, #696969); /* Choose your gradient colors */
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
+  form {
+    display: grid;
+    gap: 18px;
+  }
+
+  .inputs-project-container {
+    display: grid;
+    gap: 18px;
+  }
+
+  .row {
+    row-gap: 14px;
+  }
+
+  .inputs-headline-container {
+    width: 100%;
+    margin: 10px 0 4px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    width: fit-content;
+    margin: 0;
+    padding: 0 0 7px;
+    color: var(--text-primary, #1f2937);
+    font-weight: 800;
+    letter-spacing: 0;
+    border-bottom: 3px solid rgba(var(--org-primary-rgb, 30, 136, 229), 0.24);
+  }
+
+  .input-container {
     direction: rtl;
-    .input-container{
-        direction: rtl;
-    }
+  }
+
+  .month-field-column {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  app-regular-input,
+  app-date-picker,
+  app-month-picker {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
