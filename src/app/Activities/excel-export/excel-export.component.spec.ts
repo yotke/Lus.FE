@@ -1,23 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ExcelExportComponent } from './excel-export.component';
+import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
 
 describe('ExcelExportComponent', () => {
   let component: ExcelExportComponent;
-  let fixture: ComponentFixture<ExcelExportComponent>;
+  let notify: jasmine.SpyObj<NotificationService>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ExcelExportComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(ExcelExportComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    notify = jasmine.createSpyObj<NotificationService>('NotificationService', ['success', 'warning', 'errorFrom']);
+    component = new ExcelExportComponent({} as any, notify);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('warns and does not export when collisions exist', () => {
+    component.hasCollision = true;
+
+    component.createExels();
+
+    expect(notify.warning).toHaveBeenCalledWith('לא ניתן לייצא לפני תיקון התנגשויות השעות.');
   });
 });
