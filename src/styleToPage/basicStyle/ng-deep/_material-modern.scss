@@ -205,12 +205,40 @@
     }
   }
 
-  // Filled fields get the same modern surface, but without fighting the outline
-  // mechanics used by auth fields.
+  // Filled fields (date/month/time pickers, ng-select wrappers, etc.) get the
+  // SAME modern surface as the outline auth fields: bordered rounded box, themed
+  // bg, no MDC underline. This keeps every input visually consistent.
   .mdc-text-field--filled {
     border: 1.5px solid var(--input-border, #d8dee9);
-    border-radius: var(--theme-border-radius, 10px);
+    border-radius: var(--theme-border-radius, 10px) !important;
     background: var(--input-bg, #ffffff) !important;
+    min-height: 52px;
+
+    // MDC's filled fields reserve top space for a floating label; when there is
+    // no label (date pickers) the text floats high. Center it.
+    &.mdc-text-field--no-label .mat-mdc-form-field-infix {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  // Kill the MDC underline entirely on filled fields (we use the box border).
+  .mdc-line-ripple {
+    display: none !important;
+  }
+
+  // Datepicker toggle (calendar) button → themed + sized like our other icons.
+  .mat-datepicker-toggle .mat-mdc-icon-button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    color: var(--text-muted, #6b7280);
+
+    &:hover {
+      color: var(--org-primary-color, #1e88e5);
+    }
   }
 
   &:hover:not(.mat-form-field-disabled) .mdc-text-field--filled {

@@ -37,7 +37,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const clientId = environment.googleClientId;
-    this.googleEnabled = !!clientId && !clientId.startsWith('REPLACE_WITH');
+    // The Google client id only authorizes the live origins. On localhost the
+    // GSI button returns 403 ("origin not allowed"), so hide it in local dev.
+    const host = typeof window !== 'undefined' ? window.location.hostname : '';
+    const isLocalhost = host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0';
+    this.googleEnabled = !!clientId && !clientId.startsWith('REPLACE_WITH') && !isLocalhost;
   }
 
   ngAfterViewInit(): void {
