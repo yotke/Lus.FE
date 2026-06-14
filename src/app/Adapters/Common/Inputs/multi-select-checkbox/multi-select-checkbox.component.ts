@@ -16,7 +16,7 @@ import { FormGroup, FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from 
 export class MultiSelectCheckboxComponent implements ControlValueAccessor {
 
   @Input() showTitle: boolean = false;
-  () showLabel: boolean = false;
+  @Input() showLabel: boolean = false;
   @Input() listInput: { Id?: number | string | null | undefined; Name?: string | null;[key: string]: any }[] = [];
   @Input() uniqueId: any = 0;
   @Input() placeholder = 'placeholder';

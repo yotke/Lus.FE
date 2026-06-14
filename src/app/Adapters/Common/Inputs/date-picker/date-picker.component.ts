@@ -20,7 +20,7 @@ export class DatePickerComponent implements ControlValueAccessor {
   @Input() placeholder = 'אנא בחר תאריך';
   @Input() title: string = 'מתאריך';
   @Input() showTitle: boolean = false;
-  () showLabel: boolean = false;
+  @Input() showLabel: boolean = false;
   @Input() formGroup: FormGroup;
   @Input() formControlName: string | null = null;
   @Input() selectedValue: any | null = null;

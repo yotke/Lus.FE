@@ -15,7 +15,7 @@ export class RadioButtonComponent implements ControlValueAccessor {
   @Input() uniqueId: any = 0;
   @Input() placeholder: string | undefined = 'בחר';
   @Input() showTitle: boolean = false;
-  () showLabel: boolean = false;
+  @Input() showLabel: boolean = false;
   @Input() formGroup: FormGroup | null = null;
   @Input() formControlName: string | null = 'empty';
   @Input() radioName1: string | null = 'כן';
