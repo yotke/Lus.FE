@@ -212,13 +212,30 @@
     border: 1.5px solid var(--input-border, #d8dee9);
     border-radius: var(--theme-border-radius, 10px) !important;
     background: var(--input-bg, #ffffff) !important;
-    min-height: 52px;
+    min-height: 56px;
 
     // MDC's filled fields reserve top space for a floating label; when there is
     // no label (date pickers) the text floats high. Center it.
     &.mdc-text-field--no-label .mat-mdc-form-field-infix {
       padding-top: 12px;
       padding-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  // Date / month / time pickers: enforce the exact same height as every other
+  // input, overriding the older RegularStyle ".system-date"/"padding-zero" rules.
+  &.date-mat-form-field,
+  &.month-mat-form-field,
+  &.time-mat-form-field {
+    .mat-mdc-text-field-wrapper {
+      min-height: 56px !important;
+    }
+    .mat-mdc-form-field-infix {
+      min-height: 56px !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
       display: flex;
       align-items: center;
     }
@@ -279,7 +296,7 @@
 // ── ng-select (used across the app) ─────────────────────────────────────────
 .ng-select {
   .ng-select-container {
-    min-height: 52px !important;
+    min-height: 56px !important;
     border-radius: var(--theme-border-radius, 10px) !important;
     background: var(--input-bg, #ffffff) !important;
     border: 1.5px solid var(--input-border, #d8dee9) !important;
