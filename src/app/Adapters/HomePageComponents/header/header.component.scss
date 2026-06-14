@@ -71,7 +71,10 @@
 }
 
 .system-date {
-  min-width: 190px;
+  min-width: 170px;
+  max-width: 230px;
+  width: 100%;
+  flex: 0 1 230px;
 }
 
 .theme-toggle-btn,
@@ -140,6 +143,8 @@
   }
 
   .system-date {
-    min-width: 160px;
+    min-width: 150px;
+    max-width: 200px;
+    flex: 0 1 200px;
   }
 }
