@@ -1,11 +1,10 @@
 @import '../variables.scss';
 
+// Kept identical to _app-date-picker.deep.scss so the month picker inherits the
+// exact same look. The old `.system-date` teal box (#009097 + white text + 30%
+// width) and the absolutely-positioned input were removed — they fought the new
+// shared input theming and produced a mixed old/new appearance.
 app-month-picker {
-    .mat-mdc-input-element {
-        position: absolute;
-        top: 1rem !important;
-    }
-
     .mat-mdc-text-field-wrapper {
         padding: 0 !important;
     }
@@ -20,25 +19,4 @@ app-month-picker {
         flex-direction: row-reverse;
         align-items: center;
     }
-
-}
-
-.system-date {
-    width: 30%;
-    color: white !important;
-
-    .date-container {
-        width: 90%;
-    }
-
-    .mat-mdc-text-field-wrapper {
-
-        background: #009097 !important;
-
-        .mat-mdc-input-element {
-            color: white !important;
-        }
-    }
-
-    app-month-picker {}
 }
