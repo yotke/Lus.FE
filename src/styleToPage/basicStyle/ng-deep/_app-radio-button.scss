@@ -1,0 +1,434 @@
+@use "../variables/variables";
+
+// Modern Radio Button Component Styles
+// Uses CSS custom properties + theme-dark mixin for consistent theming
+
+/* ===============================
+   RADIO BUTTON BASE
+   =============================== */
+
+app-radio-button {
+  display: block;
+  width: 100%;
+
+  // ────────────── Base container ──────────────
+  .radio-btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0.25rem 0;
+
+    &.rtl-layout {
+      direction: rtl;
+
+      .radio-btn-input-container {
+        flex-direction: row-reverse;
+      }
+    }
+
+    &.ltr-layout {
+      direction: ltr;
+    }
+
+    &.radio-disabled {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+  }
+
+  // ────────────── External label ──────────────
+  app-mat-label {
+    display: block;
+    margin-bottom: 6px;
+
+    .mat-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+
+      @include variables.theme-dark {
+        color: var(--text-secondary);
+      }
+    }
+  }
+
+  // ────────────── Radio group ──────────────
+  .radio-btn-group-input {
+    width: 100%;
+
+    .radio-btn-input-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+  }
+
+  // ────────────── MDC Radio buttons (Angular Material 15+) ──────────────
+  .mat-mdc-radio-button {
+    // Reduce MDC default 40px touch-target/state-layer to something proportional
+    --mdc-radio-state-layer-size: 32px;
+    font-family: inherit;
+    font-size: 0.875rem; // was 1rem — tighter match to surrounding text
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all variables.$transition-fast;
+
+    .mdc-radio {
+      padding: 6px; // was ~10px (MDC default)
+    }
+
+    // Outer circle
+    .mdc-radio__outer-circle {
+      border-color: var(--border-strong);
+      border-width: 2px;
+      transition: border-color variables.$transition-fast, box-shadow variables.$transition-fast;
+
+      @include variables.theme-dark {
+        border-color: var(--border-strong);
+      }
+    }
+
+    // Inner circle
+    .mdc-radio__inner-circle {
+      background-color: var(--org-primary-color) !important;
+      border-color: var(--org-primary-color) !important;
+      transition: transform variables.$transition-fast, background-color variables.$transition-fast;
+    }
+
+    // Label
+    .mdc-label {
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      user-select: none;
+      padding-inline-start: 0.25rem;
+
+      @include variables.theme-dark {
+        color: var(--text-primary);
+      }
+    }
+
+    // Hide Material ripple for cleaner look
+    .mat-mdc-radio-touch-target,
+    .mat-ripple {
+      // keep touch target, hide visual ripple
+    }
+
+    .mat-mdc-radio-ripple {
+      display: none;
+    }
+
+    // Checked
+    &.mat-mdc-radio-checked {
+      .mdc-radio__outer-circle {
+        border-color: var(--org-primary-color) !important;
+      }
+
+      .mdc-radio__inner-circle {
+        background-color: var(--org-primary-color) !important;
+        border-color: var(--org-primary-color) !important;
+      }
+    }
+
+    // Disabled
+    &.mat-mdc-radio-disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+
+      .mdc-label {
+        color: var(--text-muted);
+        cursor: not-allowed;
+      }
+    }
+
+    // Focus
+    &:focus-within,
+    &.cdk-keyboard-focused {
+      .mdc-radio__outer-circle {
+        box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb), 0.2);
+        outline: none;
+      }
+    }
+
+    // Hover
+    &:hover:not(.mat-mdc-radio-disabled) {
+      .mdc-radio__outer-circle {
+        border-color: rgba(var(--org-primary-rgb), 0.6);
+      }
+    }
+
+    // ── Positive emphasis (green) ──
+    &.positive.green-active.mat-mdc-radio-checked {
+      .mdc-radio__outer-circle {
+        border-color: variables.$accent-success !important;
+        border-width: 2.5px;
+      }
+
+      .mdc-radio__inner-circle {
+        background-color: variables.$accent-success !important;
+        border-color: variables.$accent-success !important;
+      }
+
+      .mdc-label {
+        color: variables.$accent-success;
+        font-weight: 600;
+      }
+    }
+
+    // ── Negative emphasis (red) ──
+    &.negative.red-active.mat-mdc-radio-checked {
+      .mdc-radio__outer-circle {
+        border-color: variables.$accent-danger !important;
+        border-width: 2.5px;
+      }
+
+      .mdc-radio__inner-circle {
+        background-color: variables.$accent-danger !important;
+        border-color: variables.$accent-danger !important;
+      }
+
+      .mdc-label {
+        color: variables.$accent-danger;
+        font-weight: 600;
+      }
+    }
+  }
+
+  // ────────────── Error / help text ──────────────
+  .radio-error {
+    margin-top: 0.25rem;
+
+    .error-text {
+      color: variables.$accent-danger;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      font-weight: 400;
+    }
+  }
+
+  .radio-help {
+    margin-top: 0.25rem;
+
+    .help-text {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.4;
+      font-weight: 400;
+
+      @include variables.theme-dark {
+        color: var(--text-muted);
+      }
+    }
+  }
+
+  // ────────────── Density helper ──────────────
+  &.dense {
+    .mat-mdc-radio-button {
+      font-size: 0.9rem;
+
+      .mdc-label {
+        font-size: 0.85rem;
+      }
+    }
+
+    .radio-btn-input-container {
+      gap: 0.5rem;
+    }
+  }
+
+  // ────────────── Mobile ──────────────
+  @media (max-width: variables.$breakpoint-md) {
+    .radio-btn-input-container {
+      gap: 0.75rem;
+    }
+
+    .mat-mdc-radio-button {
+      .mdc-label {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  // ────────────── Print ──────────────
+  @media print {
+    .mat-mdc-radio-button .mdc-label {
+      color: #000 !important;
+    }
+  }
+
+  // ────────────── Reduced motion ──────────────
+  @media (prefers-reduced-motion: reduce) {
+
+    .mat-mdc-radio-button,
+    .mat-mdc-radio-button .mdc-radio__outer-circle,
+    .mat-mdc-radio-button .mdc-radio__inner-circle {
+      transition: none !important;
+    }
+  }
+
+  // ────────────── High contrast ──────────────
+  @media (prefers-contrast: high) {
+    .mat-mdc-radio-button {
+      .mdc-radio__outer-circle {
+        border-width: 3px !important;
+      }
+
+      &.mat-mdc-radio-checked .mdc-radio__outer-circle {
+        border-color: var(--org-primary-dark) !important;
+      }
+    }
+  }
+}
+
+/* ===============================
+   CARD-SELECT VARIANT
+   =============================== */
+
+// When the host element has class="mat-radio-btn-select"
+// the radio buttons render as selectable card-style chips
+// with the radio circle hidden and the label filling the card.
+
+app-radio-button.mat-radio-btn-select {
+
+  .radio-btn-container {
+    gap: 0;
+  }
+
+  .radio-btn-input-container {
+    gap: 0.5rem !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .mat-mdc-radio-button {
+    flex: 1;
+    min-width: 0;
+
+    .mdc-form-field {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative; // anchor for the stretched click-target
+      padding: 0.625rem 1rem;
+      border-radius: var(--theme-border-radius-lg, 12px);
+      font-size: 0.95rem;
+      border: 2px solid var(--border-default);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: all variables.$transition-fast;
+      width: 100%;
+      text-align: center;
+      min-height: 40px;
+
+      @include variables.theme-dark {
+        background: var(--bg-elevated);
+        border-color: var(--border-default);
+      }
+
+      &:hover {
+        border-color: rgba(var(--org-primary-rgb), 0.5);
+        background: rgba(var(--org-primary-rgb), 0.04);
+        box-shadow: 0 2px 8px rgba(var(--org-primary-rgb), 0.1);
+      }
+
+      // Hide the radio circle in card mode
+      .mdc-radio {
+        display: none !important;
+      }
+
+      // Make the entire card surface clickable via the label
+      .mdc-label {
+        font-weight: 500;
+        color: var(--text-primary);
+        cursor: pointer;
+        white-space: nowrap;
+        padding: 0;
+        position: static;
+
+        // Stretch a pseudo-element to cover the full card area
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+        }
+
+        @include variables.theme-dark {
+          color: var(--text-primary);
+        }
+      }
+    }
+
+    // Checked card
+    &.mat-mdc-radio-checked .mdc-form-field {
+      border-color: var(--org-primary-color);
+      background: rgba(var(--org-primary-rgb), 0.08);
+      box-shadow: 0 0 0 1px rgba(var(--org-primary-rgb), 0.15);
+
+      @include variables.theme-dark {
+        background: rgba(var(--org-primary-rgb), 0.15);
+      }
+
+      .mdc-label {
+        color: var(--org-primary-color);
+        font-weight: 600;
+
+        @include variables.theme-dark {
+          color: var(--org-primary-light);
+        }
+      }
+    }
+
+    // ── Positive card (green) ──
+    &.positive.green-active.mat-mdc-radio-checked .mdc-form-field {
+      border-color: variables.$accent-success;
+      background: rgba(variables.$accent-success, 0.08);
+
+      .mdc-label {
+        color: variables.$accent-success;
+        font-weight: 700;
+      }
+    }
+
+    // ── Negative card (red) ──
+    &.negative.red-active.mat-mdc-radio-checked .mdc-form-field {
+      border-color: variables.$accent-danger;
+      background: rgba(variables.$accent-danger, 0.08);
+
+      .mdc-label {
+        color: variables.$accent-danger;
+        font-weight: 700;
+      }
+    }
+
+    // Disabled card
+    &.mat-mdc-radio-disabled .mdc-form-field {
+      border-color: var(--border-subtle);
+      background: var(--bg-muted);
+      cursor: not-allowed;
+      opacity: 0.6;
+
+      .mdc-label {
+        color: var(--text-muted);
+      }
+    }
+
+    // Focus ring
+    &:focus-within .mdc-form-field {
+      box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb), 0.2);
+    }
+  }
+
+  // Mobile: stack vertically if needed
+  @media (max-width: variables.$breakpoint-sm) {
+    .radio-btn-input-container {
+      flex-direction: column !important;
+    }
+
+    .mat-mdc-radio-button .mdc-form-field {
+      padding: 0.75rem 1rem;
+      min-height: 44px;
+    }
+  }
+}

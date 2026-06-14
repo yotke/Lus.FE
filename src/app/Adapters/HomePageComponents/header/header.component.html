@@ -8,6 +8,10 @@
         <app-month-picker class="system-date" [(selectedValue)]="CurrSystemDate" [placeholder]="'תאריך עבודה נוכחי'"
             [classes]="'system-date'"
             (selectedValueChange)="onCurrSystemDateChange($event)"></app-month-picker>
+        <button type="button" class="theme-toggle-btn" (click)="themeService.toggleDarkMode()"
+            [attr.aria-label]="themeService.isDark ? 'מצב יום' : 'מצב לילה'" title="מצב יום / לילה">
+            <app-svg-icon [name]="themeService.isDark ? 'wb-sunny' : 'dark-mode'" [size]="22"></app-svg-icon>
+        </button>
         <a href="https://www.google.com" target="_blank">
             <img src="assets/timeLogoVerticalCropWithOutBackGround.png" alt="Timy-Logo - לוגו" />
         </a>
@@ -21,6 +25,10 @@
             <li><a routerLink="./History">היסטורית נתונים</a></li>
             <li><a routerLink="./contact">עזרה</a></li>
         </ul>
+        <button type="button" class="theme-toggle-btn" (click)="themeService.toggleDarkMode()"
+            [attr.aria-label]="themeService.isDark ? 'מצב יום' : 'מצב לילה'" title="מצב יום / לילה">
+            <app-svg-icon [name]="themeService.isDark ? 'wb-sunny' : 'dark-mode'" [size]="22"></app-svg-icon>
+        </button>
         <a href="https://www.google.com" target="_blank">
             <img src="assets/TimeLogoToWhiteHeader.png" alt="One City - לוגו" />
         </a>

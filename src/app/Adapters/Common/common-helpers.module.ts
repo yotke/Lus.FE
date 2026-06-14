@@ -43,13 +43,16 @@ import { RegularHeadlineComponent } from './Tools/TextsTools/regular-headline/re
 import { MaterialModule } from 'src/app/Infrastructure/material/material.module';
 import { GenericModalComponent } from '../Shared/generic-modal/generic-modal.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { SvgIconsManagerComponent } from './Icons/svg-icons-manager/svg-icons-manager.component';
+import { ICONS_BASE_PATH } from 'src/app/Infrastructure/Services/icons/svg-icon.service';
 
 @NgModule({
   declarations: [SignatureInputComponent, DatePickerComponent, AutoCompleteComponent, CheckboxInputComponent, RegularInputComponent, TimePickerComponent, MonthPickerComponent,
     TextAreaInputComponent, TableComponent, RadioButtonComponent,
     AddBtnComponent, SaveBtnComponent, RegularBtnComponent, IconBtnComponent, EditBtnComponent, DeleteBtnComponent, NextBtnComponent, BackBtnComponent, ExcelBtnComponent, MinusBtnComponent, ReturnBtnComponent, SubmitBtnComponent,
     MainHeadlineComponent, RegularHeadlineComponent, BtnsContainerComponent, EditOverlayComponent, TriangleButtonComponent,
-    InputsRowComponent, GenericModalComponent, TackBtnComponent, MultiSelectComponent, MultiSelectCheckboxComponent
+    InputsRowComponent, GenericModalComponent, TackBtnComponent, MultiSelectComponent, MultiSelectCheckboxComponent,
+    SvgIconsManagerComponent
   ],
   imports: [
     CommonModule,
@@ -72,9 +75,14 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     TextAreaInputComponent, TableComponent, RadioButtonComponent,
     AddBtnComponent, SaveBtnComponent, RegularBtnComponent, IconBtnComponent, EditBtnComponent, DeleteBtnComponent, NextBtnComponent, BackBtnComponent, ExcelBtnComponent, MinusBtnComponent, ReturnBtnComponent, SubmitBtnComponent,
     MainHeadlineComponent, RegularHeadlineComponent, BtnsContainerComponent, EditOverlayComponent, TriangleButtonComponent,
-    InputsRowComponent, GenericModalComponent, TackBtnComponent, MultiSelectComponent, MultiSelectCheckboxComponent
+    InputsRowComponent, GenericModalComponent, TackBtnComponent, MultiSelectComponent, MultiSelectCheckboxComponent,
+    SvgIconsManagerComponent
   ],
-  providers: [DatePipe],  // Add DatePipe to providers here
+  providers: [
+    DatePipe,
+    // Default icon asset folder; service falls back to this when not provided.
+    { provide: ICONS_BASE_PATH, useValue: '/assets/icons_svgs' },
+  ],
 })
 
 export class CommonHelpersModule { }

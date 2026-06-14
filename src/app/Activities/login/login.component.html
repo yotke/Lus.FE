@@ -15,7 +15,7 @@
           autocomplete="username"
           dir="ltr"
         />
-        <mat-icon matSuffix>mail_outline</mat-icon>
+        <app-svg-icon matSuffix name="mail" [size]="20"></app-svg-icon>
         <mat-error *ngIf="email?.hasError('required')">יש להזין כתובת דוא"ל.</mat-error>
         <mat-error *ngIf="email?.hasError('email')">כתובת הדוא"ל אינה תקינה.</mat-error>
       </mat-form-field>
@@ -37,13 +37,13 @@
           [attr.aria-label]="hidePassword ? 'הצג סיסמה' : 'הסתר סיסמה'"
           [attr.aria-pressed]="!hidePassword"
         >
-          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <app-svg-icon [name]="hidePassword ? 'eye-off' : 'eye'" [size]="20"></app-svg-icon>
         </button>
         <mat-error *ngIf="password?.hasError('required')">יש להזין סיסמה.</mat-error>
       </mat-form-field>
 
       <div class="login-error" *ngIf="errorMessage">
-        <mat-icon>error_outline</mat-icon>
+        <app-svg-icon name="error" [size]="20"></app-svg-icon>
         <span>{{ errorMessage }}</span>
       </div>
 

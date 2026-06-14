@@ -23,7 +23,7 @@
       <mat-form-field appearance="outline" class="register-field">
         <mat-label>דוא"ל</mat-label>
         <input matInput type="email" formControlName="email" autocomplete="username" dir="ltr" />
-        <mat-icon matSuffix>mail_outline</mat-icon>
+        <app-svg-icon matSuffix name="mail" [size]="20"></app-svg-icon>
         <mat-error *ngIf="email?.hasError('required')">יש להזין כתובת דוא"ל.</mat-error>
         <mat-error *ngIf="email?.hasError('email')">כתובת הדוא"ל אינה תקינה.</mat-error>
       </mat-form-field>
@@ -57,7 +57,7 @@
           [attr.aria-label]="hidePassword ? 'הצג סיסמה' : 'הסתר סיסמה'"
           [attr.aria-pressed]="!hidePassword"
         >
-          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <app-svg-icon [name]="hidePassword ? 'eye-off' : 'eye'" [size]="20"></app-svg-icon>
         </button>
         <mat-error *ngIf="password?.hasError('required')">יש להזין סיסמה.</mat-error>
         <mat-error *ngIf="password?.hasError('minlength')">הסיסמה חייבת להכיל לפחות 6 תווים.</mat-error>
@@ -83,7 +83,7 @@
           [attr.aria-label]="hideConfirmPassword ? 'הצג סיסמה' : 'הסתר סיסמה'"
           [attr.aria-pressed]="!hideConfirmPassword"
         >
-          <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <app-svg-icon [name]="hideConfirmPassword ? 'eye-off' : 'eye'" [size]="20"></app-svg-icon>
         </button>
         <mat-error *ngIf="confirmPassword?.hasError('required')">יש לאמת את הסיסמה.</mat-error>
       </mat-form-field>
@@ -104,12 +104,12 @@
       </div>
 
       <div class="register-error" *ngIf="errorMessage">
-        <mat-icon>error_outline</mat-icon>
+        <app-svg-icon name="error" [size]="20"></app-svg-icon>
         <span>{{ errorMessage }}</span>
       </div>
 
       <div class="register-success" *ngIf="successMessage">
-        <mat-icon>check_circle_outline</mat-icon>
+        <app-svg-icon name="check-circle" [size]="20"></app-svg-icon>
         <span>{{ successMessage }}</span>
       </div>
 

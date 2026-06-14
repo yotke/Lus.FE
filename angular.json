@@ -33,6 +33,7 @@
               "src/styles.scss",
               "src/custom-theme.scss",
               "src/styleToPage/RegularStyle/regularStyle.scss",
+              "src/styleToPage/basicStyle/basicStyle.scss",
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/fonts/google-fonts.css",

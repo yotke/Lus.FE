@@ -1,0 +1,841 @@
+@use "../variables/variables.scss";
+
+// Modern Time Picker Component Styles
+// Maintains consistency with auto-complete component design
+
+// .timepicker {
+//     direction: ltr;
+
+//     >* {
+//         direction: ltr;
+//     }
+// }
+
+
+/* ===============================
+   MODERN INPUT CONTAINER STYLES
+   =============================== */
+
+app-time-picker {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    .time-picker-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .modern-input-wrapper {
+        width: 100%;
+        position: relative;
+
+        &.rtl-layout {
+            direction: rtl;
+        }
+
+        &.ltr-layout {
+            direction: ltr;
+        }
+    }
+
+    .modern-input-container {
+        position: relative;
+        width: 100%;
+        min-height: 56px;
+        background: var(--input-bg);
+        border: 2px solid var(--border-default);
+        border-radius: 12px;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: visible;
+        cursor: pointer;
+
+        // Hover state
+        &:hover:not(.is-focused):not(.has-error):not(.is-disabled) {
+            border-color: rgba(var(--org-primary-rgb), 0.5);
+            background-color: rgba(var(--org-primary-rgb), 0.02);
+            box-shadow: 0 2px 8px rgba(var(--org-primary-rgb), 0.08);
+        }
+
+        // Focused state
+        &.is-focused {
+            border-color: var(--org-primary-color);
+            background-color: rgba(var(--org-primary-rgb), 0.04);
+            box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb), 0.12);
+            outline: none;
+        }
+
+        // Error state
+        &.has-error {
+            border-color: variables.$alert-danger;
+            background-color: rgba(variables.$alert-danger, 0.04);
+            box-shadow: 0 0 0 3px rgba(variables.$alert-danger, 0.12);
+
+            .floating-label {
+                color: variables.$alert-danger !important;
+            }
+        }
+
+        // Disabled state
+        &.is-disabled {
+            background-color: rgba(variables.$color-gray-2, 0.5);
+            border-color: variables.$color-gray-2;
+            cursor: not-allowed;
+            opacity: 0.6;
+
+            .floating-label {
+                color: variables.$color-gray-3 !important;
+            }
+
+            .suffix-icons .suffix-icon {
+                pointer-events: none;
+                opacity: 0.5;
+            }
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-height: 56px;
+            padding: 0 16px;
+            gap: 8px;
+
+            .prefix-icon {
+                display: flex;
+                align-items: center;
+                color: var(--text-muted);
+                margin-right: 8px;
+
+                mat-icon {
+                    font-size: 20px;
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            .modern-input {
+                width: 100%;
+                border: none !important;
+                background: transparent !important;
+                min-height: 24px !important;
+                font-size: 16px;
+                color: var(--input-text);
+                outline: none !important;
+                padding: 0;
+                margin: 0;
+                cursor: pointer;
+                font-weight: 500;
+
+                &::placeholder {
+                    color: transparent; // Hide placeholder by default
+                    font-weight: 400;
+                    transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                &:focus::placeholder {
+                    color: var(--text-muted);
+                }
+
+                &:disabled {
+                    cursor: not-allowed;
+                    color: variables.$color-gray-3;
+                }
+
+                // Remove browser autocomplete styling
+                &:-webkit-autofill {
+                    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+                    -webkit-text-fill-color: var(--input-text) !important;
+                }
+            }
+
+            .suffix-icons {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                margin-left: 8px;
+                flex-shrink: 0;
+
+                .suffix-icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    color: var(--text-muted);
+
+                    &:hover {
+                        background-color: rgba(var(--org-primary-rgb), 0.1);
+                        color: var(--org-primary-color);
+                    }
+
+                    &.clear-icon:hover {
+                        background-color: rgba(variables.$alert-danger, 0.1);
+                        color: variables.$alert-danger;
+                    }
+
+                    // Keyboard focus states
+                    &:focus {
+                        outline: 2px solid var(--org-primary-color);
+                        outline-offset: 2px;
+                    }
+
+                    mat-icon {
+                        font-size: 16px;
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
+                .time-icon {
+                    margin-left: 4px;
+                }
+            }
+        }
+
+        .floating-label {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%);
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: transparent;
+            padding: 0 5px;
+            z-index: 2;
+
+            &.floated {
+                top: 0;
+                transform: translateY(-50%);
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--text-secondary);
+                border-radius: 0.4rem;
+                background-color: var(--bg-card);
+            }
+        }
+
+        .animated-border {
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+                    var(--org-primary-color),
+                    var(--org-primary-light));
+            transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 1px;
+        }
+
+        &.is-focused .animated-border {
+            width: 100%;
+        }
+
+        .input-help {
+            margin-top: 4px;
+
+            .help-text {
+                color: var(--text-muted);
+                font-size: 12px;
+                line-height: 1.4;
+            }
+        }
+    }
+
+    .input-footer {
+        margin-top: 6px;
+        min-height: 20px;
+
+        .error-message {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: variables.$alert-danger;
+            font-size: 12px;
+            font-weight: 500;
+
+            .error-icon {
+                display: flex;
+                align-items: center;
+
+                mat-icon {
+                    font-size: 16px;
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+    }
+
+    /* ===============================
+     RTL SUPPORT
+     =============================== */
+
+    &[dir="rtl"],
+    .rtl-layout {
+        .modern-input-container {
+            .input-wrapper {
+                .prefix-icon {
+                    margin-left: 8px;
+                    margin-right: 0;
+                }
+
+                .suffix-icons {
+                    margin-right: 8px;
+                    margin-left: 0;
+                }
+
+                .modern-input {
+                    direction: rtl;
+                    text-align: right;
+                }
+            }
+
+            .floating-label {
+                left: auto;
+                right: 16px;
+
+                &.floated {
+                    right: 12px;
+                }
+            }
+        }
+    }
+
+    /* ===============================
+     EXTERNAL LABEL STYLING
+     =============================== */
+
+    app-mat-label {
+        display: block;
+        margin-bottom: 8px;
+
+        .mat-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.025em;
+        }
+    }
+
+    /* ===============================
+     SIZE VARIANTS
+     =============================== */
+
+    &.time-picker-small {
+        .modern-input-container {
+            min-height: 40px;
+
+            .input-wrapper {
+                min-height: 40px;
+                padding: 0 12px;
+
+                .floating-label {
+                    font-size: 14px;
+                    left: 12px;
+
+                    &.floated {
+                        font-size: 11px;
+                        left: 8px;
+                    }
+                }
+
+                .modern-input {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        &[dir="rtl"],
+        &.rtl-layout {
+            .modern-input-container {
+                .input-wrapper {
+                    .floating-label {
+                        right: 12px;
+                        left: auto;
+
+                        &.floated {
+                            right: 8px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.time-picker-large {
+        .modern-input-container {
+            min-height: 64px;
+
+            .input-wrapper {
+                min-height: 64px;
+                padding: 0 20px;
+
+                .floating-label {
+                    font-size: 18px;
+                    left: 20px;
+
+                    &.floated {
+                        font-size: 13px;
+                        left: 16px;
+                    }
+                }
+
+                .modern-input {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        &[dir="rtl"],
+        &.rtl-layout {
+            .modern-input-container {
+                .input-wrapper {
+                    .floating-label {
+                        right: 20px;
+                        left: auto;
+
+                        &.floated {
+                            right: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ===============================
+   TIMEPICKER DIALOG STYLING
+   =============================== */
+
+// ngx-material-timepicker renders in CDK overlay at document root.
+// Since this file is loaded globally via angular.json, these selectors
+// target the timepicker popup directly (no ::ng-deep needed).
+
+.timepicker-overlay {
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+}
+
+.timepicker {
+    border-radius: 16px !important;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+
+    // ── Header area (time display) ──
+    .timepicker__header {
+        background: var(--org-primary-color) !important;
+        padding: 16px 24px;
+    }
+
+    // Dial controls (hour:minute display in header)
+    .timepicker-dial {
+        direction: ltr !important;
+
+        .timepicker-dial__control {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: inherit;
+            cursor: pointer;
+
+            &.timepicker-dial__item_active {
+                color: white;
+            }
+        }
+
+        // Colon separator
+        .timepicker-dial__container>span {
+            color: rgba(255, 255, 255, 0.7);
+        }
+    }
+
+    // AM/PM period buttons (hidden in 24h mode, but style just in case)
+    .timepicker-period {
+        .timepicker-period__btn {
+            color: rgba(255, 255, 255, 0.5);
+
+            &.timepicker-dial__item_active {
+                color: white;
+            }
+        }
+    }
+
+    // ── Clock face ──
+    .timepicker__main-content {
+        background: white;
+
+        @include variables.theme-dark {
+            background: var(--bg-card);
+        }
+    }
+
+    .timepicker__body {
+        padding: 16px;
+    }
+
+    .clock-face {
+
+        // Clock hand (line + circle)
+        .clock-face__clock-hand {
+            background-color: var(--org-primary-color) !important;
+
+            &::after {
+                background-color: var(--org-primary-color) !important;
+            }
+
+            &::before {
+                border-color: var(--org-primary-color) !important;
+            }
+        }
+
+        // Selected number highlight (circle behind active number)
+        .clock-face__number {
+            span {
+                &.active {
+                    background-color: var(--org-primary-color) !important;
+                    color: white !important;
+                }
+            }
+        }
+
+        // Clock center dot
+        .clock-face__center-dot {
+            background-color: var(--org-primary-color) !important;
+        }
+
+        @include variables.theme-dark {
+            background-color: rgba(255, 255, 255, 0.08);
+
+            .clock-face__number span {
+                color: var(--text-primary);
+            }
+        }
+    }
+
+    // ── Action buttons (Cancel / Confirm) ──
+    .timepicker__actions {
+        padding: 12px 24px !important;
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        background: white;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+        @include variables.theme-dark {
+            background: var(--bg-card);
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .timepicker-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.025em;
+        }
+
+        // Cancel button
+        .cancel-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid variables.$border-default;
+            border-radius: 8px;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.05);
+                border-color: var(--text-muted);
+            }
+
+            @include variables.theme-dark {
+                border-color: var(--border-default);
+                color: var(--text-primary);
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.08);
+                }
+            }
+        }
+
+        // Confirm button
+        .confirm-btn {
+            background: var(--org-primary-color);
+            color: white;
+            border: 2px solid var(--org-primary-color);
+            border-radius: 8px;
+
+            &:hover {
+                background: var(--org-primary-dark);
+                border-color: var(--org-primary-dark);
+            }
+        }
+    }
+}
+
+// Dark mode overall container
+// Samsung fix: use :root-level selectors to ensure overlays (rendered outside app tree) get dark styles
+[data-theme="dark"],
+.dark-theme {
+    .timepicker {
+        .timepicker__main-content {
+            background: var(--bg-card, #1f2937) !important;
+        }
+
+        .clock-face {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+
+            .clock-face__number span {
+                color: var(--text-primary, #e5e7eb);
+            }
+        }
+
+        .timepicker__actions {
+            background: var(--bg-card, #1f2937) !important;
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .timepicker__body {
+            background: var(--bg-card, #1f2937) !important;
+        }
+    }
+}
+
+html[data-theme="dark"] {
+    .timepicker {
+        .timepicker__main-content {
+            background: var(--bg-card, #1f2937) !important;
+        }
+
+        .clock-face {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+
+            .clock-face__number span {
+                color: var(--text-primary, #e5e7eb);
+            }
+        }
+
+        .timepicker__actions {
+            background: var(--bg-card, #1f2937) !important;
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .timepicker__body {
+            background: var(--bg-card, #1f2937) !important;
+        }
+    }
+}
+
+// Samsung fallback: when var(--bg-card) is undefined in overlay context,
+// use body[data-theme="dark"] which always wraps CDK overlays
+body[data-theme="dark"],
+html[data-theme="dark"] {
+
+    .timepicker .timepicker__main-content,
+    .timepicker .timepicker__body {
+        background: #1f2937 !important;
+    }
+
+    .timepicker .clock-face {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .timepicker .timepicker__actions {
+        background: #1f2937 !important;
+        border-top-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    .timepicker .cancel-btn {
+        color: #e5e7eb;
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+}
+
+/* ===============================
+   CONTACT FORM VARIANT
+   =============================== */
+
+.contact {
+    .contact__form {
+        app-time-picker {
+            &.contact-time-picker {
+                margin-bottom: 1.5rem;
+
+                .modern-input-container {
+                    border-radius: 8px;
+
+                    &.is-focused {
+                        box-shadow: 0 0 0 2px rgba(var(--org-primary-rgb), 0.15);
+                    }
+
+                    &.has-error {
+                        box-shadow: 0 0 0 2px rgba(variables.$alert-danger, 0.15);
+                    }
+
+                    .floating-label {
+                        &.floated {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+
+        .field {
+            &.time-picker {
+                margin-bottom: 1.5rem;
+
+                &.is-invalid {
+                    app-time-picker {
+                        .modern-input-container {
+                            border-color: variables.$alert-danger !important;
+                            background-color: rgba(variables.$alert-danger, 0.04) !important;
+                            box-shadow: 0 0 0 3px rgba(variables.$alert-danger, 0.12) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ===============================
+   ACCESSIBILITY FEATURES
+   =============================== */
+
+@media (prefers-contrast: high) {
+    app-time-picker {
+        .modern-input-container {
+            border-width: 3px;
+
+            &.is-focused {
+                border-width: 4px;
+            }
+
+            &.has-error {
+                border-width: 4px;
+            }
+        }
+    }
+
+    .timepicker {
+        border-width: 2px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    app-time-picker {
+
+        .modern-input-container,
+        .floating-label,
+        .animated-border,
+        .modern-input,
+        .suffix-icons .suffix-icon {
+            transition: none !important;
+        }
+    }
+
+    .timepicker {
+
+        .timepicker-dial__item,
+        .clock-face__number span,
+        .timepicker-btn {
+            transition: none !important;
+        }
+    }
+}
+
+/* ===============================
+   RESPONSIVE BEHAVIOR
+   =============================== */
+
+@media (max-width: 1024px) {
+    app-time-picker {
+        .modern-input-container {
+            min-height: 48px;
+
+            .input-wrapper {
+                min-height: 48px;
+                padding: 0 14px;
+
+                .floating-label {
+                    font-size: 15px;
+                    left: 14px;
+
+                    &.floated {
+                        font-size: 11px;
+                    }
+                }
+
+                .modern-input {
+                    font-size: 15px;
+                }
+            }
+        }
+
+        &[dir="rtl"],
+        &.rtl-layout {
+            .modern-input-container {
+                .input-wrapper {
+                    .floating-label {
+                        right: 14px;
+                        left: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    .timepicker-overlay {
+        touch-action: manipulation;
+    }
+
+    .timepicker {
+        margin: 16px;
+        max-width: calc(100vw - 32px);
+        max-height: calc(100vh - 32px);
+
+        .timepicker__actions {
+            padding: 12px 16px !important;
+
+            .timepicker-btn {
+                padding: 12px 16px;
+                font-size: 15px;
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+    }
+}
+
+/* ===============================
+   FOCUS MANAGEMENT
+   =============================== */
+
+app-time-picker {
+
+    .modern-input:focus,
+    .modern-input:focus-visible {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+}
+
+/* ===============================
+   DARK MODE SUPPORT
+   =============================== */
+// Dark mode now handled via @include theme-dark in each selector above
+// and CSS custom properties (--text-primary, --input-text, etc.)

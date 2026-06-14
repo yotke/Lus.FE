@@ -1,0 +1,293 @@
+@use "sass:map";
+@use "sass:math";
+@use "fonts" as *;
+@use "colors" as *;
+@use "primary" as *;
+@use "borders" as *;
+@use "links" as *;
+
+/* -------- Fluid helper: clamp(min, vw, max) -------- */
+
+@function fluid($min-px, $max-px, $min-vw: 360, $max-vw: 1440) {
+    $min: math.div($min-px, 16) * 1rem;
+    $max: math.div($max-px, 16) * 1rem;
+    $slope: math.div(($max-px - $min-px), ($max-vw - $min-vw)) * 100;
+    $intercept-rem: math.div(($min-px - (math.div($slope, 100)) * $min-vw), 16);
+
+    @return clamp(#{$min}, #{$intercept-rem}rem + #{$slope}vw, #{$max});
+}
+
+/* ---- Static tokens (exact sizes) ---- */
+$title-rubik-semibold-64: (
+    font-family: $font-family-base,
+    font-weight: $weight-semibold,
+    font-size: 4rem,
+    line-height: 1.2
+);
+$title-rubik-semibold-48: (
+    font-family: $font-family-base,
+    font-weight: $weight-semibold,
+    font-size: 3rem,
+    line-height: 1.25
+);
+$title-rubik-medium-48: (
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: 3rem,
+    line-height: 1.25
+);
+$subtitle-rubik-medium-36: (
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: 2.25rem,
+    line-height: 1.3
+);
+$title-rubik-semibold-32: (
+    font-family: $font-family-base,
+    font-weight: $weight-semibold,
+    font-size: 2rem,
+    line-height: 1.3
+);
+
+$title-rubik-medium-32: (
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: 2rem,
+    line-height: 1.3
+);
+$title-rubik-medium-22: (
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: 1.375rem,
+    line-height: 1.4
+);
+$title-rubik-medium-18: (
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: 1.125rem,
+    line-height: 1.45
+);
+$title-rubik-semibold-16: (
+    font-family: $font-family-base,
+    font-weight: $weight-semibold,
+    font-size: 1rem,
+    line-height: 1.5
+);
+
+$title-rubik-medium-16: (
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: 1rem,
+    line-height: 1.5
+);
+$title-rubik-medium-14: (
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: 0.875rem,
+    line-height: 1.5
+);
+$title-rubik-medium-12: (
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: 0.75rem,
+    line-height: 1.5
+);
+
+/* ---- Fluid headings (preferred for responsive UIs) ---- */
+$title1: (
+    /* ~48/57, bold */
+    font-family: $font-family-base,
+    font-weight: $weight-bold,
+    font-size: fluid(34, 48),
+    line-height: 1.19
+);
+$title2: (
+    /* 32/38, semibold */
+    font-family: $font-family-base,
+    font-weight: $weight-semibold,
+    font-size: fluid(24, 32),
+    line-height: 1.19
+);
+$title3: (
+    /* 22/26, medium */
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: fluid(20, 22),
+    line-height: 1.18
+);
+
+$subtitle: (
+    /* 16/19, medium */
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: 1rem,
+    line-height: 1.2
+);
+
+/* Body / Label / Button / Link */
+$body1: (
+    /* 16/20 */
+    font-family: $font-family-base,
+    font-weight: $weight-regular,
+    font-size: 1rem,
+    line-height: 1.25
+);
+$body2: (
+    /* 14/20 */
+    font-family: $font-family-base,
+    font-weight: $weight-regular,
+    font-size: 0.875rem,
+    line-height: 1.43
+);
+$label: (
+    /* 12/20 */
+    font-family: $font-family-base,
+    font-weight: $weight-regular,
+    font-size: 0.75rem,
+    line-height: 1.67
+);
+$button: (
+    /* 16/20 */
+    font-family: $font-family-base,
+    font-weight: $weight-medium,
+    font-size: 1rem,
+    line-height: 1.25
+);
+$link: (
+    /* 16/19 + underline*/
+    font-family: $font-family-base,
+    font-weight: $weight-regular,
+    font-size: 1rem,
+    line-height: 1.19,
+    text-decoration: underline
+);
+
+/* ---- Typography mixin ---- */
+@mixin typography($token) {
+    font-family: map.get($token, font-family);
+    font-weight: map.get($token, font-weight);
+    font-size: map.get($token, font-size);
+    line-height: map.get($token, line-height);
+
+    @if map.has-key($token, letter-spacing) {
+        letter-spacing: map.get($token, letter-spacing);
+    }
+
+    @if map.has-key($token, text-transform) {
+        text-transform: map.get($token, text-transform);
+    }
+
+    @if map.has-key($token, text-decoration) {
+        text-decoration: map.get($token, text-decoration);
+    }
+}
+
+/* ---- Aliases matching Figma ---- */
+$typo-aliases: (
+    'Title1': $title1,
+    'Title2': $title2,
+    'Title3': $title3,
+    'Subtitle': $subtitle,
+    'Body1': $body1,
+    'Body2': $body2,
+    'Label': $label,
+    'Button': $button,
+    'Link': $link
+);
+
+/* ---- Optional utility classes (.typo--Title1 etc.) ---- */
+@each $name, $token in $typo-aliases {
+    .typo--#{$name} {
+        @include typography($token);
+    }
+}
+
+/* ---- Brand/text helpers ---- */
+$color-text-strong: $color-gray-5;
+/* #585C5D */
+$color-brand: $brand-primary;
+
+.text-strong {
+    color: var(--text-primary);
+}
+
+.text-brand {
+    color: $color-brand;
+}
+
+/* ========================================================================== */
+/* =====================  BASE ELEMENT DEFAULTS (GLOBAL)  ==================== */
+/* ========================================================================== */
+
+html {
+    font-size: 100%;
+}
+
+/* 16px root */
+body {
+    @include typography($body1);
+    color: var(--text-primary);
+    background: $surface-base;
+    font-family: $font-family-base;
+}
+
+h1,
+.h1 {
+    @include typography($title1);
+    color: var(--text-primary);
+    margin: 0 0 .5em;
+}
+
+h2,
+.h2 {
+    @include typography($title2);
+    color: var(--text-primary);
+    margin: 0 0 .5em;
+}
+
+h3,
+.h3 {
+    @include typography($title3);
+    color: var(--text-primary);
+    margin: 0 0 .5em;
+}
+
+h4,
+.h4 {
+    @include typography($subtitle);
+    color: var(--text-primary);
+    margin: 0 0 .5em;
+}
+
+p {
+    @include typography($body1);
+    margin: 0 0 1em;
+}
+
+input,
+select,
+textarea {
+    color: var(--text-primary);
+}
+
+small {
+    @include typography($label);
+}
+
+a,
+.link {
+    @include link-colors;
+}
+
+button,
+.btn-text {
+    @include typography($button);
+}
+
+/* Divider helper using your neutrals */
+.hr,
+.hr--muted {
+    height: 1px;
+    background: $color-gray-2;
+    border: 0;
+}

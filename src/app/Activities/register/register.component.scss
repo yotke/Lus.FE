@@ -11,16 +11,17 @@
   align-items: center;
   justify-content: center;
   padding: t.$lus-space-5;
-  background: t.$lus-gradient-brand;
+  background: var(--bg-page, #{t.$lus-gradient-brand});
   box-sizing: border-box;
 }
 
 .register-card {
   width: 100%;
   max-width: 520px;
-  background: t.$lus-surface;
+  background: var(--bg-card, #{t.$lus-surface});
+  border: 1px solid var(--border-default, transparent);
   border-radius: t.$lus-radius-lg;
-  box-shadow: t.$lus-shadow-lg;
+  box-shadow: var(--shadow-lg, #{t.$lus-shadow-lg});
   padding: t.$lus-space-7 t.$lus-space-6;
   box-sizing: border-box;
 }
@@ -34,13 +35,13 @@
   margin: 0;
   font-size: 28px;
   font-weight: 700;
-  color: t.$lus-primary-dark;
+  color: var(--org-primary-color, #{t.$lus-primary-dark});
 }
 
 .register-subtitle {
   margin: 8px 0 0;
   font-size: 15px;
-  color: t.$lus-text-muted;
+  color: var(--text-muted, #{t.$lus-text-muted});
 }
 
 .register-form {

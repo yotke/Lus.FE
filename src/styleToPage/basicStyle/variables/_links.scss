@@ -1,0 +1,37 @@
+/* =====================  LINKS ===================== */
+/* Light / Dark theme variables */
+$link-light: #3361B6;
+$link-light-hover: #3D88D2;
+$link-dark: #89C0F2;
+$link-dark-hover: #2274ED;
+
+$link-active: currentColor;
+$link-visited: currentColor;
+
+:root {
+    --link: #{$link-light};
+    --link-hover: #{$link-light-hover};
+}
+
+[data-theme="dark"] {
+    --link: #{$link-dark};
+    --link-hover: #{$link-dark-hover};
+}
+
+@mixin link-colors {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+        color: var(--link-hover);
+    }
+
+    &:active {
+        color: $link-active;
+    }
+
+    &:visited {
+        color: $link-visited;
+    }
+}

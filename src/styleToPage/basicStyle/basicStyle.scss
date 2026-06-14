@@ -1,0 +1,24 @@
+// =============================================================================
+// basicStyle — design-system entry ported from ArmyLuz.
+//
+// Emits the global :root theme CSS custom properties (--org-*/--theme-*/
+// --spacing-*/--bg-*/--text-*/--input-*) from variables/variables.scss, plus
+// the Material "deep" overrides that give app-regular-input and the other form
+// controls their modern look. Registered as a global stylesheet in angular.json
+// AFTER RegularStyle so these win where they overlap.
+//
+// Each ng-deep partial @uses variables/variables itself; @use de-dupes so the
+// :root block is emitted exactly once.
+// =============================================================================
+@use 'variables/variables';
+
+@use 'ng-deep/base-form-components';
+@use 'ng-deep/app-regular-input.deep';
+@use 'ng-deep/app-textarea-input.deep';
+@use 'ng-deep/app-multi-select.deep';
+@use 'ng-deep/app-date-picker.deep';
+@use 'ng-deep/app-time-picker.deep';
+@use 'ng-deep/app-month-picker.deep';
+@use 'ng-deep/app-auto-complete.deep';
+@use 'ng-deep/app-checkbox-input';
+@use 'ng-deep/app-radio-button';

@@ -1,0 +1,31 @@
+@use "primary" as *;
+
+/* =====================  PALETTE (from SVG)  ===================== */
+/* Row 1 */
+$color-light-blue-1: #cfe5e9;
+$color-light-blue-2: #c3dee3;
+$color-blue-1: #6aadba;
+$color-blue-2: #2b8a9c;
+/* brand core */
+$color-blue-3: #1e616e;
+$color-blue-4: #0c272c;
+
+/* Row 2 (neutrals) */
+$color-gray-1: #e5e8e9;
+$color-gray-2: #d4d9da;
+$color-gray-3: #b7c0c2;
+$color-gray-4: #929a9b;
+$color-gray-5: #585c5d;
+$color-gray-6: #353738;
+$color-gray-7: #353738;
+
+/* Semantic aliases */
+$neutral-light: $color-gray-1;
+$neutral-dark: $color-gray-6;
+
+$primary-background-light: linear-gradient(180deg, #f0f9ff 0%, #f8fafc 100%);
+$primary-background-dark: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+$card-background-light: #ffffff;
+$card-background-dark: #1e293b;
+$label-color-dark: $primary-050;
+$label-color-light: $primary-600;

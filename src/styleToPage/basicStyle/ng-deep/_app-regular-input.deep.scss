@@ -1,0 +1,1051 @@
+@use "../variables/variables.scss";
+
+// Modern Regular Input Component Styles
+// Maintains all functionality while providing contemporary Angular Material design
+
+/* ===============================
+   MODERN INPUT CONTAINER STYLES
+   =============================== */
+
+app-regular-input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  .modern-input-wrapper {
+    width: 100%;
+    position: relative;
+
+    &.rtl-layout {
+      direction: rtl;
+    }
+
+    &.ltr-layout {
+      direction: ltr;
+    }
+
+    &.input-disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+
+  .modern-input-container {
+    position: relative;
+    width: 100%;
+    min-height: 56px;
+    background: var(--input-bg);
+    border: 2px solid var(--border-default);
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: visible;
+
+    // Hover state
+    &:hover:not(.is-focused):not(.has-error):not(.is-disabled) {
+      border-color: rgba(var(--org-primary-rgb), 0.5);
+      background-color: rgba(var(--org-primary-rgb), 0.02);
+      box-shadow: 0 2px 8px rgba(var(--org-primary-rgb), 0.08);
+    }
+
+    // Focused state
+    &.is-focused {
+      border-color: var(--org-primary-color);
+      background-color: rgba(var(--org-primary-rgb), 0.04);
+      box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb), 0.12);
+      outline: none;
+
+      // Show placeholder when container is focused
+      .modern-input::placeholder {
+        color: var(--text-placeholder);
+      }
+    }
+
+    // Error state
+    &.has-error {
+      border-color: variables.$alert-danger;
+      background-color: rgba(variables.$alert-danger, 0.04);
+      box-shadow: 0 0 0 3px rgba(variables.$alert-danger, 0.12);
+
+      .floating-label {
+        color: variables.$alert-danger !important;
+      }
+    }
+
+    // Has value state
+    &.has-value {
+      .floating-label {
+        color: var(--text-secondary);
+      }
+    }
+
+    // Disabled state
+    &.is-disabled {
+      background-color: rgba(variables.$color-gray-2, 0.5);
+      border-color: variables.$color-gray-2;
+      cursor: not-allowed;
+      opacity: 0.6;
+
+      .floating-label {
+        color: variables.$color-gray-3 !important;
+      }
+
+      .modern-input {
+        cursor: not-allowed;
+        color: variables.$color-gray-3;
+
+        &::placeholder {
+          color: variables.$color-gray-3;
+        }
+      }
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 56px;
+      padding: 0 16px;
+      gap: 8px;
+
+      .prefix-icon {
+        display: flex;
+        align-items: center;
+        color: var(--text-muted);
+        margin-right: 8px;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        transition: color 0.2s ease;
+
+        &.prefix-icon-focused {
+          color: var(--org-primary-color);
+        }
+      }
+
+      .suffix-icons {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 8px;
+
+        .suffix-icon,
+        .search-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          color: var(--text-muted);
+          font-size: 16px;
+
+          @include variables.theme-dark {
+            color: rgba(255, 255, 255, 0.7);
+          }
+
+          &:hover {
+            background-color: rgba(var(--org-primary-rgb), 0.1);
+            color: var(--org-primary-color);
+            transform: scale(1.1);
+
+            @include variables.theme-dark {
+              color: var(--org-primary-light);
+            }
+          }
+        }
+
+        .search-icon {
+          font-size: 18px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    .modern-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 16px;
+      color: var(--input-text);
+      font-weight: 400;
+      line-height: 1.5;
+      padding: 0;
+      min-height: 24px;
+
+      // Hide placeholder by default
+      &::placeholder {
+        color: transparent;
+        transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+
+
+      // Number input specific styling
+      &[type="number"] {
+        -moz-appearance: textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+
+      // Password input specific styling
+      &[type="password"] {
+        letter-spacing: 0.125em;
+        text-align: left !important;
+        direction: ltr !important;
+      }
+
+      // Email input specific styling
+      &[type="email"] {
+        text-transform: lowercase;
+        text-align: left !important;
+        direction: ltr !important;
+      }
+
+      &[type="tel"] {
+        letter-spacing: 0.05em;
+        text-align: left !important;
+        direction: ltr !important;
+      }
+
+      // RTL text alignment
+      &[dir="rtl"] {
+        text-align: right;
+
+        &::placeholder {
+          text-align: right !important;
+        }
+      }
+    }
+
+    .floating-label {
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      transform: translateY(-50%);
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-muted);
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: transparent;
+      padding: 0 4px;
+      z-index: 2;
+      white-space: nowrap;
+
+      &.floated {
+        top: 0;
+        transform: translateY(-50%);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        border-radius: 0.4rem;
+        background-color: var(--bg-card);
+
+      }
+    }
+
+    // Shift floating label to start after the prefix icon (prevents overlap)
+    // Default size: 16px padding + 20px icon + 8px gap = 44px
+    &.has-prefix-icon {
+      .floating-label:not(.floated) {
+        left: 44px;
+      }
+    }
+
+    .animated-border {
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg,
+          var(--org-primary-color),
+          var(--org-primary-light));
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 1px;
+    }
+
+    &.is-focused .animated-border {
+      width: 100%;
+    }
+  }
+
+  // Input footer for errors and character count
+  .input-footer {
+    margin-top: 6px;
+    min-height: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .error-message {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: variables.$alert-danger;
+      font-size: 12px;
+      font-weight: 500;
+
+      .error-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .char-count {
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 400;
+      margin-left: auto;
+
+      &.char-count-warning {
+        color: variables.$alert-warning;
+      }
+
+      &.char-count-error {
+        color: variables.$alert-danger;
+      }
+    }
+  }
+
+  .input-help {
+    margin-top: 4px;
+
+    .help-text {
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+  }
+
+  /* ===============================
+     RTL SUPPORT
+     =============================== */
+
+  &[dir="rtl"],
+  .rtl-layout {
+    .modern-input-container {
+      .input-wrapper {
+        .prefix-icon {
+          margin-left: 8px;
+          margin-right: 0;
+        }
+
+        .suffix-icons {
+          margin-right: 8px;
+          margin-left: 0;
+        }
+      }
+
+      .floating-label {
+        left: auto;
+        right: 16px;
+
+        &.floated {
+          right: 12px;
+        }
+      }
+
+      // Shift floating label past the prefix icon in RTL (icon is on the right/start side)
+      // Default size: 16px padding + 20px icon + 8px gap = 44px
+      &.has-prefix-icon {
+        .floating-label:not(.floated) {
+          right: 44px;
+          left: auto;
+        }
+      }
+
+      .modern-input {
+        text-align: right;
+      }
+    }
+
+    .input-footer {
+      direction: rtl;
+
+      .char-count {
+        margin-right: auto;
+        margin-left: 0;
+      }
+    }
+  }
+
+  /* ===============================
+     EXTERNAL LABEL STYLING
+     =============================== */
+
+  app-mat-label {
+    display: block;
+    margin-bottom: 8px;
+
+    .mat-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.025em;
+    }
+  }
+
+  /* ===============================
+     SIZE VARIANTS
+     =============================== */
+
+  &.input-small {
+    .modern-input-container {
+      min-height: 40px;
+
+      // Small LTR: 12px padding + 18px icon + 8px gap = 38px
+      &.has-prefix-icon {
+        .input-wrapper .floating-label:not(.floated) {
+          left: 38px;
+        }
+      }
+
+      .input-wrapper {
+        min-height: 40px;
+        padding: 0 12px;
+
+        .modern-input {
+          font-size: 14px;
+        }
+
+        .floating-label {
+          font-size: 14px;
+          left: 12px;
+
+          &.floated {
+            font-size: 11px;
+            left: 8px;
+          }
+        }
+
+        .prefix-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
+
+        .suffix-icons {
+
+          .suffix-icon,
+          .search-icon {
+            width: 20px;
+            height: 20px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    &[dir="rtl"],
+    &.rtl-layout {
+      .modern-input-container {
+        .input-wrapper {
+          .floating-label {
+            right: 12px;
+            left: auto;
+
+            &.floated {
+              right: 8px;
+            }
+          }
+        }
+
+        // Small RTL: 12px padding + 18px icon + 8px gap = 38px
+        &.has-prefix-icon {
+          .input-wrapper .floating-label:not(.floated) {
+            right: 38px;
+            left: auto;
+          }
+        }
+      }
+    }
+  }
+
+  &.input-large {
+    .modern-input-container {
+      min-height: 64px;
+
+      .input-wrapper {
+        min-height: 64px;
+        padding: 0 20px;
+
+        .modern-input {
+          font-size: 18px;
+        }
+
+        .floating-label {
+          font-size: 18px;
+          left: 20px;
+
+          &.floated {
+            font-size: 13px;
+            left: 16px;
+          }
+        }
+
+        .prefix-icon {
+          font-size: 22px;
+          width: 22px;
+          height: 22px;
+        }
+
+        .suffix-icons {
+
+          .suffix-icon,
+          .search-icon {
+            width: 28px;
+            height: 28px;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    // Large LTR: 20px padding + 22px icon + 8px gap = 50px
+    .modern-input-container.has-prefix-icon {
+      .input-wrapper .floating-label:not(.floated) {
+        left: 50px;
+      }
+    }
+
+    &[dir="rtl"],
+    &.rtl-layout {
+      .modern-input-container {
+        .input-wrapper {
+          .floating-label {
+            right: 20px;
+            left: auto;
+
+            &.floated {
+              right: 16px;
+            }
+          }
+        }
+
+        // Large RTL: 20px padding + 22px icon + 8px gap = 50px
+        &.has-prefix-icon {
+          .input-wrapper .floating-label:not(.floated) {
+            right: 50px;
+            left: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   CONTACT FORM VARIANT
+   =============================== */
+
+.contact {
+  .contact__form {
+    app-regular-input {
+      &.contact-input {
+        margin-bottom: 1.5rem;
+
+        .modern-input-container {
+          border-radius: 8px;
+
+          &.is-focused {
+            box-shadow: 0 0 0 2px rgba(var(--org-primary-rgb), 0.15);
+          }
+
+          &.has-error {
+            box-shadow: 0 0 0 2px rgba(variables.$alert-danger, 0.15);
+          }
+
+          .floating-label {
+            &.floated {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+
+      // Phone input specific styling
+      &.phone-input {
+        .modern-input-container {
+          .input-wrapper {
+            .modern-input {
+              direction: rtl;
+              text-align: left; // Phone numbers are LTR even in RTL context
+            }
+          }
+        }
+      }
+    }
+
+    .field {
+      margin-bottom: 1.5rem;
+
+      &.is-invalid {
+        app-regular-input {
+          .modern-input-container {
+            border-color: variables.$alert-danger !important;
+            background-color: rgba(variables.$alert-danger, 0.04) !important;
+            box-shadow: 0 0 0 3px rgba(variables.$alert-danger, 0.12) !important;
+          }
+        }
+      }
+    }
+
+    // Contact group spacing adjustments
+    .contact__group {
+      margin-bottom: 2rem;
+
+      &.two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+
+        @media (max-width: 1024px) {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+      }
+
+      &.one {
+        display: block;
+      }
+    }
+
+    // Phone field special styling
+    .phone {
+      &.field {
+        .field__label {
+          display: block !important;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+          color: var(--text-secondary);
+          font-size: 14px;
+          letter-spacing: 0.025em;
+        }
+      }
+
+      .phone__controls {
+        display: flex;
+        gap: 0.5rem;
+        align-items: stretch;
+
+        select {
+          flex: 0 0 auto;
+          min-width: 80px;
+          padding: 12px 8px;
+          border: 2px solid variables.$border-default;
+          border-radius: 8px;
+          background-color: var(--input-bg);
+          color: var(--input-text);
+          font-size: 16px;
+          height: 56px;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+          &:focus {
+            outline: none;
+            border-color: var(--org-primary-color);
+            box-shadow: 0 0 0 2px rgba(var(--org-primary-rgb), 0.15);
+            background-color: rgba(var(--org-primary-rgb), 0.04);
+          }
+
+          &:hover {
+            border-color: rgba(var(--org-primary-rgb), 0.5);
+          }
+        }
+
+        .phone__number {
+          flex: 1;
+        }
+      }
+    }
+
+    // Ensure original select and textarea styling is preserved but modernized
+    select:not([formControlName="phonePrefix"]) {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid variables.$border-default;
+      border-radius: 12px;
+      background-color: var(--input-bg);
+      color: var(--input-text);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:focus {
+        outline: none;
+        border-color: var(--org-primary-color);
+        box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb), 0.12);
+        background-color: rgba(var(--org-primary-rgb), 0.04);
+      }
+
+      &:hover {
+        border-color: rgba(var(--org-primary-rgb), 0.5);
+        background-color: rgba(var(--org-primary-rgb), 0.02);
+      }
+
+      &[aria-invalid="true"] {
+        border-color: variables.$alert-danger;
+        background-color: rgba(variables.$alert-danger, 0.04);
+        box-shadow: 0 0 0 3px rgba(variables.$alert-danger, 0.12);
+      }
+    }
+
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid variables.$border-default;
+      border-radius: 12px;
+      background-color: var(--input-bg);
+      color: var(--input-text);
+      font-size: 16px;
+      font-family: variables.$font-family-base;
+      resize: vertical;
+      min-height: 120px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      line-height: 1.5;
+
+      &:focus {
+        outline: none;
+        border-color: var(--org-primary-color);
+        box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb), 0.12);
+        background-color: rgba(var(--org-primary-rgb), 0.04);
+      }
+
+      &:hover {
+        border-color: rgba(var(--org-primary-rgb), 0.5);
+        background-color: rgba(var(--org-primary-rgb), 0.02);
+      }
+
+      &::placeholder {
+        color: var(--text-muted);
+      }
+
+      &[aria-invalid="true"] {
+        border-color: variables.$alert-danger;
+        background-color: rgba(variables.$alert-danger, 0.04);
+        box-shadow: 0 0 0 3px rgba(variables.$alert-danger, 0.12);
+      }
+    }
+
+    // Character counter styling
+    .counter {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    // Error message styling (for select and textarea)
+    .field__error {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 0.5rem;
+      color: variables.$alert-danger;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    // Actions styling
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-start;
+      margin-top: 2rem;
+
+      @media (max-width: 576px) {
+        flex-direction: column;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   ACCESSIBILITY FEATURES
+   =============================== */
+
+@media (prefers-contrast: high) {
+  app-regular-input {
+    .modern-input-container {
+      border-width: 3px;
+
+      &.is-focused {
+        border-width: 4px;
+      }
+
+      &.has-error {
+        border-width: 4px;
+      }
+    }
+  }
+
+  .contact {
+    .contact__form {
+
+      select,
+      textarea {
+        border-width: 3px;
+
+        &:focus {
+          border-width: 4px;
+        }
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  app-regular-input {
+
+    .modern-input-container,
+    .floating-label,
+    .animated-border,
+    .modern-input,
+    .prefix-icon,
+    .suffix-icons>* {
+      transition: none !important;
+    }
+  }
+
+  .contact {
+    .contact__form {
+
+      select,
+      textarea {
+        transition: none !important;
+      }
+    }
+  }
+}
+
+/* ===============================
+   RESPONSIVE BEHAVIOR
+   =============================== */
+
+@media (max-width: 1024px) {
+  app-regular-input {
+    .modern-input-container {
+      min-height: 48px;
+
+      .input-wrapper {
+        min-height: 48px;
+        padding: 0 14px;
+
+        .modern-input {
+          font-size: 15px;
+        }
+
+        .floating-label {
+          font-size: 15px;
+          left: 14px;
+
+          &.floated {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+
+    // Mobile LTR: 14px padding + 20px icon + 8px gap = 42px
+    .modern-input-container.has-prefix-icon {
+      .input-wrapper .floating-label:not(.floated) {
+        left: 42px;
+      }
+    }
+
+    &[dir="rtl"],
+    &.rtl-layout {
+      .modern-input-container {
+        .input-wrapper {
+          .floating-label {
+            right: 14px;
+            left: auto;
+          }
+        }
+
+        // Mobile RTL: 14px padding + 20px icon + 8px gap = 42px
+        &.has-prefix-icon {
+          .input-wrapper .floating-label:not(.floated) {
+            right: 42px;
+            left: auto;
+          }
+        }
+      }
+    }
+  }
+
+  .contact {
+    .contact__form {
+      .phone {
+        .phone__controls {
+          select {
+            height: 48px;
+            font-size: 15px;
+          }
+        }
+      }
+
+      select:not([formControlName="phonePrefix"]) {
+        min-height: 48px;
+        font-size: 15px;
+      }
+
+      textarea {
+        min-height: 100px;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+/* ===============================
+   FOCUS MANAGEMENT
+   =============================== */
+
+app-regular-input {
+
+  .modern-input:focus,
+  .modern-input:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ===============================
+   INPUT TYPE SPECIFIC STYLING
+   =============================== */
+
+// Search input styling
+app-regular-input[data-type="search"] {
+  .modern-input-container {
+    .input-wrapper {
+      .modern-input {
+        &::-webkit-search-cancel-button {
+          -webkit-appearance: none;
+        }
+      }
+    }
+  }
+}
+
+// URL input styling
+app-regular-input[data-type="url"] {
+  .modern-input-container {
+    .input-wrapper {
+      .modern-input {
+        font-family: monospace;
+      }
+    }
+  }
+}
+
+// Tel input styling
+app-regular-input[data-type="tel"] {
+  .modern-input-container {
+    .input-wrapper {
+      .modern-input {
+        letter-spacing: 0.05em;
+      }
+    }
+  }
+}
+
+/* ===============================
+   VALIDATION STATES
+   =============================== */
+
+app-regular-input {
+  &.input-valid {
+    .modern-input-container {
+      border-color: variables.$alert-success;
+      background-color: rgba(variables.$alert-success, 0.04);
+
+      .floating-label {
+        color: variables.$alert-success;
+      }
+
+      .animated-border {
+        background: variables.$alert-success;
+      }
+    }
+  }
+
+  &.input-warning {
+    .modern-input-container {
+      border-color: variables.$alert-warning;
+      background-color: rgba(variables.$alert-warning, 0.04);
+
+      .floating-label {
+        color: variables.$alert-warning;
+      }
+
+      .animated-border {
+        background: variables.$alert-warning;
+      }
+    }
+  }
+}
+
+/* ===============================
+   CHROME AUTOFILL FIX
+   =============================== */
+
+app-regular-input {
+  .modern-input-container {
+
+    // Float label when autofill is detected
+    &:has(.modern-input:-webkit-autofill) {
+      .floating-label {
+        top: 0;
+        transform: translateY(-50%);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        border-radius: 0.4rem;
+        background-color: var(--bg-card);
+
+        @include variables.theme-dark {
+          background-color: var(--bg-card);
+        }
+      }
+    }
+
+    .input-wrapper {
+      .modern-input {
+
+        // Override Chrome autofill styling
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:-webkit-autofill:active {
+          -webkit-box-shadow: 0 0 0 1000px var(--input-bg) inset !important;
+          -webkit-text-fill-color: var(--input-text) !important;
+          background-clip: content-box !important;
+          transition: background-color 5000s ease-in-out 0s;
+          caret-color: var(--input-text);
+
+          @include variables.theme-dark {
+            -webkit-box-shadow: 0 0 0 1000px var(--input-bg) inset !important;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TabNavWidgetService } from './Infrastructure/Services/TabNav/tab-nav-widget.service';
+import { ThemeService } from './Infrastructure/Services/themeService/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,10 @@ export class AppComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     // Injected so the accessibility widget is loaded once for the whole app.
-    private tabNavWidget: TabNavWidgetService
+    private tabNavWidget: TabNavWidgetService,
+    // Injected so the theme (light/dark + brand CSS vars) initializes once on
+    // app startup, restoring the user's saved mode from localStorage.
+    private themeService: ThemeService
   ) {
 
   }

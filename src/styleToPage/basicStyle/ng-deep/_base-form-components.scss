@@ -1,0 +1,243 @@
+@use "../variables/variables";
+
+// Base Form Components — global overrides applying to all Angular Material form fields.
+// All component-specific overrides live in their own ng-deep files.
+
+/* ===============================
+   REMOVE DEFAULT MATERIAL UNDERLINES
+   =============================== */
+
+.mdc-line-ripple {
+  display: none !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper,
+.mat-mdc-form-field-bottom-align::before {
+  display: none;
+}
+
+/* ===============================
+   GLOBAL FORM FIELD FOCUS OVERLAY
+   =============================== */
+
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-focus-overlay {
+  display: none !important;
+}
+
+/* ===============================
+   REMOVE MATERIAL'S 48px TOUCH-TARGET SPAN (inside form-field icon buttons)
+   — it inflates/misaligns the datepicker toggle + clear button in our compact
+   inputs. Scoped to form fields so app-wide buttons keep their touch targets.
+   =============================== */
+
+.mat-mdc-form-field .mat-mdc-button-touch-target,
+.mat-mdc-form-field .mat-focus-indicator {
+  display: none !important;
+}
+
+/* ===============================
+   BASE FILLED TEXT FIELD
+   =============================== */
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--input-bg) !important;
+  border: 2px solid var(--border-default) !important;
+  border-radius: var(--theme-border-radius-lg, 12px);
+  transition: all variables.$transition-normal;
+
+  &:hover:not(.mdc-text-field--focused) {
+    border-color: rgba(var(--org-primary-rgb), 0.5) !important;
+    box-shadow: 0 2px 8px rgba(var(--org-primary-rgb), 0.08);
+  }
+}
+
+.mdc-text-field--filled.mdc-text-field--focused {
+  border-color: var(--org-primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb), 0.12) !important;
+}
+
+/* ===============================
+   ERROR STATES
+   =============================== */
+
+.mat-mdc-form-field.mat-form-field-invalid .mdc-text-field--filled {
+  border-color: variables.$accent-danger !important;
+  box-shadow: 0 0 0 3px rgba(variables.$accent-danger, 0.12) !important;
+}
+
+/* ===============================
+   GLOBAL MAT-RADIO CHECKED OVERRIDE
+   =============================== */
+
+.mat-mdc-radio-checked .mdc-form-field.mat-internal-form-field {
+  // Remove Material's default blue background on checked radios —
+  // each component sets its own checked style via organization colors.
+  background-color: transparent;
+}
+
+/* ===============================
+   ACCESSIBILITY
+   =============================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .mdc-text-field--filled {
+    transition: none !important;
+  }
+}
+
+/* ===============================
+   GLOBAL MATERIAL DARK MODE OVERRIDES
+   Uses Angular Material CSS design tokens so all mat-*
+   components adapt to [data-theme="dark"] / .dark-theme.
+
+   NOTE: These CSS custom properties are defined directly on the
+   root element (<html>) so MatDialog/MatSnackBar/MatTooltip
+   overlays — which are rendered outside the app component tree
+   inside the CDK overlay container — can still inherit them.
+   Do NOT nest inside `:root { @include variables.theme-dark { … } }`;
+   the `theme-dark` mixin generates descendant selectors (e.g.
+   `[data-theme="dark"] &`) which never match the root element itself.
+   =============================== */
+
+[data-theme="dark"],
+.dark-theme {
+  // ── mat-card ──
+  --mat-card-container-color: #{variables.theme-get(bg-card, dark)};
+  --mat-card-container-text-color: #{variables.theme-get(text-primary, dark)};
+  --mat-card-subtitle-text-color: #{variables.theme-get(text-secondary, dark)};
+
+  // ── mat-form-field (outlined) ──
+  --mdc-outlined-text-field-input-text-color: #{variables.theme-get(text-primary, dark)};
+  --mdc-outlined-text-field-label-text-color: #{variables.theme-get(text-secondary, dark)};
+  --mdc-outlined-text-field-outline-color: #{variables.theme-get(border-default, dark)};
+  --mdc-outlined-text-field-hover-outline-color: #{variables.theme-get(border-strong, dark)};
+  --mdc-outlined-text-field-focus-outline-color: var(--org-primary-color);
+  --mdc-outlined-text-field-caret-color: var(--org-primary-color);
+  --mdc-outlined-text-field-focus-label-text-color: var(--org-primary-color);
+  --mdc-outlined-text-field-input-text-placeholder-color: #{variables.theme-get(text-muted, dark)};
+
+  // ── mat-form-field (filled) ──
+  --mdc-filled-text-field-container-color: #{variables.theme-get(input-bg, dark)};
+  --mdc-filled-text-field-input-text-color: #{variables.theme-get(text-primary, dark)};
+  --mdc-filled-text-field-label-text-color: #{variables.theme-get(text-secondary, dark)};
+  --mdc-filled-text-field-hover-label-text-color: #{variables.theme-get(text-primary, dark)};
+  --mdc-filled-text-field-focus-label-text-color: var(--org-primary-color);
+  --mdc-filled-text-field-caret-color: var(--org-primary-color);
+
+  // ── mat-button / mat-raised-button / mat-stroked-button ──
+  --mdc-text-button-label-text-color: #{variables.theme-get(text-primary, dark)};
+  --mdc-outlined-button-label-text-color: #{variables.theme-get(text-primary, dark)};
+  --mdc-outlined-button-outline-color: #{variables.theme-get(border-default, dark)};
+
+  // ── mat-slide-toggle ──
+  --mdc-switch-unselected-track-color: #{variables.theme-get(border-default, dark)};
+  --mdc-switch-unselected-handle-color: #{variables.theme-get(text-muted, dark)};
+  --mdc-switch-unselected-hover-track-color: #{variables.theme-get(border-strong, dark)};
+  --mdc-switch-unselected-focus-track-color: #{variables.theme-get(border-strong, dark)};
+  --mat-slide-toggle-label-text-color: #{variables.theme-get(text-primary, dark)};
+
+  // ── mat-select ──
+  --mat-select-placeholder-text-color: #{variables.theme-get(text-muted, dark)};
+  --mat-select-enabled-trigger-text-color: #{variables.theme-get(text-primary, dark)};
+  --mat-option-label-text-color: #{variables.theme-get(text-primary, dark)};
+  --mat-select-panel-background-color: #{variables.theme-get(bg-elevated, dark)};
+
+  // ── mat-divider ──
+  --mat-divider-color: #{variables.theme-get(border-subtle, dark)};
+
+  // ── mat-list ──
+  --mat-list-list-item-label-text-color: #{variables.theme-get(text-primary, dark)};
+  --mat-list-list-item-supporting-text-color: #{variables.theme-get(text-secondary, dark)};
+
+  // ── mat-tooltip ──
+  --mdc-plain-tooltip-container-color: #{variables.theme-get(bg-elevated, dark)};
+  --mdc-plain-tooltip-supporting-text-color: #{variables.theme-get(text-primary, dark)};
+
+  // ── mat-snack-bar ──
+  --mdc-snackbar-container-color: #{variables.theme-get(bg-elevated, dark)};
+  --mdc-snackbar-supporting-text-color: #{variables.theme-get(text-primary, dark)};
+
+  // ── mat-dialog ──
+  --mdc-dialog-container-color: #{variables.theme-get(bg-card, dark)};
+  --mdc-dialog-subhead-color: #{variables.theme-get(text-primary, dark)};
+  --mdc-dialog-supporting-text-color: #{variables.theme-get(text-secondary, dark)};
+
+  // ── mat-progress-spinner ──
+  --mdc-circular-progress-active-indicator-color: var(--org-primary-color);
+}
+
+// ─── Snackbar variants — used by panelClass: ['success-snackbar'] / ['error-snackbar'] ───
+// These flow through MatSnackBar's `panelClass` config and hit the rendered
+// `.mat-mdc-snack-bar-container.success-snackbar` element. Material paints
+// the container background via the `--mdc-snackbar-container-color` token,
+// so we override that token PLUS the inner `.mdc-snackbar__surface` so the
+// green/red colour is unmistakable in either light or dark theme.
+.mat-mdc-snack-bar-container.success-snackbar,
+.mat-mdc-snack-bar-container.error-snackbar {
+  // Desktop: lift the toast 16px above the viewport's very bottom edge so
+  // it reads as a floating notification, not as a sibling of an inline
+  // bottom footer. Mobile keeps the default flush placement so it doesn't
+  // collide with the home-indicator / nav bar.
+  @media (min-width: 769px) {
+    margin-bottom: 16px !important;
+  }
+}
+
+.mat-mdc-snack-bar-container.success-snackbar {
+  --mdc-snackbar-container-color: #16a34a;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #ffffff;
+
+  .mdc-snackbar__surface {
+    background: #16a34a !important;
+    box-shadow: 0 10px 32px rgba(22, 163, 74, .45), 0 2px 8px rgba(0, 0, 0, .15);
+    border-radius: 12px;
+  }
+  .mdc-snackbar__label {
+    color: #ffffff !important;
+    font-weight: 600;
+    letter-spacing: .01em;
+  }
+  .mat-mdc-button.mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+    --mat-mdc-button-persistent-ripple-color: #ffffff;
+  }
+}
+
+.mat-mdc-snack-bar-container.error-snackbar {
+  --mdc-snackbar-container-color: #dc2626;
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  --mat-mdc-snack-bar-button-color: #ffffff;
+
+  .mdc-snackbar__surface {
+    background: #dc2626 !important;
+    box-shadow: 0 10px 32px rgba(220, 38, 38, .45), 0 2px 8px rgba(0, 0, 0, .15);
+    border-radius: 12px;
+  }
+  .mdc-snackbar__label {
+    color: #ffffff !important;
+    font-weight: 600;
+  }
+  .mat-mdc-button.mat-mdc-snack-bar-action {
+    color: #ffffff !important;
+  }
+}
+
+// // ────────────── Responsive Helpers ──────────────
+// @mixin mobile-only {
+//   @media (max-width: $mobile-breakpoint) {
+//     @content;
+//   }
+// }
+
+// @mixin tablet-up {
+//   @media (min-width: #{$mobile-breakpoint + 1px}) {
+//     @content;
+//   }
+// }
+
+// @mixin desktop-up {
+//   @media (min-width: $desktop-breakpoint) {
+//     @content;
+//   }
+// }

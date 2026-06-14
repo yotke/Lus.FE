@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { ProjectTemplateService } from 'src/app/Infrastructure/Services/projectTemplateService/project-template.service';
+import { ThemeService } from 'src/app/Infrastructure/Services/themeService/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,10 @@ export class HeaderComponent {
     this.isScrolledDown = this.checkScrollPosition();
   }
 
-  constructor(private projectTemplateSvc: ProjectTemplateService) {
+  constructor(
+    private projectTemplateSvc: ProjectTemplateService,
+    public themeService: ThemeService
+  ) {
     const storedDate = sessionStorage.getItem('currSystemDate');
     if (storedDate) {
       this.CurrSystemDate = new Date(JSON.parse(storedDate));

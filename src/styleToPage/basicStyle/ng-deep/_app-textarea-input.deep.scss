@@ -1,0 +1,809 @@
+@use '../variables/variables.scss';
+
+// Modern Textarea Input Component Styles
+// Maintains all functionality while providing contemporary Angular Material design
+
+/* ===============================
+   MODERN TEXTAREA CONTAINER STYLES
+   =============================== */
+
+app-textarea-input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  /* Theme-aware tokens (defaults to light) */
+  --textarea-surface: #{variables.theme-get(input-bg, light)};
+  --textarea-border: #{variables.theme-get(border-default, light)};
+  --textarea-text: #{variables.theme-get(text-primary, light)};
+  --textarea-muted: #{variables.theme-get(text-muted, light)};
+  --textarea-placeholder: #{variables.theme-get(text-placeholder, light)};
+
+  @include variables.theme-dark {
+    --textarea-surface: #{variables.theme-get(input-bg, dark)};
+    --textarea-border: #{variables.theme-get(border-default, dark)};
+    --textarea-text: #{variables.theme-get(text-primary, dark)};
+    --textarea-muted: #{variables.theme-get(text-muted, dark)};
+    --textarea-placeholder: #{variables.theme-get(text-placeholder, dark)};
+  }
+
+  .modern-input-wrapper {
+    width: 100%;
+    position: relative;
+
+    &.rtl-layout {
+      direction: rtl;
+    }
+
+    &.ltr-layout {
+      direction: ltr;
+    }
+
+    &.input-disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+
+  .modern-input-container {
+    position: relative;
+    width: 100%;
+    min-height: 120px;
+    background: var(--textarea-surface);
+    border: 2px solid var(--textarea-border);
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: visible;
+
+    // Hover state
+    &:hover:not(.is-focused):not(.has-error):not(.is-disabled) {
+      border-color: rgba(var(--org-primary-rgb), 0.5);
+      background-color: rgba(var(--org-primary-rgb), 0.02);
+      box-shadow: 0 2px 8px rgba(var(--org-primary-rgb), 0.08);
+    }
+
+    // Focused state
+    &.is-focused {
+      border-color: var(--org-primary-color);
+      background-color: rgba(var(--org-primary-rgb), 0.04);
+      box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb), 0.12);
+      outline: none;
+
+      // Show placeholder when container is focused
+      .modern-textarea::placeholder {
+        color: var(--textarea-placeholder);
+      }
+    }
+
+    // Error state
+    &.has-error {
+      border-color: variables.$alert-danger;
+      background-color: rgba(variables.$alert-danger, 0.04);
+      box-shadow: 0 0 0 3px rgba(variables.$alert-danger, 0.12);
+
+      .floating-label {
+        color: variables.$alert-danger !important;
+      }
+    }
+
+    // Has value state
+    &.has-value {
+      .floating-label {
+        color: var(--text-secondary);
+      }
+    }
+
+    // Disabled state
+    &.is-disabled {
+      background-color: rgba(variables.$color-gray-2, 0.5);
+      border-color: variables.$color-gray-2;
+      cursor: not-allowed;
+      opacity: 0.6;
+
+      .floating-label {
+        color: variables.$color-gray-3 !important;
+      }
+
+      .modern-textarea {
+        cursor: not-allowed;
+        color: variables.$color-gray-3;
+        resize: none;
+
+        &::placeholder {
+          color: variables.$color-gray-3;
+        }
+      }
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 120px;
+      padding: 16px;
+
+      &.input-wrapper--textarea {
+        align-items: stretch;
+        gap: 0;
+      }
+    }
+
+    .modern-textarea {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 16px;
+      color: var(--textarea-text);
+      font-weight: 400;
+      line-height: 1.5;
+      font-family: variables.$font-family-base;
+      padding: 0;
+      margin: 0;
+      resize: vertical;
+      min-height: 80px;
+      width: 100%;
+
+      // Hide placeholder by default
+      &::placeholder {
+        color: transparent;
+        transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      // RTL text alignment
+      &[dir="rtl"] {
+        text-align: right;
+        direction: rtl;
+      }
+
+      // Remove default textarea styling
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(var(--org-primary-rgb), 0.3);
+        border-radius: 4px;
+
+        &:hover {
+          background: rgba(var(--org-primary-rgb), 0.5);
+        }
+      }
+
+      // Firefox scrollbar
+      scrollbar-width: thin;
+      scrollbar-color: rgba(var(--org-primary-rgb), 0.3) transparent;
+    }
+
+    .floating-label {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      transform: none;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--textarea-muted);
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: transparent;
+      padding: 0 4px;
+      z-index: 2;
+      white-space: nowrap;
+
+      &.floated {
+        top: 0;
+        transform: translateY(-50%);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        background-color: var(--textarea-surface);
+      }
+    }
+
+    .animated-border {
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--org-primary-color), var(--org-primary-light));
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 1px;
+    }
+
+    &.is-focused .animated-border {
+      width: 100%;
+    }
+  }
+
+  // Input footer for errors and character count
+  .input-footer {
+    margin-top: 6px;
+    min-height: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .error-message {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: variables.$alert-danger;
+      font-size: 12px;
+      font-weight: 500;
+
+      .error-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .char-count {
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 400;
+      margin-left: auto;
+
+      &.char-count-warning {
+        color: variables.$alert-warning;
+        font-weight: 500;
+      }
+
+      &.char-count-error {
+        color: variables.$alert-danger;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .input-help {
+    margin-top: 4px;
+
+    .help-text {
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+  }
+
+  /* ===============================
+     RTL SUPPORT
+     =============================== */
+
+  &[dir="rtl"],
+  .rtl-layout {
+    .modern-input-container {
+      .floating-label {
+        left: auto;
+        right: 16px;
+
+        &.floated {
+          right: 12px;
+        }
+      }
+
+      .modern-textarea {
+        text-align: right;
+        direction: rtl;
+      }
+    }
+
+    .input-footer {
+      direction: rtl;
+
+      .char-count {
+        margin-right: auto;
+        margin-left: 0;
+      }
+    }
+  }
+
+  /* ===============================
+     EXTERNAL LABEL STYLING
+     =============================== */
+
+  app-mat-label {
+    display: block;
+    margin-bottom: 8px;
+
+    .mat-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.025em;
+    }
+  }
+
+  /* ===============================
+     SIZE VARIANTS
+     =============================== */
+
+  &.textarea-small {
+    .modern-input-container {
+      min-height: 80px;
+
+      .input-wrapper {
+        min-height: 80px;
+        padding: 12px;
+
+        &.input-wrapper--textarea {
+          padding: 12px;
+        }
+      }
+
+      .modern-textarea {
+        font-size: 14px;
+        min-height: 40px;
+      }
+
+      .floating-label {
+        font-size: 14px;
+        left: 12px;
+        top: 12px;
+
+        &.floated {
+          font-size: 11px;
+          left: 8px;
+        }
+      }
+    }
+
+    &[dir="rtl"],
+    &.rtl-layout {
+      .modern-input-container {
+        .floating-label {
+          right: 12px;
+          left: auto;
+
+          &.floated {
+            right: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  &.textarea-large {
+    .modern-input-container {
+      min-height: 160px;
+
+      .input-wrapper {
+        min-height: 160px;
+        padding: 20px;
+
+        &.input-wrapper--textarea {
+          padding: 20px;
+        }
+      }
+
+      .modern-textarea {
+        font-size: 18px;
+        min-height: 120px;
+      }
+
+      .floating-label {
+        font-size: 18px;
+        left: 20px;
+        top: 20px;
+
+        &.floated {
+          font-size: 13px;
+          left: 16px;
+        }
+      }
+    }
+
+    &[dir="rtl"],
+    &.rtl-layout {
+      .modern-input-container {
+        .floating-label {
+          right: 20px;
+          left: auto;
+
+          &.floated {
+            right: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   CONTACT FORM VARIANT
+   =============================== */
+
+.contact {
+  .contact__form {
+    app-textarea-input {
+      &.contact-textarea {
+        margin-bottom: 1.5rem;
+
+        .modern-input-container {
+          border-radius: 8px;
+          min-height: 120px;
+
+          &.is-focused {
+            box-shadow: 0 0 0 2px rgba(var(--org-primary-rgb), 0.15);
+          }
+
+          &.has-error {
+            box-shadow: 0 0 0 2px rgba(variables.$alert-danger, 0.15);
+          }
+
+          .floating-label {
+            &.floated {
+              font-weight: 600;
+            }
+          }
+
+          .modern-textarea {
+            min-height: 80px;
+            font-size: 16px;
+            line-height: 1.5;
+
+            &::placeholder {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+
+    .field {
+      margin-bottom: 1.5rem;
+
+      &.textarea {
+        margin-bottom: 1.5rem;
+
+        &.is-invalid {
+          app-textarea-input {
+            .modern-input-container {
+              border-color: variables.$alert-danger !important;
+              background-color: rgba(variables.$alert-danger, 0.04) !important;
+              box-shadow: 0 0 0 3px rgba(variables.$alert-danger, 0.12) !important;
+            }
+          }
+        }
+      }
+    }
+
+    // Contact group spacing adjustments
+    .contact__group {
+      margin-bottom: 2rem;
+
+      &.two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+
+        @media (max-width: 1024px) {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+      }
+
+      &.one {
+        display: block;
+      }
+    }
+
+    // Character counter styling
+    .counter {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: right;
+
+      &.near-limit {
+        color: variables.$alert-warning;
+        font-weight: 500;
+      }
+
+      &.over-limit {
+        color: variables.$alert-danger;
+        font-weight: 600;
+      }
+    }
+
+    // Error message styling
+    .field__error {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 0.5rem;
+      color: variables.$alert-danger;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    // Actions styling
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-start;
+      margin-top: 2rem;
+
+      @media (max-width: 576px) {
+        flex-direction: column;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   ACCESSIBILITY FEATURES
+   =============================== */
+
+@media (prefers-contrast: high) {
+  app-textarea-input {
+    .modern-input-container {
+      border-width: 3px;
+
+      &.is-focused {
+        border-width: 4px;
+      }
+
+      &.has-error {
+        border-width: 4px;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  app-textarea-input {
+
+    .modern-input-container,
+    .floating-label,
+    .animated-border,
+    .modern-textarea {
+      transition: none !important;
+    }
+  }
+}
+
+/* ===============================
+   RESPONSIVE BEHAVIOR
+   =============================== */
+
+@media (max-width: 1024px) {
+  app-textarea-input {
+    .modern-input-container {
+      min-height: 100px;
+
+      .input-wrapper {
+        min-height: 100px;
+        padding: 14px;
+
+        &.input-wrapper--textarea {
+          padding: 14px;
+        }
+      }
+
+      .modern-textarea {
+        font-size: 15px;
+        min-height: 60px;
+      }
+
+      .floating-label {
+        font-size: 15px;
+        left: 14px;
+        top: 14px;
+
+        &.floated {
+          font-size: 11px;
+        }
+      }
+    }
+
+    &[dir="rtl"],
+    &.rtl-layout {
+      .modern-input-container {
+        .floating-label {
+          right: 14px;
+          left: auto;
+        }
+      }
+    }
+  }
+
+  .contact {
+    .contact__form {
+      app-textarea-input.contact-textarea {
+        .modern-input-container {
+          min-height: 100px;
+
+          .modern-textarea {
+            min-height: 60px;
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   FOCUS MANAGEMENT
+   =============================== */
+
+app-textarea-input {
+
+  .modern-textarea:focus,
+  .modern-textarea:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ===============================
+   VALIDATION STATES
+   =============================== */
+
+app-textarea-input {
+  &.textarea-valid {
+    .modern-input-container {
+      border-color: variables.$alert-success;
+      background-color: rgba(variables.$alert-success, 0.04);
+
+      .floating-label {
+        color: variables.$alert-success;
+      }
+
+      .animated-border {
+        background: variables.$alert-success;
+      }
+    }
+  }
+
+  &.textarea-warning {
+    .modern-input-container {
+      border-color: variables.$alert-warning;
+      background-color: rgba(variables.$alert-warning, 0.04);
+
+      .floating-label {
+        color: variables.$alert-warning;
+      }
+
+      .animated-border {
+        background: variables.$alert-warning;
+      }
+    }
+  }
+}
+
+/* ===============================
+   ROW-BASED HEIGHT VARIANTS
+   =============================== */
+
+app-textarea-input {
+
+  // Dynamic height based on rows attribute
+  &[data-rows="2"] .modern-input-container {
+    min-height: 80px;
+
+    .modern-textarea {
+      min-height: 48px;
+    }
+  }
+
+  &[data-rows="3"] .modern-input-container {
+    min-height: 100px;
+
+    .modern-textarea {
+      min-height: 68px;
+    }
+  }
+
+  &[data-rows="4"] .modern-input-container {
+    min-height: 120px;
+
+    .modern-textarea {
+      min-height: 88px;
+    }
+  }
+
+  &[data-rows="5"] .modern-input-container {
+    min-height: 140px;
+
+    .modern-textarea {
+      min-height: 108px;
+    }
+  }
+
+  &[data-rows="6"] .modern-input-container {
+    min-height: 160px;
+
+    .modern-textarea {
+      min-height: 128px;
+    }
+  }
+}
+
+/* ===============================
+   UTILITY CLASSES
+   =============================== */
+
+.character-counter {
+  &.near-limit {
+    color: variables.$alert-warning;
+    font-weight: 500;
+  }
+
+  &.over-limit {
+    color: variables.$alert-danger;
+    font-weight: 600;
+  }
+}
+
+// Auto-resize textarea functionality helper
+.textarea-auto-resize {
+  app-textarea-input {
+    .modern-textarea {
+      resize: none;
+      overflow: hidden;
+      min-height: auto;
+    }
+  }
+}
+
+// No resize option
+.textarea-no-resize {
+  app-textarea-input {
+    .modern-textarea {
+      resize: none;
+    }
+  }
+}
+
+// Horizontal resize only
+.textarea-resize-horizontal {
+  app-textarea-input {
+    .modern-textarea {
+      resize: horizontal;
+    }
+  }
+}
+
+/* ===============================
+   SPECIAL CONTENT TYPES
+   =============================== */
+
+// Code textarea styling
+app-textarea-input.code-textarea {
+  .modern-textarea {
+    font-family: 'Courier New', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    tab-size: 2;
+    white-space: pre;
+  }
+}
+
+// Rich text editor base styling
+app-textarea-input.rich-text-textarea {
+  .modern-input-container {
+    min-height: 200px;
+  }
+
+  .modern-textarea {
+    min-height: 160px;
+    line-height: 1.6;
+  }
+}

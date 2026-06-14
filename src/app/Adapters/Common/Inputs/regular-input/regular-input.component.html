@@ -1,15 +1,90 @@
-<div class="regular-input-container">
-       <mat-label *ngIf="showLabel">{{title}}</mat-label>
-       <mat-form-field [title]="title" *ngIf="control" [ngClass]="inputClass" [ngStyle]="inputStyle"
-              class="regular-mat-form-field">
-              <mat-label *ngIf="!showLabel&&inputType!='number'">{{title}}</mat-label>
-              <input matInput [placeholder]="placeholder" [formControl]="control" [type]="inputType">
-       </mat-form-field>
+<div class="modern-input-wrapper" [attr.dir]="dir" [ngClass]="{
+       'rtl-layout': dir === 'rtl',
+       'ltr-layout': dir === 'ltr',
+       'input-disabled': disabled
+     }">
 
-       <mat-form-field [title]="title" *ngIf="!control" [ngClass]="inputClass" [ngStyle]="inputStyle"
-              class="regular-mat-form-field">
-              <mat-label *ngIf="!showLabel&&inputType!='number'">{{title}}</mat-label>
-              <input matInput [(ngModel)]="selectedValue" [placeholder]="placeholder"
-                     (change)="emitSelectedValueChange(selectedValue)" [type]="inputType">
-       </mat-form-field>
+  <!-- Optional external label -->
+  <label *ngIf="showLabel" class="external-label">{{ titleText }}</label>
+
+  <!-- Reactive Forms -->
+  <div *ngIf="control" class="modern-input-container" [ngClass]="{
+         'is-focused': isFocused,
+         'is-hovered': isHovered,
+         'has-error': hasError,
+         'has-value': hasValue,
+         'is-disabled': disabled,
+         'has-prefix-icon': !!prefixIcon
+       }" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+    <div class="input-wrapper">
+      <app-svg-icon *ngIf="prefixIcon" [name]="prefixIcon" class="prefix-icon" [ngClass]="prefixIconClass"
+        [class.prefix-icon-focused]="isFocused" [size]="20"></app-svg-icon>
+
+      <input class="modern-input" [ngClass]="inputClass" [ngStyle]="inputStyle" [formControl]="control"
+        [type]="inputType" [attr.title]="title" [readonly]="readonly" [maxlength]="maxLength" [minlength]="minLength"
+        [min]="min" [max]="max" [step]="step" [autocomplete]="autocomplete"
+        [placeholder]="shouldFloatLabel ? placeholder : ''" [attr.dir]="dir" (focus)="onFocus()" (blur)="onBlur()"
+        (input)="onInput($event)" />
+
+      <label *ngIf="!showLabel" class="floating-label" [ngClass]="{ 'floated': shouldFloatLabel }">{{ titleText }}</label>
+
+      <div class="suffix-icons">
+        <app-svg-icon *ngIf="showSearchIcon" name="search" class="search-icon" [size]="20"
+          (click)="onSearchClicked()"></app-svg-icon>
+        <app-svg-icon *ngIf="suffixIcon" [name]="suffixIcon" class="suffix-icon" [ngClass]="suffixIconClass"
+          (click)="onSuffixIconClick()" [size]="20"></app-svg-icon>
+      </div>
+    </div>
+    <div class="animated-border"></div>
+  </div>
+
+  <!-- Template-driven Forms -->
+  <div *ngIf="!control" class="modern-input-container" [ngClass]="{
+         'is-focused': isFocused,
+         'is-hovered': isHovered,
+         'has-value': hasValue,
+         'is-disabled': disabled,
+         'has-prefix-icon': !!prefixIcon
+       }" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+    <div class="input-wrapper">
+      <app-svg-icon *ngIf="prefixIcon" [name]="prefixIcon" class="prefix-icon" [ngClass]="prefixIconClass"
+        [class.prefix-icon-focused]="isFocused" [size]="20"></app-svg-icon>
+
+      <input class="modern-input" [ngClass]="inputClass" [ngStyle]="inputStyle" [(ngModel)]="selectedValue"
+        [type]="inputType" [attr.title]="title" [disabled]="disabled" [readonly]="readonly" [maxlength]="maxLength"
+        [minlength]="minLength" [min]="min" [max]="max" [step]="step" [autocomplete]="autocomplete"
+        [placeholder]="shouldFloatLabel ? placeholder : ''" [attr.dir]="dir"
+        (ngModelChange)="emitSelectedValueChange($event)" (focus)="onFocus()" (blur)="onBlur()"
+        (input)="onInput($event)" />
+
+      <label *ngIf="!showLabel" class="floating-label" [ngClass]="{ 'floated': shouldFloatLabel }">{{ titleText }}</label>
+
+      <div class="suffix-icons">
+        <app-svg-icon *ngIf="showSearchIcon" name="search" class="search-icon" [size]="20"
+          (click)="onSearchClicked()"></app-svg-icon>
+        <app-svg-icon *ngIf="suffixIcon" [name]="suffixIcon" class="suffix-icon" [ngClass]="suffixIconClass"
+          (click)="onSuffixIconClick()" [size]="20"></app-svg-icon>
+      </div>
+    </div>
+    <div class="animated-border"></div>
+  </div>
+
+  <!-- Help Text -->
+  <div *ngIf="helpText" class="input-help">
+    <small class="help-text">{{ helpText }}</small>
+  </div>
+</div>
+
+<!-- Footer: error + character count -->
+<div class="input-footer" *ngIf="showCharacterCount || hasError">
+  <div class="error-message" *ngIf="hasError">
+    <app-svg-icon name="error" class="error-icon" [size]="18"></app-svg-icon>
+    <span>{{ errorText }}</span>
+  </div>
+  <div class="char-count" *ngIf="showCharacterCount && maxLength && !hasError" [ngClass]="{
+         'char-count-warning': getCharacterCount() > (maxLength * 0.8),
+         'char-count-error': getCharacterCount() >= maxLength
+       }">
+    {{ getCharacterCount() }} / {{ maxLength }}
+  </div>
 </div>

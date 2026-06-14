@@ -1,0 +1,328 @@
+@use "../variables/variables";
+
+// Modern Checkbox Input Component Styles
+// Uses CSS custom properties + theme-dark mixin for consistent theming
+
+app-checkbox-input {
+  display: block;
+  width: 100%;
+
+  // ────────────── Base container ──────────────
+  .checkbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0.25rem 0;
+
+    &.rtl-layout {
+      direction: rtl;
+    }
+
+    &.ltr-layout {
+      direction: ltr;
+    }
+
+    &.checkbox-disabled {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+  }
+
+  // ── External label ──
+  app-mat-label {
+    display: block;
+    margin-bottom: 6px;
+
+    .mat-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+
+      @include variables.theme-dark {
+        color: var(--text-secondary);
+      }
+    }
+  }
+
+  // ────────────── Checkbox field container ──────────────
+  .checkbox-mat-form-field {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  // ────────────── MDC Checkbox (Angular Material 15+) ──────────────
+  .mat-mdc-checkbox {
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all variables.$transition-fast;
+
+    // Form field wrapper
+    .mdc-form-field {
+      align-items: flex-start;
+      gap: 0.375rem;
+    }
+
+    // Checkbox background (the box)
+    .mdc-checkbox__background {
+      border-color: var(--border-strong) !important;
+      border-width: 2px;
+      border-radius: 4px;
+      background: transparent !important;
+      transition: all variables.$transition-fast;
+      width: 18px;
+      height: 18px;
+
+      @include variables.theme-dark {
+        border-color: var(--border-strong) !important;
+        background: transparent !important;
+      }
+    }
+
+    // Checkmark
+    .mdc-checkbox__checkmark {
+      color: #fff !important;
+      width: 14px;
+      height: 14px;
+    }
+
+    // Mixedmark (indeterminate)
+    .mdc-checkbox__mixedmark {
+      border-color: #fff !important;
+      border-radius: 1px;
+    }
+
+    // Label
+    .mdc-label,
+    .checkbox-label {
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      user-select: none;
+      line-height: 1.5;
+      word-break: break-word;
+
+      @include variables.theme-dark {
+        color: var(--text-primary);
+      }
+    }
+
+    // Hide Material ripple
+    .mat-mdc-checkbox-ripple,
+    .mdc-checkbox__ripple {
+      display: none;
+    }
+
+    // Checked
+    &.mat-mdc-checkbox-checked {
+      .mdc-checkbox__background {
+        background-color: var(--org-primary-color) !important;
+        border-color: var(--org-primary-color) !important;
+      }
+    }
+
+    // Indeterminate
+    &.mat-mdc-checkbox-indeterminate {
+      .mdc-checkbox__background {
+        background-color: var(--org-primary-color) !important;
+        border-color: var(--org-primary-color) !important;
+      }
+    }
+
+    // Disabled
+    &.mat-mdc-checkbox-disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+
+      .mdc-checkbox__background {
+        border-color: var(--border-default) !important;
+        background: var(--bg-muted) !important;
+      }
+
+      .mdc-label,
+      .checkbox-label {
+        color: var(--text-muted) !important;
+        cursor: not-allowed;
+      }
+    }
+
+    // Focus
+    &:focus-within,
+    &.cdk-keyboard-focused {
+      .mdc-checkbox__background {
+        box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb), 0.2);
+        outline: none;
+      }
+    }
+
+    // Hover
+    &:hover:not(.mat-mdc-checkbox-disabled) {
+      .mdc-checkbox__background {
+        border-color: rgba(var(--org-primary-rgb), 0.6) !important;
+      }
+    }
+
+    // -- Color variants --
+    &.mat-accent {
+
+      &.mat-mdc-checkbox-checked,
+      &.mat-mdc-checkbox-indeterminate {
+        .mdc-checkbox__background {
+          background-color: var(--org-accent-color) !important;
+          border-color: var(--org-accent-color) !important;
+        }
+      }
+    }
+
+    &.mat-warn {
+
+      &.mat-mdc-checkbox-checked,
+      &.mat-mdc-checkbox-indeterminate {
+        .mdc-checkbox__background {
+          background-color: variables.$accent-danger !important;
+          border-color: variables.$accent-danger !important;
+        }
+      }
+    }
+  }
+
+  // ────────────── Error text ──────────────
+  .checkbox-error {
+    margin-top: 0.25rem;
+
+    .error-text {
+      color: variables.$accent-danger;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      font-weight: 400;
+    }
+  }
+
+  // ────────────── Help text ──────────────
+  .checkbox-help {
+    margin-top: 0.25rem;
+
+    .help-text {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.4;
+      font-weight: 400;
+
+      @include variables.theme-dark {
+        color: var(--text-muted);
+      }
+    }
+  }
+
+  // ────────────── Validation states ──────────────
+  .checkbox-mat-form-field {
+    &.ng-invalid.ng-touched {
+      .mat-mdc-checkbox .mdc-checkbox__background {
+        border-color: variables.$accent-danger !important;
+      }
+    }
+
+    &.ng-valid.ng-touched {
+      .mat-mdc-checkbox .mdc-checkbox__background {
+        border-color: variables.$accent-success !important;
+      }
+    }
+  }
+
+  // ────────────── Size variations ──────────────
+  &.checkbox-small {
+    .mat-mdc-checkbox {
+      .mdc-checkbox__background {
+        width: 16px;
+        height: 16px;
+
+        .mdc-checkbox__checkmark {
+          width: 12px;
+          height: 12px;
+        }
+      }
+
+      .mdc-label,
+      .checkbox-label {
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  &.checkbox-large {
+    .mat-mdc-checkbox {
+      .mdc-checkbox__background {
+        width: 22px;
+        height: 22px;
+
+        .mdc-checkbox__checkmark {
+          width: 18px;
+          height: 18px;
+        }
+      }
+
+      .mdc-label,
+      .checkbox-label {
+        font-size: 1.125rem;
+      }
+    }
+  }
+
+  // ────────────── Mobile ──────────────
+  @media (max-width: variables.$breakpoint-md) {
+    .mat-mdc-checkbox {
+      .mdc-checkbox__background {
+        width: 20px;
+        height: 20px;
+      }
+
+      .mdc-label,
+      .checkbox-label {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+    }
+
+    .checkbox-error .error-text,
+    .checkbox-help .help-text {
+      font-size: 0.9rem;
+    }
+  }
+
+  // ────────────── High contrast ──────────────
+  @media (prefers-contrast: high) {
+    .mat-mdc-checkbox .mdc-checkbox__background {
+      border-width: 3px !important;
+    }
+  }
+
+  // ────────────── Reduced motion ──────────────
+  @media (prefers-reduced-motion: reduce) {
+
+    .mat-mdc-checkbox,
+    .mat-mdc-checkbox .mdc-checkbox__background {
+      transition: none !important;
+    }
+  }
+
+  // ────────────── Print ──────────────
+  @media print {
+    .mat-mdc-checkbox {
+      .mdc-checkbox__background {
+        border-color: #000 !important;
+      }
+
+      &.mat-mdc-checkbox-checked .mdc-checkbox__background {
+        background-color: #000 !important;
+      }
+
+      .mdc-label,
+      .checkbox-label {
+        color: #000 !important;
+      }
+    }
+  }
+}

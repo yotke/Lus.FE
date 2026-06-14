@@ -1,0 +1,53 @@
+@use "sass:map";
+/* =====================  ALERTS ===================== */
+$alert-danger: #B9494A;
+$alert-warning: #D97706;
+$alert-success: #16A34A;
+$alert-info: #1664A3;
+
+$alert-bg-danger: #FAEFED;
+$alert-bg-warning: #FFF9ED;
+$alert-bg-success: #F2F8F4;
+$alert-bg-info: #E7EFFA;
+
+$alert-ink-muted: #243B42;
+
+$alert-fg-map: (
+    danger: $alert-danger,
+    warning: $alert-warning,
+    success: $alert-success,
+    info: $alert-info
+);
+$alert-bg-map: (
+    danger: $alert-bg-danger,
+    warning: $alert-bg-warning,
+    success: $alert-bg-success,
+    info: $alert-bg-info
+);
+
+@mixin alert($kind, $radius: 8px) {
+    $fg: map.get($alert-fg-map, $kind);
+    $bg: map.get($alert-bg-map, $kind);
+
+    background-color: $bg;
+    border: 1px solid rgba($fg, 0.35);
+    border-radius: $radius;
+    color: #0B0D0E;
+
+    --alert-fg: #{$fg};
+    --alert-bg: #{$bg};
+}
+
+@mixin alert-title($kind) {
+    color: map.get($alert-fg-map, $kind);
+    font-weight: 600;
+}
+
+@mixin alert-icon($kind) {
+    color: map.get($alert-fg-map, $kind);
+}
+
+@mixin alert-link($kind) {
+    color: map.get($alert-fg-map, $kind);
+    text-decoration: underline;
+}

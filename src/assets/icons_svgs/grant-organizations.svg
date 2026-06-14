@@ -1,0 +1,13 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Unified Org Skyline (Left Sub-org, Tall Center Grant Org, Right Sub-org) -->
+  <path d="M2 21V13L5 10L8 13V7L12 3L16 7V13L19 10L22 13V21Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Network Doors -->
+  <path d="M10 21V16H14V21M4 21V17H6V21M18 21V17H20V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Center Org Windows -->
+  <path d="M12 9H12.01M12 12H12.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  
+  <!-- Sub-Org Windows -->
+  <path d="M5 14H5.01M19 14H19.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+</svg>

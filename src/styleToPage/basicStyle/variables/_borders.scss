@@ -1,0 +1,29 @@
+@use "sass:map";
+/* =====================  BORDER / SURFACE ===================== */
+$border-stroke: #171515;
+$border-ink: #333333;
+
+$neutral-400: #D4D4D4;
+$neutral-300: #E5E5E5;
+$neutral-100: #FAFAFA;
+$neutral-0: #FFFFFF;
+
+$border-strong: $border-stroke;
+$border-default: $neutral-300;
+$border-subtle: $neutral-400;
+$border-soft: $neutral-100;
+
+$surface-base: $neutral-0;
+$surface-muted: $neutral-100;
+
+$borders: (
+    strong: $border-strong,
+    default: $border-default,
+    subtle: $border-subtle,
+    soft: $border-soft,
+    ink: $border-ink
+);
+
+@mixin use-border($key, $width: 1px, $style: solid) {
+    border: $width $style map.get($borders, $key);
+}

@@ -1,0 +1,981 @@
+@use '../variables/variables.scss';
+
+// Modern Date Picker Component Styles
+// Maintains all functionality while providing contemporary Angular Material design
+
+/* ===============================
+   MODERN DATE PICKER CONTAINER STYLES
+   =============================== */
+
+app-date-picker {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  .date-container {
+    width: 100%;
+    position: relative;
+
+    &.rtl-layout {
+      direction: rtl;
+    }
+
+    &.ltr-layout {
+      direction: ltr;
+    }
+
+    &.date-disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+
+  .date-mat-form-field {
+    width: 100%;
+    position: relative;
+    background: variables.$surface-base;
+    border: 2px solid variables.$border-default;
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: visible;
+    min-height: 56px;
+
+    @include variables.theme-dark {
+      background: variables.theme-get(bg-elevated, dark);
+      border-color: variables.theme-get(border-subtle, dark);
+    }
+
+    // Remove Material's default styling completely
+    .mat-mdc-text-field-wrapper {
+      padding: 0 !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+
+      .mat-mdc-form-field-focus-overlay {
+        display: none !important;
+      }
+
+      .mdc-line-ripple {
+        display: none !important;
+      }
+
+      .mat-mdc-form-field-flex {
+        padding: 0 16px;
+        align-items: center;
+        min-height: 56px;
+        background: transparent !important;
+
+        .mat-mdc-form-field-infix {
+          padding: 12px 0;
+          border: none;
+          position: relative;
+          min-height: auto;
+
+          .mat-mdc-input-element {
+            font-size: 16px;
+            color: variables.$color-gray-5;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0;
+            font-family: variables.$font-family-base;
+            font-weight: 400;
+            line-height: 1.5;
+            cursor: pointer;
+
+            @include variables.theme-dark {
+              color: variables.theme-get(text-primary, dark);
+            }
+
+            &::placeholder {
+              color: transparent;
+              transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            // RTL alignment
+            &[dir="rtl"] {
+              text-align: right;
+            }
+
+            &:disabled {
+              cursor: not-allowed;
+              color: variables.$color-gray-3;
+
+              @include variables.theme-dark {
+                color: variables.theme-get(text-muted, dark);
+              }
+            }
+          }
+
+          // Internal Material label (when showLabel=false)
+          .mdc-floating-label {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: transparent;
+            padding: 0 4px;
+            z-index: 2;
+            opacity: 1;
+
+            @include variables.theme-dark {
+              color: variables.theme-get(text-secondary, dark);
+            }
+
+            &.mdc-floating-label--float-above {
+              top: 0;
+              transform: translateY(-50%) scale(0.85);
+              color: var(--text-secondary);
+              background-color: variables.$surface-base;
+
+              @include variables.theme-dark {
+                color: var(--text-secondary);
+                background-color: variables.theme-get(bg-elevated, dark);
+              }
+            }
+          }
+        }
+
+        // Suffix (datepicker toggle)
+        .mat-mdc-form-field-icon-suffix {
+          display: flex;
+          align-items: center;
+          margin-left: 8px;
+
+          .mat-datepicker-toggle {
+            .mdc-icon-button {
+              width: 32px;
+              height: 32px;
+              border-radius: 8px;
+              background: transparent;
+              border: none;
+              color: var(--text-muted);
+              transition: all 0.2s ease;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0;
+
+              &:hover:not(:disabled) {
+                background-color: rgba(var(--org-primary-rgb), 0.1);
+                color: var(--org-primary-color);
+                transform: scale(1.05);
+
+                @include variables.theme-dark {
+                  background-color: rgba(var(--org-primary-light-rgb), 0.15);
+                  color: var(--org-primary-light);
+                }
+              }
+
+              &:active {
+                transform: scale(0.98);
+              }
+
+              &:disabled {
+                color: variables.$color-gray-3;
+                cursor: not-allowed;
+
+                @include variables.theme-dark {
+                  color: variables.theme-get(text-muted, dark);
+                }
+              }
+
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+
+              // Hide Material's ripple effects
+              .mat-mdc-button-persistent-ripple,
+              .mat-ripple,
+              .mat-mdc-focus-indicator {
+                display: none !important;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Remove Material's subscript wrapper - errors handled outside
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+
+    // Hover state
+    &:hover:not(.mat-focused):not(.has-error):not(.is-disabled) {
+      border-color: rgba(var(--org-primary-rgb), 0.5);
+      background-color: rgba(var(--org-primary-rgb), 0.02);
+      box-shadow: 0 2px 8px rgba(var(--org-primary-rgb), 0.08);
+
+      @include variables.theme-dark {
+        border-color: rgba(var(--org-primary-light-rgb), 0.5);
+        background-color: rgba(var(--org-primary-light-rgb), 0.05);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    // Focused state
+    &.mat-focused,
+    &.mat-form-field-should-float {
+      border-color: var(--org-primary-color);
+      background-color: rgba(var(--org-primary-rgb), 0.04);
+      box-shadow: 0 0 0 3px rgba(var(--org-primary-rgb), 0.12);
+      outline: none;
+
+      @include variables.theme-dark {
+        border-color: var(--org-primary-light);
+        background-color: rgba(var(--org-primary-light-rgb), 0.08);
+        box-shadow: 0 0 0 3px rgba(var(--org-primary-light-rgb), 0.2);
+      }
+
+      .mat-mdc-text-field-wrapper {
+        .mat-mdc-form-field-flex {
+          .mat-mdc-form-field-infix {
+            .mat-mdc-input-element::placeholder {
+              color: var(--text-muted);
+            }
+          }
+        }
+      }
+
+      .mdc-floating-label {
+        color: var(--text-secondary) !important;
+        top: 0;
+        transform: translateY(-50%) scale(0.85);
+        background-color: variables.$surface-base;
+
+        @include variables.theme-dark {
+          color: var(--text-secondary) !important;
+          background-color: variables.theme-get(bg-elevated, dark);
+        }
+      }
+    }
+
+    // Has value state
+    &.has-value {
+      .mdc-floating-label {
+        top: 0;
+        transform: translateY(-50%) scale(0.85);
+        color: var(--text-secondary);
+        background-color: variables.$surface-base;
+
+        @include variables.theme-dark {
+          color: var(--text-secondary);
+          background-color: variables.theme-get(bg-elevated, dark);
+        }
+      }
+    }
+
+    // When Material detects floating state
+    &.mat-form-field-should-float .mdc-floating-label,
+    &.mat-mdc-form-field-label-floating .mdc-floating-label {
+      transform: translateY(-22px) scale(0.85) !important;
+      color: var(--text-secondary);
+    }
+
+    // Error state
+    &.has-error,
+    &.mat-form-field-invalid {
+      border-color: variables.$alert-danger;
+      background-color: rgba(variables.$alert-danger, 0.04);
+      box-shadow: 0 0 0 3px rgba(variables.$alert-danger, 0.12);
+
+      .mdc-floating-label {
+        color: variables.$alert-danger !important;
+      }
+
+      .mat-mdc-form-field-icon-suffix {
+        .mat-datepicker-toggle {
+          .mdc-icon-button {
+            color: variables.$alert-danger;
+
+            &:hover:not(:disabled) {
+              background-color: rgba(variables.$alert-danger, 0.1);
+            }
+          }
+        }
+      }
+    }
+
+    // Disabled state
+    &.is-disabled,
+    &.mat-form-field-disabled {
+      background-color: rgba(variables.$color-gray-2, 0.5);
+      border-color: variables.$color-gray-2;
+      cursor: not-allowed;
+      opacity: 0.6;
+
+      @include variables.theme-dark {
+        background-color: rgba(variables.theme-get(bg-muted, dark), 0.5);
+        border-color: variables.theme-get(border-subtle, dark);
+      }
+
+      .mdc-floating-label {
+        color: variables.$color-gray-3 !important;
+      }
+
+      .mat-mdc-text-field-wrapper {
+        .mat-mdc-form-field-flex {
+          .mat-mdc-form-field-infix {
+            .mat-mdc-input-element {
+              color: variables.$color-gray-3;
+              cursor: not-allowed;
+            }
+          }
+
+          .mat-mdc-form-field-icon-suffix {
+            .mat-datepicker-toggle {
+              .mdc-icon-button {
+                color: variables.$color-gray-3;
+                cursor: not-allowed;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // RTL adjustments
+    &[dir="rtl"] {
+      .mat-mdc-text-field-wrapper {
+        .mat-mdc-form-field-flex {
+          .mat-mdc-form-field-icon-suffix {
+            margin-right: 8px;
+            margin-left: 0;
+          }
+
+          .mat-mdc-form-field-infix {
+            .mdc-floating-label {
+              right: 0;
+              left: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .date-help {
+    margin-top: 4px;
+
+    .help-text {
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.4;
+
+      @include variables.theme-dark {
+        color: variables.theme-get(text-secondary, dark);
+      }
+    }
+  }
+
+  /* ===============================
+     EXTERNAL LABEL STYLING
+     =============================== */
+
+  app-mat-label {
+    display: block;
+    margin-bottom: 8px;
+
+    .mat-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.025em;
+
+      @include variables.theme-dark {
+        color: variables.theme-get(text-primary, dark);
+      }
+    }
+  }
+}
+
+/* ===============================
+   MATERIAL DATEPICKER PANEL STYLING
+   =============================== */
+
+// Global datepicker panel styling
+.mat-datepicker-content {
+  background: variables.$surface-base;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(variables.$border-default, 0.3);
+  overflow: hidden;
+
+  @include variables.theme-dark {
+    background: variables.theme-get(bg-card, dark);
+    border-color: variables.theme-get(border-subtle, dark);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  // Override Material's fixed 354px calendar height so our custom padding
+  // (16px vs default 8px) doesn't cause calendar rows to overflow.
+  // !important needed because Angular injects component styles after global ones.
+  .mat-calendar {
+    height: auto !important;
+    background: variables.$surface-base;
+
+    @include variables.theme-dark {
+      background: variables.theme-get(bg-card, dark);
+    }
+
+    .mat-calendar-header {
+      background: rgba(var(--org-primary-rgb), 0.04);
+      padding: 16px;
+
+      @include variables.theme-dark {
+        background: rgba(var(--org-primary-light-rgb), 0.1);
+      }
+
+      .mat-calendar-controls {
+        .mat-calendar-period-button {
+          color: var(--org-primary-color);
+          font-weight: 600;
+          background: none;
+          border: none;
+          font-size: 16px;
+
+          @include variables.theme-dark {
+            color: var(--org-primary-light);
+          }
+
+          &:hover {
+            background-color: rgba(var(--org-primary-rgb), 0.1);
+            border-radius: 8px;
+
+            @include variables.theme-dark {
+              background-color: rgba(var(--org-primary-light-rgb), 0.15);
+            }
+          }
+        }
+
+        .mat-calendar-previous-button,
+        .mat-calendar-next-button {
+          color: var(--org-primary-color);
+          background: none;
+          border: none;
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+
+          @include variables.theme-dark {
+            color: var(--org-primary-light);
+          }
+
+          &:hover:not(:disabled) {
+            background-color: rgba(var(--org-primary-rgb), 0.1);
+
+            @include variables.theme-dark {
+              background-color: rgba(var(--org-primary-light-rgb), 0.15);
+            }
+          }
+
+          &:disabled {
+            color: variables.$color-gray-3;
+
+            @include variables.theme-dark {
+              color: variables.theme-get(text-muted, dark);
+            }
+          }
+        }
+      }
+    }
+
+    .mat-calendar-content {
+      padding: 16px;
+
+      .mat-calendar-table {
+        .mat-calendar-table-header {
+          th {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(variables.$border-default, 0.3);
+
+            @include variables.theme-dark {
+              color: variables.theme-get(text-secondary, dark);
+              border-bottom-color: variables.theme-get(border-subtle, dark);
+            }
+          }
+        }
+
+        .mat-calendar-body {
+          .mat-calendar-body-cell {
+            position: relative;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+
+            &:hover:not(.mat-calendar-body-disabled) {
+              background-color: rgba(var(--org-primary-rgb), 0.08);
+
+              @include variables.theme-dark {
+                background-color: rgba(var(--org-primary-light-rgb), 0.15);
+              }
+            }
+
+            &.mat-calendar-body-selected {
+              background-color: var(--org-primary-color) !important;
+              color: white !important;
+              font-weight: 600;
+
+              @include variables.theme-dark {
+                background-color: var(--org-primary-light) !important;
+              }
+
+              &:hover {
+                background-color: var(--org-primary-dark) !important;
+
+                @include variables.theme-dark {
+                  background-color: var(--org-primary-color) !important;
+                }
+              }
+            }
+
+            &.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+              border: 2px solid var(--org-primary-color);
+              background-color: rgba(var(--org-primary-rgb), 0.08);
+              color: var(--org-primary-color);
+              font-weight: 600;
+
+              @include variables.theme-dark {
+                border-color: var(--org-primary-light);
+                background-color: rgba(var(--org-primary-light-rgb), 0.15);
+                color: var(--org-primary-light);
+              }
+            }
+
+            &.mat-calendar-body-disabled {
+              color: variables.$color-gray-3;
+              cursor: not-allowed;
+
+              @include variables.theme-dark {
+                color: variables.theme-get(text-muted, dark);
+              }
+            }
+
+            .mat-calendar-body-cell-content {
+              border-radius: 8px;
+              width: 32px;
+              height: 32px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 14px;
+              transition: all 0.2s ease;
+
+              @include variables.theme-dark {
+                color: variables.theme-get(text-primary, dark);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Datepicker toggle animation
+.mat-datepicker-toggle-active {
+  .mat-icon-button {
+    color: var(--org-primary-color) !important;
+    background-color: rgba(var(--org-primary-rgb), 0.1) !important;
+  }
+}
+
+/* ===============================
+   RTL DATEPICKER SUPPORT
+   =============================== */
+
+[dir="rtl"] {
+  app-date-picker {
+    .date-mat-form-field {
+      .mat-form-field-wrapper {
+        .mat-form-field-flex {
+          .mat-form-field-infix {
+            .mat-input-element {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mat-datepicker-content {
+    .mat-calendar {
+      .mat-calendar-header {
+        .mat-calendar-controls {
+          direction: rtl;
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   CONTACT FORM VARIANT
+   =============================== */
+
+.contact {
+  .contact__form {
+    app-date-picker {
+      &.contact-date-picker {
+        margin-bottom: 1.5rem;
+
+        .date-mat-form-field {
+          border-radius: 8px;
+
+          &.mat-focused {
+            box-shadow: 0 0 0 2px rgba(var(--org-primary-rgb), 0.15);
+          }
+
+          &.has-error {
+            box-shadow: 0 0 0 2px rgba(variables.$alert-danger, 0.15);
+          }
+
+          .mat-form-field-label {
+            &.mat-form-field-empty {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+
+    .field {
+      &.date-picker {
+        margin-bottom: 1.5rem;
+
+        &.is-invalid {
+          app-date-picker {
+            .date-mat-form-field {
+              border-color: variables.$alert-danger !important;
+              background-color: rgba(variables.$alert-danger, 0.04) !important;
+              box-shadow: 0 0 0 3px rgba(variables.$alert-danger, 0.12) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   SIZE VARIANTS
+   =============================== */
+
+app-date-picker {
+  &.date-picker-small {
+    .date-mat-form-field {
+      min-height: 40px;
+
+      .mat-form-field-wrapper {
+        .mat-form-field-flex {
+          min-height: 40px;
+          padding: 0 12px;
+
+          .mat-form-field-infix {
+            padding: 8px 0;
+
+            .mat-input-element {
+              font-size: 14px;
+            }
+
+            .mat-form-field-label {
+              font-size: 14px;
+            }
+          }
+
+          .mat-form-field-suffix {
+            .mat-datepicker-toggle {
+              .mat-icon-button {
+                width: 28px;
+                height: 28px;
+
+                .mat-icon {
+                  font-size: 18px;
+                  width: 18px;
+                  height: 18px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.date-picker-large {
+    .date-mat-form-field {
+      min-height: 64px;
+
+      .mat-form-field-wrapper {
+        .mat-form-field-flex {
+          min-height: 64px;
+          padding: 0 20px;
+
+          .mat-form-field-infix {
+            padding: 16px 0;
+
+            .mat-input-element {
+              font-size: 18px;
+            }
+
+            .mat-form-field-label {
+              font-size: 18px;
+
+              &.mat-form-field-can-float.mat-form-field-should-float {
+                transform: translateY(-50%) scale(0.75);
+              }
+            }
+          }
+
+          .mat-form-field-suffix {
+            .mat-datepicker-toggle {
+              .mat-icon-button {
+                width: 36px;
+                height: 36px;
+
+                .mat-icon {
+                  font-size: 22px;
+                  width: 22px;
+                  height: 22px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   ACCESSIBILITY FEATURES
+   =============================== */
+
+@media (prefers-contrast: high) {
+  app-date-picker {
+    .date-mat-form-field {
+      border-width: 3px;
+
+      &.mat-focused {
+        border-width: 4px;
+      }
+
+      &.has-error {
+        border-width: 4px;
+      }
+    }
+  }
+
+  .mat-datepicker-content {
+    border-width: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  app-date-picker {
+
+    .date-mat-form-field,
+    .mat-form-field-label,
+    .mat-datepicker-toggle .mat-icon-button {
+      transition: none !important;
+    }
+  }
+
+  .mat-datepicker-content {
+    .mat-calendar {
+      .mat-calendar-body {
+        .mat-calendar-body-cell {
+          transition: none !important;
+
+          .mat-calendar-body-cell-content {
+            transition: none !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   RESPONSIVE BEHAVIOR
+   =============================== */
+
+@media (max-width: 1024px) {
+  app-date-picker {
+    .date-mat-form-field {
+      min-height: 48px;
+
+      .mat-form-field-wrapper {
+        .mat-form-field-flex {
+          min-height: 48px;
+          padding: 0 14px;
+
+          .mat-form-field-infix {
+            padding: 10px 0;
+
+            .mat-input-element {
+              font-size: 15px;
+            }
+
+            .mat-form-field-label {
+              font-size: 15px;
+            }
+          }
+
+          .mat-form-field-suffix {
+            .mat-datepicker-toggle {
+              .mat-icon-button {
+                width: 30px;
+                height: 30px;
+
+                .mat-icon {
+                  font-size: 18px;
+                  width: 18px;
+                  height: 18px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mat-datepicker-content {
+    .mat-calendar {
+      .mat-calendar-content {
+        padding: 12px;
+
+        .mat-calendar-table {
+          .mat-calendar-body {
+            .mat-calendar-body-cell {
+              .mat-calendar-body-cell-content {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   FOCUS MANAGEMENT
+   =============================== */
+
+app-date-picker {
+  .mat-form-field-wrapper {
+    .mat-form-field-flex {
+      .mat-form-field-infix {
+
+        .mat-input-element:focus,
+        .mat-input-element:focus-visible {
+          outline: none !important;
+          box-shadow: none !important;
+        }
+      }
+    }
+  }
+}
+
+/* ===============================
+   CUSTOM DATE FORMATS
+   =============================== */
+
+// Hebrew/RTL date format support
+[dir="rtl"] app-date-picker {
+  .date-mat-form-field {
+    .mat-form-field-wrapper {
+      .mat-form-field-flex {
+        .mat-form-field-infix {
+          .mat-input-element {
+            direction: ltr; // Dates are typically LTR even in RTL context
+            text-align: center; // Center the date for better visual balance
+          }
+        }
+      }
+    }
+  }
+}
+
+// Custom date validation styling
+app-date-picker {
+  .date-mat-form-field {
+    &.mat-form-field-invalid {
+      .mat-form-field-wrapper {
+        .mat-form-field-subscript-wrapper {
+          .mat-error {
+            animation: fadeInError 0.3s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeInError {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   UTILITY CLASSES
+   =============================== */
+
+.date-picker-inline {
+  app-date-picker {
+    margin-bottom: 0;
+  }
+}
+
+.date-picker-compact {
+  app-date-picker {
+    .date-mat-form-field {
+      .mat-form-field-wrapper {
+        .mat-form-field-flex {
+          .mat-form-field-suffix {
+            margin-left: 4px;
+
+            .mat-datepicker-toggle {
+              .mat-icon-button {
+                width: 24px;
+                height: 24px;
+
+                .mat-icon {
+                  font-size: 16px;
+                  width: 16px;
+                  height: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

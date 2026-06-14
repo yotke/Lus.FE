@@ -1,0 +1,16 @@
+/* =====================  GRADIENTS ===================== */
+$grad-teal-mist: linear-gradient(145deg, #F7FDFD 0%, #5CAEAE 100%);
+$grad-teal-mist-soft: linear-gradient(145deg, rgba(247, 253, 253, 0.5) 0%, rgba(92, 174, 174, 0.5) 100%);
+
+:root {
+    --grad-teal-mist: #{$grad-teal-mist};
+    --grad-teal-mist-soft: #{$grad-teal-mist-soft};
+}
+
+.bg-grad-teal-mist {
+    background: var(--grad-teal-mist);
+}
+
+.bg-grad-teal-mist--soft {
+    background: var(--grad-teal-mist-soft);
+}

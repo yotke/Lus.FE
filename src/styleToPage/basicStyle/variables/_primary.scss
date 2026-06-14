@@ -1,0 +1,43 @@
+@use "sass:map";
+/* =====================  PRIMARY BLUE SCALE  ===================== */
+$primary-900: #243B42;
+$primary-800: #2A5360;
+$primary-700: #2A6474;
+$primary-600: #2B8A9C;
+$primary-500: #33A3B5; // Added missing shade
+$primary-400: #4FB5C7; // Added missing shade
+$primary-300: #6BC7D9; // Added missing shade
+$primary-200: #87D9EB; // Added missing shade
+$primary-100: #E5F5F5;
+$primary-050: #EAF0F2;
+
+$primary-ink-muted: #243B42;
+
+$brand-primary: $primary-600;
+$brand-primary-dk: $primary-800;
+$brand-primary-lt: $primary-100;
+
+$primary-scale: (
+    900: $primary-900,
+    800: $primary-800,
+    700: $primary-700,
+    600: $primary-600,
+    500: $primary-500,
+    400: $primary-400,
+    300: $primary-300,
+    200: $primary-200,
+    100: $primary-100,
+    050: $primary-050
+);
+
+@mixin bg-primary($shade: 600) {
+    background-color: map.get($primary-scale, $shade);
+}
+
+@mixin text-primary($shade: 600) {
+    color: map.get($primary-scale, $shade);
+}
+
+@mixin border-primary($shade: 600, $width: 1px, $style: solid) {
+    border: $width $style map.get($primary-scale, $shade);
+}

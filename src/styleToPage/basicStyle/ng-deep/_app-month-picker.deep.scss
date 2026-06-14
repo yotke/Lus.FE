@@ -1,0 +1,480 @@
+// @import '../variables';
+
+// // temporary alias for legacy deep styles that expect this name
+// $disabled-text-color: $text-color-disabled !default;
+
+// // ────────────── Date Picker Component ──────────────
+// app-month-picker {
+//     display: block;
+//     width: 100%;
+
+//     // ────────────── Base date container ──────────────
+//     .date-container {
+//         display: flex;
+//         flex-direction: column;
+//         gap: 0.5rem;
+//         margin: 0.25rem 0;
+
+//         // RTL/LTR layout adjustments
+//         &.rtl-layout {
+//             direction: rtl;
+
+//             .date-mat-form-field {
+//                 .mat-mdc-form-field-infix {
+//                     text-align: right;
+//                 }
+
+//                 .mat-datepicker-toggle {
+//                     margin-left: 0;
+//                     margin-right: 0.5rem;
+//                 }
+//             }
+//         }
+
+//         &.ltr-layout {
+//             direction: ltr;
+
+//             .date-mat-form-field {
+//                 .mat-mdc-form-field-infix {
+//                     text-align: left;
+//                 }
+
+//                 .mat-datepicker-toggle {
+//                     margin-right: 0;
+//                     margin-left: 0.5rem;
+//                 }
+//             }
+//         }
+
+//         // Disabled state
+//         &.date-disabled,
+//         &.month-picker-disabled {
+//             opacity: 0.6;
+//             pointer-events: none;
+//         }
+//     }
+
+//     // ────────────── Material form field styling ──────────────
+//     .date-mat-form-field {
+//         width: 100%;
+
+//         .mat-mdc-form-field {
+//             width: 100%;
+
+//             // Container styling
+//             .mat-mdc-form-field-infix {
+//                 min-height: $form-field-min-height;
+//                 padding: 0.5rem 0;
+//                 border-top: none;
+//             }
+
+//             // Input styling
+//             .mat-mdc-input-element {
+//                 height: auto;
+//                 padding: 0.75rem 0.75rem;
+//                 font-size: 1rem;
+//                 border: $border-width solid $border-gray;
+//                 border-radius: $border-radius;
+//                 background-color: $white;
+//                 color: $text-color;
+//                 transition: border-color $transition-base, box-shadow $transition-base;
+
+//                 &::placeholder {
+//                     color: $placeholder-color;
+//                     opacity: 1;
+//                 }
+
+//                 &:focus {
+//                     border-color: $focus-border-color;
+//                     box-shadow: $focus-shadow;
+//                     outline: none;
+//                 }
+
+//                 &:disabled {
+//                     background-color: $disabled-bg-color;
+//                     color: $text-color-disabled;
+//                     border-color: $disabled-border-color;
+//                     cursor: not-allowed;
+//                 }
+
+//                 &[readonly] {
+//                     cursor: pointer;
+//                     background-color: $white;
+//                 }
+//             }
+
+//             // Label styling
+//             .mat-mdc-form-field-label {
+//                 color: $text-color-secondary;
+//                 font-size: 1rem;
+
+//                 &.mat-mdc-form-field-label-floating {
+//                     font-size: 0.875rem;
+//                     color: $focus-border-color;
+//                 }
+//             }
+
+//             // Outline / ripple cleanup (optional)
+//             .mdc-line-ripple {
+//                 display: none;
+//             }
+
+//             // Datepicker toggle styling
+//             .mat-datepicker-toggle {
+//                 .mat-datepicker-toggle-default-icon {
+//                     color: $icon-color;
+//                     width: 1.25rem;
+//                 }
+
+//                 &:hover .mat-datepicker-toggle-default-icon {
+//                     color: $primary-color;
+//                 }
+
+//                 &[disabled] .mat-datepicker-toggle-default-icon {
+//                     color: $icon-color-disabled;
+//                 }
+//             }
+
+//             // Error state
+//             &.mat-mdc-form-field-invalid {
+//                 .mat-mdc-input-element {
+//                     border-color: $error-color;
+//                     box-shadow: $error-shadow;
+//                 }
+
+//                 .mat-mdc-form-field-label {
+//                     color: $error-color;
+//                 }
+//             }
+
+//             // Success state
+//             &.mat-mdc-form-field-valid.ng-touched {
+//                 .mat-mdc-input-element {
+//                     border-color: $success-color;
+//                 }
+//             }
+//         }
+
+//         // Hidden field styling for month picker
+//         .hide-filed {
+//             position: absolute !important;
+//             left: -9999px !important;
+//             visibility: hidden !important;
+//             opacity: 0 !important;
+//         }
+//     }
+
+//     // ────────────── Error message styling ──────────────
+//     .mat-mdc-form-field-error {
+//         color: $error-color;
+//         font-size: 0.875rem;
+//         line-height: 1.4;
+//         margin-top: 0.25rem;
+//     }
+
+//     // ────────────── Help text styling ──────────────
+//     .date-help {
+//         margin-top: 0.25rem;
+
+//         .help-text {
+//             color: $help-text-color;
+//             font-size: 0.875rem;
+//             line-height: 1.4;
+//             display: block;
+//             font-weight: 400;
+//         }
+//     }
+
+//     // ────────────── Size variations ──────────────
+//     &.date-small {
+//         .date-mat-form-field .mat-mdc-form-field {
+//             .mat-mdc-input-element {
+//                 padding: 0.5rem;
+//                 font-size: 0.875rem;
+//             }
+
+//             .mat-mdc-form-field-infix {
+//                 min-height: 2rem;
+//             }
+//         }
+//     }
+
+//     &.date-large {
+//         .date-mat-form-field .mat-mdc-form-field {
+//             .mat-mdc-input-element {
+//                 padding: 1rem;
+//                 font-size: 1.125rem;
+//             }
+
+//             .mat-mdc-form-field-infix {
+//                 min-height: 3.5rem;
+//             }
+//         }
+//     }
+
+//     // Density helper (compact)
+//     &.date-dense {
+//         .date-mat-form-field .mat-mdc-form-field {
+//             .mat-mdc-input-element {
+//                 padding: 0.45rem 0.6rem;
+//                 font-size: 0.95rem;
+//             }
+
+//             .mat-mdc-form-field-infix {
+//                 min-height: 2.25rem;
+//             }
+//         }
+//     }
+
+//     // ────────────── Focus and interaction states ──────────────
+//     .date-mat-form-field {
+//         .mat-mdc-form-field:focus-within {
+//             .mat-mdc-input-element {
+//                 border-color: $focus-border-color;
+//                 box-shadow: $focus-shadow;
+//             }
+//         }
+//     }
+
+//     // ────────────── High contrast mode ──────────────
+//     @media (prefers-contrast: high) {
+//         .date-mat-form-field .mat-mdc-form-field .mat-mdc-input-element {
+//             border-width: 2px !important;
+//         }
+//     }
+
+//     // ────────────── Reduced motion ──────────────
+//     @media (prefers-reduced-motion: reduce) {
+//         .date-mat-form-field .mat-mdc-form-field .mat-mdc-input-element {
+//             transition: none !important;
+//         }
+//     }
+
+//     // ────────────── Dark theme support ──────────────
+//     @media (prefers-color-scheme: dark) {
+//         .date-mat-form-field {
+//             .mat-mdc-form-field {
+//                 .mat-mdc-input-element {
+//                     background-color: $dark-bg-color;
+//                     color: $dark-text-color;
+//                     border-color: $dark-border-color;
+
+//                     &::placeholder {
+//                         color: $dark-placeholder-color;
+//                     }
+
+//                     &:disabled {
+//                         background-color: $dark-surface-color;
+//                         color: $dark-disabled-text-color;
+//                         border-color: $dark-disabled-border-color;
+//                     }
+//                 }
+
+//                 .mat-mdc-form-field-label {
+//                     color: $dark-text-secondary;
+
+//                     &.mat-mdc-form-field-label-floating {
+//                         color: $primary-color;
+//                     }
+//                 }
+//             }
+
+//             .mat-datepicker-toggle .mat-datepicker-toggle-default-icon {
+//                 color: $dark-icon-color;
+//             }
+
+//             .mat-datepicker-toggle:hover .mat-datepicker-toggle-default-icon {
+//                 color: $primary-color;
+//             }
+//         }
+
+//         .date-help .help-text {
+//             color: $dark-help-text-color;
+//         }
+//     }
+
+//     // ────────────── Mobile responsive ──────────────
+//     @media (max-width: $mobile-breakpoint) {
+//         .date-mat-form-field {
+//             .mat-mdc-form-field {
+//                 .mat-mdc-input-element {
+//                     font-size: 1.1rem;
+//                     padding: 0.875rem;
+//                 }
+
+//                 .mat-mdc-form-field-infix {
+//                     min-height: 3rem;
+//                 }
+//             }
+
+//             .mat-datepicker-toggle .mat-datepicker-toggle-default-icon {
+//                 width: 1.5rem;
+//                 height: 1.5rem;
+//             }
+//         }
+
+//         .date-help .help-text {
+//             font-size: 1rem;
+//         }
+//     }
+
+//     // ────────────── Print styles ──────────────
+//     @media print {
+//         .date-mat-form-field .mat-mdc-form-field .mat-mdc-input-element {
+//             border: 1px solid $print-border-color !important;
+//             background-color: $print-bg-color !important;
+//             color: $print-color !important;
+//             box-shadow: none !important;
+//         }
+//     }
+// }
+
+// // ────────────── Global datepicker styles ──────────────
+// .mat-datepicker-popup {
+
+//     // RTL support for datepicker popup
+//     &[dir="rtl"] {
+//         .mat-calendar {
+//             text-align: right;
+//         }
+
+//         .mat-calendar-header .mat-calendar-controls {
+//             flex-direction: row-reverse;
+//         }
+//     }
+
+//     // Custom styling for datepicker popup
+//     .mat-calendar {
+//         border-radius: $border-radius;
+//         box-shadow: $shadow-lg;
+//         background-color: $bg-color;
+
+//         .mat-calendar-header {
+//             background-color: $primary-color;
+//             color: $white;
+//             border-radius: $border-radius $border-radius 0 0;
+
+//             .mat-calendar-controls {
+//                 display: flex;
+//                 align-items: center;
+//                 gap: .25rem;
+
+//                 .mat-calendar-period-button,
+//                 .mat-calendar-previous-button,
+//                 .mat-calendar-next-button {
+//                     color: $white;
+
+//                     &:hover {
+//                         background-color: rgba($white, 0.1);
+//                     }
+
+//                     &:focus-visible {
+//                         outline: 2px solid $white;
+//                         outline-offset: 2px;
+//                     }
+//                 }
+//             }
+//         }
+
+//         .mat-calendar-content {
+//             padding: .25rem .5rem .75rem;
+
+//             .mat-calendar-table {
+//                 .mat-calendar-body-cell {
+//                     border-radius: $border-radius;
+
+//                     // Selected day
+//                     &.mat-calendar-body-selected .mat-calendar-body-cell-content {
+//                         background-color: $primary-color;
+//                         color: $white;
+//                     }
+
+//                     // Today
+//                     &.mat-calendar-body-today .mat-calendar-body-cell-content::after {
+//                         content: '';
+//                         position: absolute;
+//                         inset-inline: .35rem;
+//                         bottom: .35rem;
+//                         height: 2px;
+//                         border-radius: 2px;
+//                         background-color: $primary-color;
+//                     }
+
+//                     // Disabled
+//                     &.mat-calendar-body-disabled .mat-calendar-body-cell-content {
+//                         color: $disabled-text-color;
+//                         opacity: .65;
+//                     }
+
+//                     // Hover / focus states
+//                     .mat-calendar-body-cell-content {
+//                         position: relative;
+//                         border-radius: $border-radius;
+//                         transition: background-color $transition-base, color $transition-base, box-shadow $transition-base;
+
+//                         &:hover {
+//                             background-color: rgba($primary-color, .08);
+//                         }
+
+//                         &:focus-visible {
+//                             outline: 2px solid $focus-border-color;
+//                             outline-offset: 2px;
+//                         }
+//                     }
+
+//                     // Active/keyboard-active
+//                     &.mat-calendar-body-active .mat-calendar-body-cell-content {
+//                         box-shadow: 0 0 0 2px rgba($primary-color, .2);
+//                     }
+
+//                     // Range selection
+//                     &.mat-calendar-body-in-range .mat-calendar-body-cell-content {
+//                         background-color: rgba($primary-color, .12);
+//                         color: $text-color;
+//                     }
+
+//                     &.mat-calendar-body-range-start .mat-calendar-body-cell-content,
+//                     &.mat-calendar-body-range-end .mat-calendar-body-cell-content {
+//                         background-color: $primary-color;
+//                         color: $white;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// // ────────────── Month picker specific (year view) ──────────────
+// .mat-calendar .mat-year-view .mat-calendar-body-cell,
+// .mat-calendar .mat-multi-year-view .mat-calendar-body-cell {
+//     border-radius: $border-radius;
+
+//     .mat-calendar-body-cell-content {
+//         border-radius: $border-radius;
+//         transition: background-color $transition-base, color $transition-base;
+
+//         &:hover {
+//             background-color: rgba($primary-color, .08);
+//         }
+//     }
+
+//     &.mat-calendar-body-selected .mat-calendar-body-cell-content {
+//         background-color: $primary-color;
+//         color: $white;
+//     }
+// }
+
+// // ────────────── Compact density helpers for popup ──────────────
+// .mat-datepicker-popup.datepicker-dense {
+//     .mat-calendar {
+//         font-size: 0.95rem;
+
+//         .mat-calendar-content {
+//             padding: .25rem .25rem .5rem;
+//         }
+
+//         .mat-calendar-table .mat-calendar-body-cell .mat-calendar-body-cell-content {
+//             padding: .2rem .35rem;
+//         }
+//     }
+// }
