@@ -37,7 +37,15 @@
     "logout": "Log out",
     "themeToggle": "Light / dark mode",
     "themeDay": "Light mode",
-    "themeNight": "Dark mode"
+    "themeNight": "Dark mode",
+    "excelExport": "Export to Excel",
+    "continue": "Continue",
+    "goBack": "Back",
+    "homeShort": "Home",
+    "backToHome": "Back to home page",
+    "sort": "Sort",
+    "filter": "Filter",
+    "pageSize": "Per page"
   },
   "nav": {
     "home": "Home",

@@ -1,7 +1,7 @@
 <nav aria-label="table-pagination" class="table-pagination" *ngIf="showPager">
     <ul class="pagination justify-content-center">
         <li class="page-size-select" aria-label="show in page" *ngIf="pageOptions?.length > 1">
-            <select class="select-input" name="currentPageSize" placeholder="בתצוגה" [(ngModel)]="currentPageSize" (change)="pageSizeEvent($event)">
+            <select class="select-input" name="currentPageSize" [attr.placeholder]="'common.pageSize' | translate" [(ngModel)]="currentPageSize" (change)="pageSizeEvent($event)">
                 <option *ngFor="let size of pageOptions" [ngValue]="size">
                     {{size}}
                 </option>

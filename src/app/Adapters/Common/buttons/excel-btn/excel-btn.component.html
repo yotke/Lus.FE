@@ -2,7 +2,7 @@
 
     <button (click)="onClick()" [disabled]="disabledBtn" [ngClass]="{'forbidden': disabledBtn}" type="button"
         color="primary" [title]="title" class="excel-export-btn">
-        ייצא לאקסל
+        {{ 'common.excelExport' | translate }}
         <img src="../../../../assets/exelExportIcon.png" alt="">
     </button>
 </div>

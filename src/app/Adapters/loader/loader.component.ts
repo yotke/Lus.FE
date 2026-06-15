@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-loader',
@@ -13,9 +14,12 @@ export class LoaderComponent implements OnInit {
   count = 2;
   widthHeightSizeInPixels = 50;
   intervalId: number | null = null;
+  // Resolved in TS (this component is rendered via a CDK portal, outside a
+  // module that provides the translate pipe).
+  loadingText = 'טוען...';
 
-  constructor() {
-
+  constructor(private translate: TranslateService) {
+    this.loadingText = this.translate.instant('common.loading');
   }
 
   ngOnInit() {

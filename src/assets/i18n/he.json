@@ -36,7 +36,15 @@
     "logout": "התנתקות",
     "themeToggle": "מצב יום / לילה",
     "themeDay": "מצב יום",
-    "themeNight": "מצב לילה"
+    "themeNight": "מצב לילה",
+    "excelExport": "ייצא לאקסל",
+    "continue": "המשך",
+    "goBack": "חזור",
+    "homeShort": "ראשי",
+    "backToHome": "חזרה לדף ראשי",
+    "sort": "מיון",
+    "filter": "סינון",
+    "pageSize": "בתצוגה"
   },
   "nav": {
     "home": "מסך בית",

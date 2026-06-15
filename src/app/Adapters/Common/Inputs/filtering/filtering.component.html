@@ -3,10 +3,10 @@
     (menuClosed)="menuClosed()" name="sort" [size]="22"></app-svg-icon>
   <mat-menu #menuNameCommon="matMenu" [hasBackdrop]="false">
     <div (mouseleave)="closeOnMouseOut()" class="filtering-pagination">
-      <button mat-menu-item (click)="sortingByColumn()"><app-svg-icon [name]="reverseSorting ? 'arrow-upward' : 'arrow-downward'" [size]="20"></app-svg-icon> מיון </button>
+      <button mat-menu-item (click)="sortingByColumn()"><app-svg-icon [name]="reverseSorting ? 'arrow-upward' : 'arrow-downward'" [size]="20"></app-svg-icon> {{ 'common.sort' | translate }} </button>
       <form class="filter-form" *ngIf="isFilterShow">
         <mat-form-field>
-          <mat-label> סינון</mat-label>
+          <mat-label>{{ 'common.filter' | translate }}</mat-label>
           <input #filters matInput (click)="$event.stopPropagation();" (keyup)="filterValue(filters.value)" />
           <button type="button" *ngIf="filters.value" matSuffix mat-icon-button aria-label="Clear"
             (click)="filters.value = ''; clearFilters()">
