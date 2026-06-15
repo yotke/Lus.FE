@@ -1,17 +1,17 @@
 <div class="login-page" dir="rtl">
   <div class="login-card">
     <div class="login-header">
-      <h1 class="login-title">מערכת לוז</h1>
-      <p class="login-subtitle">התחברות למערכת</p>
+      <h1 class="login-title">{{ 'common.appName' | translate }}</h1>
+      <p class="login-subtitle">{{ 'auth.login.subtitle' | translate }}</p>
     </div>
 
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
       <app-regular-input class="login-field" [formGroup]="loginForm" [formControlName]="'email'"
-        [title]="'דוא&quot;ל'" [placeholder]="'name@example.com'" [inputType]="'email'"
-        [prefixIcon]="'mail'" [autocomplete]="'username'"></app-regular-input>
+        [title]="'auth.login.email' | translate" [placeholder]="'auth.login.emailPlaceholder' | translate"
+        [inputType]="'email'" [prefixIcon]="'mail'" [autocomplete]="'username'"></app-regular-input>
 
       <app-regular-input class="login-field" [formGroup]="loginForm" [formControlName]="'password'"
-        [title]="'סיסמה'" [inputType]="hidePassword ? 'password' : 'text'" [prefixIcon]="'lock'"
+        [title]="'auth.login.password' | translate" [inputType]="hidePassword ? 'password' : 'text'" [prefixIcon]="'lock'"
         [suffixIcon]="hidePassword ? 'eye-off' : 'eye'" (suffixIconClicked)="hidePassword = !hidePassword"
         [autocomplete]="'current-password'"></app-regular-input>
 
@@ -27,19 +27,19 @@
         class="login-submit"
         [disabled]="isSubmitting"
       >
-        <span *ngIf="!isSubmitting">התחברות</span>
+        <span *ngIf="!isSubmitting">{{ 'auth.login.submit' | translate }}</span>
         <span *ngIf="isSubmitting" class="login-submit-loading">
           <mat-spinner diameter="20"></mat-spinner>
-          מתחבר...
+          {{ 'auth.login.submitting' | translate }}
         </span>
       </button>
 
       <button mat-button type="button" class="login-register-link" routerLink="/Register">
-        אין לך חשבון? הרשמה
+        {{ 'auth.login.noAccount' | translate }}
       </button>
 
       <div class="login-divider" *ngIf="googleEnabled">
-        <span>או</span>
+        <span>{{ 'common.or' | translate }}</span>
       </div>
 
       <div class="login-google" *ngIf="googleEnabled">

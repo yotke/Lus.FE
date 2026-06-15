@@ -1,12 +1,12 @@
 <section class="home-page-contaier">
 
     <section class="text-container">
-        <h1 dir="rtl">ניהול הזמן שלי</h1>
+        <h1 dir="rtl">{{ 'home.title' | translate }}</h1>
         <div class="text">
-            <p dir="rtl">פה תוכל/י לנהל את הזמן שלך בצורה שתרצי בלי בעיה ובלי לטעות.</p>
-            <p dir="rtl">כדי שלעולם לא תצטרכ/י לדאוג יותר אנחנו דאגנו לך לדרך מושלמת לניהול הזמן שלך.</p>
+            <p dir="rtl">{{ 'home.lead1' | translate }}</p>
+            <p dir="rtl">{{ 'home.lead2' | translate }}</p>
         </div>
-        <button (click)="navigateToTimeManagement()" class="home-page-button">נהל את הזמן</button>
+        <button (click)="navigateToTimeManagement()" class="home-page-button">{{ 'home.manageTime' | translate }}</button>
     </section>
 
 </section>

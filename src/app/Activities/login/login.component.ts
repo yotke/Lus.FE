@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../Infrastructure/Services/Auth/auth.service';
 import { environment } from 'src/environments/environment';
 import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 declare const google: any;
 
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private zone: NgZone,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private translate: TranslateService
   ) {
     this.loginForm = this.fb.group({
       email: [environment.production ? '' : environment.SignIn_Email, [Validators.required, Validators.email]],
@@ -76,7 +78,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.isSubmitting = false;
         const isSuccess = response?.isSuccess ?? response?.IsSuccess;
         if (isSuccess) {
-          this.notify.success('התחברת בהצלחה.');
+          this.notify.success(this.translate.instant('auth.login.success'));
           const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/Home';
           this.router.navigateByUrl(returnUrl);
         } else {
@@ -86,8 +88,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
       },
       error: () => {
         this.isSubmitting = false;
-        this.errorMessage = 'אירעה שגיאה בהתחברות. נסו שוב מאוחר יותר.';
-        this.notify.error(this.errorMessage);
+        const msg = this.translate.instant('auth.login.genericError') as string;
+        this.errorMessage = msg;
+        this.notify.error(msg);
       },
     });
   }
@@ -130,7 +133,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.isSubmitting = false;
           const isSuccess = result?.isSuccess ?? result?.IsSuccess;
           if (isSuccess) {
-            this.notify.success('התחברת בהצלחה.');
+            this.notify.success(this.translate.instant('auth.login.success'));
             const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/Home';
             this.router.navigateByUrl(returnUrl);
           } else {
@@ -140,8 +143,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
         },
         error: () => {
           this.isSubmitting = false;
-          this.errorMessage = 'ההתחברות עם Google נכשלה. נסו שוב.';
-          this.notify.error(this.errorMessage);
+          const msg = this.translate.instant('auth.login.googleError') as string;
+          this.errorMessage = msg;
+          this.notify.error(msg);
         },
       });
     });
@@ -153,23 +157,23 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     switch (exceptionId) {
       case 10:
-        return 'משתמש לא נמצא.';
+        return this.translate.instant('auth.login.errors.userNotFound');
       case 11:
-        return 'המשתמש טרם אומת.';
+        return this.translate.instant('auth.login.errors.notConfirmed');
       case 12:
-        return 'שם משתמש או סיסמה שגויים.';
+        return this.translate.instant('auth.login.errors.wrongCredentials');
       case 13:
-        return serverMessage || 'תוקף הסיסמה פג. יש לאפס סיסמה.';
+        return serverMessage || this.translate.instant('auth.login.errors.passwordExpired');
       case 41:
-        return 'אימות אבטחה נכשל. נסו שוב.';
+        return this.translate.instant('auth.login.errors.captchaFailed');
       case 101: {
         const lockTime = response?.lockTimeLeft ?? response?.LockTimeLeft;
         return lockTime
-          ? `החשבון ננעל. נסו שוב בעוד ${Math.ceil(lockTime)} דקות.`
-          : 'החשבון ננעל זמנית עקב ניסיונות התחברות מרובים.';
+          ? this.translate.instant('auth.login.errors.lockedWithTime', { minutes: Math.ceil(lockTime) })
+          : this.translate.instant('auth.login.errors.locked');
       }
       default:
-        return serverMessage || 'ההתחברות נכשלה. בדקו את הפרטים ונסו שוב.';
+        return serverMessage || this.translate.instant('auth.login.errors.generic');
     }
   }
 }

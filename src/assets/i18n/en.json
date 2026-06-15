@@ -35,7 +35,9 @@
     "or": "or",
     "help": "Help",
     "logout": "Log out",
-    "themeToggle": "Light / dark mode"
+    "themeToggle": "Light / dark mode",
+    "themeDay": "Light mode",
+    "themeNight": "Dark mode"
   },
   "nav": {
     "home": "Home",
@@ -44,7 +46,9 @@
     "currentWorkDate": "Current work date"
   },
   "home": {
-    "title": "Welcome to the Luz system",
+    "title": "My time management",
+    "lead1": "Here you can manage your time exactly how you want — easily and without mistakes.",
+    "lead2": "So you never have to worry again, we've built you a perfect way to manage your time.",
     "manageTime": "Manage time"
   },
   "auth": {
