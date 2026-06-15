@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/Infrastructure/Services/Auth/auth.service';
 import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -17,7 +18,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private translate: TranslateService
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -39,24 +41,24 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   private handleErrorResponse(ErrorResponse: HttpErrorResponse): Observable<never> {
     switch (ErrorResponse.status) {
       case 0:
-        this.notify.error('בעיית תקשורת עם השרת. בדקו את החיבור ונסו שוב.');
+        this.notify.error(this.translate.instant('notifications.connectionError'));
         return throwError(() => ErrorResponse);
       case 500:
-        this.notify.error('אירעה שגיאה בשרת. אנא נסו שוב מאוחר יותר.');
+        this.notify.error(this.translate.instant('notifications.serverError'));
         this.router.navigate(['/Home']);
         return throwError(() => 'Error 500');
       case 401:
       case 403:
-        this.notify.warning('פג תוקף ההתחברות. אנא התחברו מחדש.');
+        this.notify.warning(this.translate.instant('notifications.sessionExpired'));
         this.authService.doLogout().then(() => {
           this.router.navigate(['/Login']);
         });
         return throwError(() => 'Unauthorized');
       case 400:
-        this.notify.errorFrom(ErrorResponse, 'הבקשה שנשלחה אינה תקינה.');
+        this.notify.errorFrom(ErrorResponse, this.translate.instant('notifications.badRequest'));
         return throwError(() => ErrorResponse);
       case 404:
-        this.notify.error('המשאב המבוקש לא נמצא.');
+        this.notify.error(this.translate.instant('notifications.notFound'));
         return throwError(() => ErrorResponse);
     }
 

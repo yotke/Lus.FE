@@ -229,6 +229,8 @@
     "hoursSaveFailed": "שמירת נתוני השעות נכשלה. אנא נסו שוב.",
     "hoursRowDeleted": "שורת השעות נמחקה בהצלחה.",
     "hoursRowDeleteFailed": "מחיקת שורת השעות נכשלה. אנא נסו שוב.",
-    "rowRemovedFromForm": "השורה הוסרה מהטופס."
+    "rowRemovedFromForm": "השורה הוסרה מהטופס.",
+    "logoutSuccess": "התנתקת בהצלחה.",
+    "logoutFailed": "ההתנתקות נכשלה. אנא נסו שוב."
   }
 }

@@ -230,6 +230,8 @@
     "hoursSaveFailed": "Saving the hours data failed. Please try again.",
     "hoursRowDeleted": "Hours row deleted successfully.",
     "hoursRowDeleteFailed": "Deleting the hours row failed. Please try again.",
-    "rowRemovedFromForm": "The row was removed from the form."
+    "rowRemovedFromForm": "The row was removed from the form.",
+    "logoutSuccess": "Logged out successfully.",
+    "logoutFailed": "Logout failed. Please try again."
   }
 }

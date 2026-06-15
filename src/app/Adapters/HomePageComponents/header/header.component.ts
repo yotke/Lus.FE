@@ -4,6 +4,7 @@ import { ProjectTemplateService } from 'src/app/Infrastructure/Services/projectT
 import { AuthService } from 'src/app/Infrastructure/Services/Auth/auth.service';
 import { ThemeService } from 'src/app/Infrastructure/Services/themeService/theme.service';
 import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,8 @@ export class HeaderComponent {
     private authService: AuthService,
     private router: Router,
     public themeService: ThemeService,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private translate: TranslateService
   ) {
     const storedDate = sessionStorage.getItem('currSystemDate');
     if (storedDate) {
@@ -54,11 +56,11 @@ export class HeaderComponent {
   logout(): void {
     this.authService.logout().subscribe({
       next: () => {
-        this.notify.success('התנתקת בהצלחה.');
+        this.notify.success(this.translate.instant('notifications.logoutSuccess'));
         this.router.navigate(['/Login']);
       },
       error: err => {
-        this.notify.errorFrom(err, 'ההתנתקות נכשלה. אנא נסו שוב.');
+        this.notify.errorFrom(err, this.translate.instant('notifications.logoutFailed'));
       }
     });
   }

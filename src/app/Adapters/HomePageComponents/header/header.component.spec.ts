@@ -15,12 +15,14 @@ describe('HeaderComponent', () => {
     };
     router = { navigate: jasmine.createSpy('navigate') };
     notify = jasmine.createSpyObj<NotificationService>('NotificationService', ['success', 'errorFrom']);
+    const translate = { instant: (k: string) => k } as any;
     component = new HeaderComponent(
       { updateSystemDate: jasmine.createSpy('updateSystemDate') } as any,
       authService,
       router,
       {} as any,
-      notify
+      notify,
+      translate
     );
   });
 
@@ -33,7 +35,7 @@ describe('HeaderComponent', () => {
 
     component.logout();
 
-    expect(notify.success).toHaveBeenCalledWith('התנתקת בהצלחה.');
+    expect(notify.success).toHaveBeenCalledWith('notifications.logoutSuccess');
     expect(router.navigate).toHaveBeenCalledWith(['/Login']);
   });
 
@@ -43,6 +45,6 @@ describe('HeaderComponent', () => {
 
     component.logout();
 
-    expect(notify.errorFrom).toHaveBeenCalledWith(err, 'ההתנתקות נכשלה. אנא נסו שוב.');
+    expect(notify.errorFrom).toHaveBeenCalledWith(err, 'notifications.logoutFailed');
   });
 });
