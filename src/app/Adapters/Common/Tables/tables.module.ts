@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { GenericTableComponent } from './generic-table/generic-table.component';
 import { MaterialModule } from 'src/app/Infrastructure/material/material.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -24,6 +25,7 @@ import { MaterialModule } from 'src/app/Infrastructure/material/material.module'
     NgSelectModule,
     ReactiveFormsModule,  // Add this import
     NgxMaterialTimepickerModule.setOpts('he-IL', 'latn'),
+    TranslateModule,
 
     MatFormFieldModule,   // Import Angular Material Form Field module
     MatInputModule,       // Import Angular Material Input module

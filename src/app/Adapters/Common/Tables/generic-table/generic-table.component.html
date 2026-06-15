@@ -36,7 +36,7 @@
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions" *ngIf="showActions">
-            <mat-header-cell *matHeaderCellDef>פעולות</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>{{ 'table.actions' | translate }}</mat-header-cell>
             <mat-cell *matCellDef="let row" class="actions-cell">
                 <button mat-icon-button *ngIf="onPdfCallBack" (click)="onPdfCallBack(row, $event)">
                     <i class="fa-regular fa-file-pdf"></i>

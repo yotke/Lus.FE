@@ -89,6 +89,67 @@
     "createBtn": "Create project",
     "updateBtn": "Update project details"
   },
+  "table": {
+    "actions": "Actions"
+  },
+  "editOverlay": {
+    "title": "Edit content",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "signature": {
+    "clear": "Clear signature",
+    "send": "Send signature"
+  },
+  "history": {
+    "title": "Project history",
+    "monthlyTitle": "This month's projects",
+    "workDate": "Work date:",
+    "projectName": "Project name:",
+    "sectionName": "Department name:"
+  },
+  "projectRow": {
+    "constructorTitle": "Developer name & certificate type:",
+    "constructorAddress": "Developer office address:",
+    "constructorPhone": "Developer number:",
+    "entrepreneurNumber": "Authorized dealer number:",
+    "projectLocation": "Project location:",
+    "invoiceNumber": "Invoice number:",
+    "planner": "Planner:",
+    "projectSubject": "Project subject:",
+    "startContractDate": "Contract start date",
+    "endContractDate": "Contract end date:",
+    "employingUnit": "Employing unit:",
+    "rateLevel": "Rate level:"
+  },
+  "validator": {
+    "conflictDay": "There is a conflict on this day:",
+    "conflictDates": "Note: there is a conflict between dates:"
+  },
+  "dataLoader": {
+    "heading": "Time management",
+    "selectProject": "Select project",
+    "projectNamePlaceholder": "Project name",
+    "employingUnit": "Employing unit",
+    "workTimesSection": "Project - work times",
+    "workDate": "Work date",
+    "startTime": "Start time",
+    "endTime": "End time",
+    "workLocation": "Work location",
+    "workDescription": "Work description",
+    "saveBtn": "Save work times"
+  },
+  "projectsManager": {
+    "stepSelect": "Select project",
+    "selectProject": "Select project",
+    "projectNamePlaceholder": "Project name",
+    "addNewProject": "Add new project",
+    "previous": "Previous",
+    "next": "Next",
+    "stepManageTimes": "Manage project times",
+    "stepExport": "Export to Excel",
+    "createAnother": "Create another project"
+  },
   "auth": {
     "login": {
       "subtitle": "Sign in to the system",
@@ -167,6 +228,8 @@
     "projectUpdateFailed": "Updating the project failed.",
     "hoursSaved": "Hours data saved successfully.",
     "hoursSaveFailed": "Saving the hours data failed. Please try again.",
-    "hoursRowDeleted": "Hours row deleted successfully."
+    "hoursRowDeleted": "Hours row deleted successfully.",
+    "hoursRowDeleteFailed": "Deleting the hours row failed. Please try again.",
+    "rowRemovedFromForm": "The row was removed from the form."
   }
 }

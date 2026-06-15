@@ -1,6 +1,6 @@
 <div class="edit-overlay" [style.top.px]="top" [style.left.px]="left">
     <div>
-        <h1>עריכה תוכן</h1>
+        <h1>{{ 'editOverlay.title' | translate }}</h1>
     </div>
     <div *ngFor="let input of inputs">
         <!-- <app-regular-input [title]="input.key" [(selectedValue)]="input.value"
@@ -16,7 +16,7 @@
         <button (click)="onCancel()">Cancel</button>
     </div> -->
     <app-btns-container>
-        <app-delete-btn (click)="onCancel()">בטל</app-delete-btn>
-        <app-save-btn (click)="onSave()">שמור</app-save-btn>
+        <app-delete-btn (click)="onCancel()">{{ 'editOverlay.cancel' | translate }}</app-delete-btn>
+        <app-save-btn (click)="onSave()">{{ 'editOverlay.save' | translate }}</app-save-btn>
     </app-btns-container>
 </div>

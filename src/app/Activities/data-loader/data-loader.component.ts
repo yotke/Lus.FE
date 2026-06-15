@@ -8,6 +8,7 @@ import { ProjectTime, TimeRow, TimesArray } from 'src/app/Infrastructure/Classes
 import { ProjectTimeService } from 'src/app/Infrastructure/Services/projectTimeService/project-time.service';
 import { ProjectTemplateService } from 'src/app/Infrastructure/Services/projectTemplateService/project-template.service';
 import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -49,7 +50,8 @@ export class DataLoaderComponent {
     private projectSvc: ProjectTemplateService,
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private translate: TranslateService
   ) {
     this.TimeFormArray = this.formBuilder.array([]);
     this.DateTimeFormArray = this.formBuilder.array([]);
@@ -106,10 +108,10 @@ export class DataLoaderComponent {
           this.projectSvc.notifyProjectChange(true);
           this.projectSvc.GetAllProjects;
         }
-        this.notify.success('נתוני השעות נשמרו בהצלחה.');
+        this.notify.success(this.translate.instant('notifications.hoursSaved'));
       },
       error: err => {
-        this.notify.errorFrom(err, 'שמירת נתוני השעות נכשלה. אנא נסו שוב.');
+        this.notify.errorFrom(err, this.translate.instant('notifications.hoursSaveFailed'));
       }
     });
 
@@ -234,14 +236,14 @@ export class DataLoaderComponent {
       this.projectTimeSvc.DeleteProjectTime(projectTimeId).subscribe({
         next: () => {
           this.DateTimeFormArray.removeAt(idx);
-          this.notify.success('שורת השעות נמחקה בהצלחה.');
+          this.notify.success(this.translate.instant('notifications.hoursRowDeleted'));
         },
-        error: err => this.notify.errorFrom(err, 'מחיקת שורת השעות נכשלה. אנא נסו שוב.')
+        error: err => this.notify.errorFrom(err, this.translate.instant('notifications.hoursRowDeleteFailed'))
       })
     }
     else {
       this.DateTimeFormArray.removeAt(idx);
-      this.notify.info('השורה הוסרה מהטופס.');
+      this.notify.info(this.translate.instant('notifications.rowRemovedFromForm'));
     }
   }
 

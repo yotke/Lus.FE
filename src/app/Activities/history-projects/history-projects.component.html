@@ -3,7 +3,7 @@
 
     </section>
     <section class="projects-table-container row">
-        <h1>{{isMonthly?'רשימת הפרויקטים בחודש זה':'היסטורית פרויקטים'}}</h1>
+        <h1>{{ (isMonthly ? 'history.monthlyTitle' : 'history.title') | translate }}</h1>
         <div class="project-container row col-md-12" *ngFor="let project of projectList;let i=index">
             <div class="project-headlines-container">
                 <div class="row-headline-container first-row row col-md-12" [ngClass]="{active: expandData&&i==idx}">
@@ -12,15 +12,15 @@
                         <app-minus-btn (click)="closeTab()" *ngIf="expandData&&i==idx"></app-minus-btn>
                     </div>
                     <div class="text-content col-md-3">
-                        <b>תאריך עבודה:</b>
+                        <b>{{ 'history.workDate' | translate }}</b>
                         {{changeCurrDate(project.CurrentDate)}}
                     </div>
                     <div class="text-content col-md-3">
-                        <b>שם הפרויקט:</b>
+                        <b>{{ 'history.projectName' | translate }}</b>
                         {{project.Name}}
                     </div>
                     <div class="text-content col-md-3">
-                        <b>שם מחלקה:</b>
+                        <b>{{ 'history.sectionName' | translate }}</b>
                         {{project.SectionName}}
                     </div>
                 </div>

@@ -7,7 +7,7 @@
         <div class="inner-button-sign">
             <button mat-raised-button color="primary" [disabled]="!sigPad || sigPad.isEmpty()"
                 (click)="clearSignature()" class="step-btn">
-                נקה חתימה
+                {{ 'signature.clear' | translate }}
             </button>
         </div>
         <!-- <div class="inner-button-sign">

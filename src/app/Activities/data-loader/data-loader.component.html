@@ -1,18 +1,18 @@
 <div class="loader-data-container">
     <form [formGroup]="ProjectTimeForm" (ngSubmit)="onFormSubmit()">
         <div class="input-container" dir="rtl">
-            <app-main-headline [title]="'ניהול זמנים'"></app-main-headline>
+            <app-main-headline [title]="'dataLoader.heading' | translate"></app-main-headline>
             <div class="row">
                 <div class="col-md-6">
-                    <app-auto-complete [formGroup]="ProjectTimeForm" [listInput]="ProjectList" [title]="'בחר פרויקט'"
+                    <app-auto-complete [formGroup]="ProjectTimeForm" [listInput]="ProjectList" [title]="'dataLoader.selectProject' | translate"
                         [formControlName]="'projectName'" [(selectedValue)]="CurrProjectName"
-                        [placeholder]="'שם פרויקט'"></app-auto-complete>
+                        [placeholder]="'dataLoader.projectNamePlaceholder' | translate"></app-auto-complete>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <app-auto-complete [formGroup]="ProjectTimeForm" [placeholder]="'היחידה המעסיקה'"
-                        [title]="'היחידה המעסיקה'" [formControlName]="'sectionName'"
+                    <app-auto-complete [formGroup]="ProjectTimeForm" [placeholder]="'dataLoader.employingUnit' | translate"
+                        [title]="'dataLoader.employingUnit' | translate" [formControlName]="'sectionName'"
                         [listInput]="SectionList"></app-auto-complete>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     *ngFor="let dateTimeGroup of DateTimeFormArray.controls; let i = index">
                     <div class="time-headline-container">
                         <app-svg-icon (click)="RemoveDateTimeRow(i)" name="delete" [size]="20"></app-svg-icon>
-                        <h3>פרויקט - זמני עבודה</h3>
+                        <h3>{{ 'dataLoader.workTimesSection' | translate }}</h3>
                     </div>
                     <div [formGroup]="GetFormGroup(dateTimeGroup)" class="date-time-group-container row col-md-12">
                         <app-project-validator [CurrProject]="CurrProject"
@@ -31,7 +31,7 @@
                             [TimeArrayForm]="GetTimeFormArray(dateTimeGroup)"></app-project-validator>
                         <div class=" col-md-6">
                             <app-date-picker [formGroup]="GetFormGroup(dateTimeGroup)" [formControlName]="'WorkDate'"
-                                [title]="'תאריך עבודה'" [placeholder]="'תאריך עבודה'" [min]="GetMinDateVal"
+                                [title]="'dataLoader.workDate' | translate" [placeholder]="'dataLoader.workDate' | translate" [min]="GetMinDateVal"
                                 [max]="GetMaxDateVal"></app-date-picker>
                         </div>
                         <div class="row col-md-6">
@@ -40,19 +40,19 @@
 
                                 <div [formGroup]="GetFormGroup(timeGroup)" class="row col-md-12">
                                     <div class="col-md-6">
-                                        <app-time-picker [formGroup]="GetFormGroup(timeGroup)" [title]="'שעת התחלה'"
+                                        <app-time-picker [formGroup]="GetFormGroup(timeGroup)" [title]="'dataLoader.startTime' | translate"
                                             [formControlName]="'StartTime'" [max]="GetEndTimeVal(timeGroup)"
-                                            [placeholder]="'שעת התחלה'"></app-time-picker>
+                                            [placeholder]="'dataLoader.startTime' | translate"></app-time-picker>
                                     </div>
                                     <div class="col-md-6">
-                                        <app-time-picker [formGroup]="GetFormGroup(timeGroup)" [title]="'שעת סיום'"
+                                        <app-time-picker [formGroup]="GetFormGroup(timeGroup)" [title]="'dataLoader.endTime' | translate"
                                             [min]="GetStartTimeVal(timeGroup)" [formControlName]="'EndTime'"
-                                            [placeholder]="'שעת סיום'"></app-time-picker>
+                                            [placeholder]="'dataLoader.endTime' | translate"></app-time-picker>
                                     </div>
                                     <div class="col-md-12">
                                         <app-regular-input [formGroup]="GetFormGroup(timeGroup)"
-                                            [formControlName]="'WorkLocation'" [title]="'מקום העבודה'"
-                                            [placeholder]="'מקום העבודה'"></app-regular-input>
+                                            [formControlName]="'WorkLocation'" [title]="'dataLoader.workLocation' | translate"
+                                            [placeholder]="'dataLoader.workLocation' | translate"></app-regular-input>
                                     </div>
                                 </div>
                             </div>
@@ -60,16 +60,16 @@
                         </div>
 
                         <div class="row col-md-12">
-                            <h5>תיאור עבודה</h5>
+                            <h5>{{ 'dataLoader.workDescription' | translate }}</h5>
                             <app-textarea-input class="textarea-input" [formGroup]="GetFormGroup(dateTimeGroup)"
                                 [formControlName]="'WorkDescription'"
-                                [placeholder]="'תיאור עבודה'"></app-textarea-input>
+                                [placeholder]="'dataLoader.workDescription' | translate"></app-textarea-input>
                         </div>
                     </div>
                 </div>
                 <app-add-btn (buttonClicked)="addRowFormDateTime()"></app-add-btn>
             </div>
-            <app-submit-btn [btnTitle]="'שמור/י זמני עבודה'"></app-submit-btn>
+            <app-submit-btn [btnTitle]="'dataLoader.saveBtn' | translate"></app-submit-btn>
         </div>
     </form>
 </div>

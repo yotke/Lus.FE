@@ -1,7 +1,7 @@
 <ng-template [ngIf]="hasCollision||hasCollisionTot">
     <section class="project-validator" [ngClass]="{'is-exel-step':isExelStep}">
-        <h4 *ngIf="!isExelStep">יש התנגשות ביום זה:</h4>
-        <h4 *ngIf="isExelStep">שים לב כי יש התנגשות בין תאריכים:</h4>
+        <h4 *ngIf="!isExelStep">{{ 'validator.conflictDay' | translate }}</h4>
+        <h4 *ngIf="isExelStep">{{ 'validator.conflictDates' | translate }}</h4>
         <section class="times-container">
             <div class="time-project-container" *ngFor="let projectName of keys(groupedTimesByProject);">
                 <h5>{{ projectName }} :</h5> <!-- Project Name Heading -->

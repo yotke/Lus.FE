@@ -88,6 +88,67 @@
     "createBtn": "צור פרויקט",
     "updateBtn": "עדכן נתוני פרויקט"
   },
+  "table": {
+    "actions": "פעולות"
+  },
+  "editOverlay": {
+    "title": "עריכה תוכן",
+    "cancel": "בטל",
+    "save": "שמור"
+  },
+  "signature": {
+    "clear": "נקה חתימה",
+    "send": "שלח חתימה"
+  },
+  "history": {
+    "title": "היסטורית פרויקטים",
+    "monthlyTitle": "רשימת הפרויקטים בחודש זה",
+    "workDate": "תאריך עבודה:",
+    "projectName": "שם הפרויקט:",
+    "sectionName": "שם מחלקה:"
+  },
+  "projectRow": {
+    "constructorTitle": "שם היזם וסוג תעודה:",
+    "constructorAddress": "כתובת משרד היזם:",
+    "constructorPhone": "מספר היזם:",
+    "entrepreneurNumber": "מספר עוסק מורשה:",
+    "projectLocation": "מקום הפרויקט:",
+    "invoiceNumber": "מספר חשבונית:",
+    "planner": "המתכנון:",
+    "projectSubject": "נושא הפרויקט:",
+    "startContractDate": "תאריך תחילת חוזה",
+    "endContractDate": "תאריך סוף חוזה:",
+    "employingUnit": "היחידה המעסיקה:",
+    "rateLevel": "רמת תעריף:"
+  },
+  "validator": {
+    "conflictDay": "יש התנגשות ביום זה:",
+    "conflictDates": "שים לב כי יש התנגשות בין תאריכים:"
+  },
+  "dataLoader": {
+    "heading": "ניהול זמנים",
+    "selectProject": "בחר פרויקט",
+    "projectNamePlaceholder": "שם פרויקט",
+    "employingUnit": "היחידה המעסיקה",
+    "workTimesSection": "פרויקט - זמני עבודה",
+    "workDate": "תאריך עבודה",
+    "startTime": "שעת התחלה",
+    "endTime": "שעת סיום",
+    "workLocation": "מקום העבודה",
+    "workDescription": "תיאור עבודה",
+    "saveBtn": "שמור/י זמני עבודה"
+  },
+  "projectsManager": {
+    "stepSelect": "בחירת פרויקט",
+    "selectProject": "בחר פרויקט",
+    "projectNamePlaceholder": "שם פרויקט",
+    "addNewProject": "הוסף פרויקט חדש",
+    "previous": "הקודם",
+    "next": "הבא",
+    "stepManageTimes": "ניהול זמני הפרויקט",
+    "stepExport": "ייצוא לאקסל",
+    "createAnother": "צור פרויקט נוסף"
+  },
   "auth": {
     "login": {
       "subtitle": "התחברות למערכת",
@@ -166,6 +227,8 @@
     "projectUpdateFailed": "עדכון הפרויקט נכשל.",
     "hoursSaved": "נתוני השעות נשמרו בהצלחה.",
     "hoursSaveFailed": "שמירת נתוני השעות נכשלה. אנא נסו שוב.",
-    "hoursRowDeleted": "שורת השעות נמחקה בהצלחה."
+    "hoursRowDeleted": "שורת השעות נמחקה בהצלחה.",
+    "hoursRowDeleteFailed": "מחיקת שורת השעות נכשלה. אנא נסו שוב.",
+    "rowRemovedFromForm": "השורה הוסרה מהטופס."
   }
 }

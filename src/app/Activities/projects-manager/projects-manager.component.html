@@ -1,13 +1,13 @@
 <section class="project-manager-container">
     <mat-horizontal-stepper #stepper class="stepper-container">
-        <mat-step label="בחירת פרויקט">
+        <mat-step [label]="'projectsManager.stepSelect' | translate">
             <section class="inputs-project-container row col-md-12">
                 <ng-template [ngIf]="!isNewProject">
                     <div class="col-md-6">
-                        <h1>בחירת פרויקט</h1>
-                        <app-auto-complete [listInput]="monthlyProjectListIdName" [(selectedValue)]="projectId" [title]="'בחר פרויקט'"
-                            [placeholder]="'שם פרויקט'" (OnChange)="OnProjectSelected($event)"></app-auto-complete>
-                        <app-add-btn *ngIf="!(isNewProject||project)" [title]="'הוסף פרויקט חדש'"
+                        <h1>{{ 'projectsManager.stepSelect' | translate }}</h1>
+                        <app-auto-complete [listInput]="monthlyProjectListIdName" [(selectedValue)]="projectId" [title]="'projectsManager.selectProject' | translate"
+                            [placeholder]="'projectsManager.projectNamePlaceholder' | translate" (OnChange)="OnProjectSelected($event)"></app-auto-complete>
+                        <app-add-btn *ngIf="!(isNewProject||project)" [title]="'projectsManager.addNewProject' | translate"
                             (buttonClicked)="OnAdd()"></app-add-btn>
                     </div>
                 </ng-template>
@@ -18,18 +18,18 @@
                 </ng-template>
             </section>
             <div class="stepper-btns-container">
-                <button mat-button matStepperPrevious disabled>הקודם</button>
-                <button mat-button matStepperNext>הבא</button>
+                <button mat-button matStepperPrevious disabled>{{ 'projectsManager.previous' | translate }}</button>
+                <button mat-button matStepperNext>{{ 'projectsManager.next' | translate }}</button>
             </div>
         </mat-step>
-        <mat-step label="ניהול זמני הפרויקט">
+        <mat-step [label]="'projectsManager.stepManageTimes' | translate">
             <app-data-loader [CurrProject]="project" [ProjectId]="project.Id" *ngIf="project"></app-data-loader>
             <div class="stepper-btns-container">
-                <button mat-button matStepperPrevious>הקודם</button>
-                <button mat-button matStepperNext>הבא</button>
+                <button mat-button matStepperPrevious>{{ 'projectsManager.previous' | translate }}</button>
+                <button mat-button matStepperNext>{{ 'projectsManager.next' | translate }}</button>
             </div>
         </mat-step>
-        <mat-step label="ייצוא לאקסל">
+        <mat-step [label]="'projectsManager.stepExport' | translate">
             <section class="exel-step-container">
                 <app-project-validator [CurrProject]="project" [isExelStep]="true"
                     (hasCollisionEmiter)="onCollision($event)"></app-project-validator>
@@ -39,8 +39,8 @@
                     [hasCollision]="hasCollision" [MonthlyProjects]="monthlyProjects"></app-excel-export>
             </section>
             <div class="stepper-btns-container">
-                <button mat-button matStepperPrevious>הקודם</button>
-                <button mat-button class="create-new-project" (click)="createNewProject()">צור פרויקט נוסף</button>
+                <button mat-button matStepperPrevious>{{ 'projectsManager.previous' | translate }}</button>
+                <button mat-button class="create-new-project" (click)="createNewProject()">{{ 'projectsManager.createAnother' | translate }}</button>
             </div>
         </mat-step>
     </mat-horizontal-stepper>
