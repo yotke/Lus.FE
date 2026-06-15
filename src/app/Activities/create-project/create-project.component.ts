@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ProjectTemplate } from 'src/app/Infrastructure/Classes & Models/Classes/project-template';
 import { ProjectTemplateService } from 'src/app/Infrastructure/Services/projectTemplateService/project-template.service';
 import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-project',
@@ -19,7 +20,8 @@ export class CreateProjectComponent implements OnChanges {
   constructor(
     private formBuilder: FormBuilder,
     private projectSvc: ProjectTemplateService,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private translate: TranslateService
   ) {
     this.initProjectForm();
   }
@@ -86,20 +88,20 @@ export class CreateProjectComponent implements OnChanges {
         this.projectSvc.CreateNewProject(this.CurrProject).subscribe({
           next: savedProject => {
             this.CurrProject = savedProject;
-            this.notify.success('הפרויקט נוצר בהצלחה.');
+            this.notify.success(this.translate.instant('notifications.projectCreated'));
             this.OnSaveCallback.emit(savedProject);
           },
-          error: err => this.notify.errorFrom(err, 'יצירת הפרויקט נכשלה. אנא נסו שוב.')
+          error: err => this.notify.errorFrom(err, this.translate.instant('notifications.projectCreateFailed'))
         });
       }
       else {
         this.projectSvc.ModifyProject(this.CurrProject).subscribe({
           next: savedProject => {
             this.CurrProject = savedProject;
-            this.notify.success('פרטי הפרויקט נשמרו בהצלחה.');
+            this.notify.success(this.translate.instant('notifications.projectUpdated'));
             this.OnSaveCallback.emit(savedProject);
           },
-          error: err => this.notify.errorFrom(err, 'שמירת הפרויקט נכשלה. אנא נסו שוב.')
+          error: err => this.notify.errorFrom(err, this.translate.instant('notifications.projectUpdateFailed'))
         });
       }
     }

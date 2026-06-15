@@ -22,10 +22,10 @@ export class AppComponent implements OnInit {
     // Injected so the theme (light/dark + brand CSS vars) initializes once on
     // app startup, restoring the user's saved mode from localStorage.
     private themeService: ThemeService,
-    // Initializes i18n (default Hebrew/RTL) once for the whole app.
+    // Injected so i18n initializes once for the whole app (the service applies
+    // the saved/default language + dir in its own constructor, ArmyLuz pattern).
     private languageService: LanguageService
   ) {
-    this.languageService.init();
   }
   ngOnInit(): void {
     this.updateHeaderVisibility(this.router.url);

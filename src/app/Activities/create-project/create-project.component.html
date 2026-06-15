@@ -2,114 +2,114 @@
     <app-return-btn (click)="returnFromComponent()"></app-return-btn>
     <form [formGroup]="CreateProjectForm" (ngSubmit)="onFormSubmit()">
         <section class="inputs-project-container">
-            <app-main-headline [title]="'יצירת פרויקט'"></app-main-headline>
+            <app-main-headline [title]="'createProject.heading' | translate"></app-main-headline>
             <div class="row">
                 <div class="inputs-headline-container">
-                    <h3>כותרת הפרויקט</h3>
+                    <h3>{{ 'createProject.titleSection' | translate }}</h3>
                 </div>
                 <div class="col-md-4 month-field-column">
                     <app-month-picker [formGroup]="CreateProjectForm" [formControlName]="'CurrentDate'"
-                        [placeholder]="'תאריך חודש נוכחי'"></app-month-picker>
+                        [placeholder]="'createProject.currentMonth' | translate"></app-month-picker>
                 </div>
 
                 <div class="col-md-4">
-                    <app-regular-input [title]="'שם הפרויקט'" [formGroup]="CreateProjectForm"
-                        [placeholder]="'שם הפרויקט המלא'" [formControlName]="'Name'"></app-regular-input>
+                    <app-regular-input [title]="'createProject.name' | translate" [formGroup]="CreateProjectForm"
+                        [placeholder]="'createProject.namePlaceholder' | translate" [formControlName]="'Name'"></app-regular-input>
                 </div>
                 <div class="col-md-4">
-                    <app-regular-input [title]="'שם מחלקה'" [formGroup]="CreateProjectForm" [placeholder]="'שם מחלקה'"
+                    <app-regular-input [title]="'createProject.sectionName' | translate" [formGroup]="CreateProjectForm" [placeholder]="'createProject.sectionName' | translate"
                         [formControlName]="'SectionName'"></app-regular-input>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <app-regular-input [title]="'שם יזם וסוג תעודה'" [formGroup]="CreateProjectForm"
-                        [placeholder]="'שם יזם וסוג תעודה'" [formControlName]="'ConstrctorTitle'"></app-regular-input>
+                    <app-regular-input [title]="'createProject.constructorTitle' | translate" [formGroup]="CreateProjectForm"
+                        [placeholder]="'createProject.constructorTitle' | translate" [formControlName]="'ConstrctorTitle'"></app-regular-input>
                 </div>
                 <div class="col-md-3">
-                    <app-regular-input [title]="'כתובת משרד היזם'" [formGroup]="CreateProjectForm"
-                        [placeholder]="'כתובת משרד היזם'" [formControlName]="'ConstrctorAddress'"></app-regular-input>
+                    <app-regular-input [title]="'createProject.constructorAddress' | translate" [formGroup]="CreateProjectForm"
+                        [placeholder]="'createProject.constructorAddress' | translate" [formControlName]="'ConstrctorAddress'"></app-regular-input>
                 </div>
                 <div class="col-md-3">
-                    <app-regular-input [title]="'מספר היזם'" [formGroup]="CreateProjectForm" [placeholder]="'מספר היזם'"
+                    <app-regular-input [title]="'createProject.constructorPhone' | translate" [formGroup]="CreateProjectForm" [placeholder]="'createProject.constructorPhone' | translate"
                         [formControlName]="'ConstrctorPhone'"></app-regular-input>
                 </div>
                 <div class="col-md-3">
-                    <app-regular-input [title]="'מספר עוסק מורשה'" [formGroup]="CreateProjectForm"
-                        [placeholder]="'מספר עוסק מורשה'"
+                    <app-regular-input [title]="'createProject.entrepreneurNumber' | translate" [formGroup]="CreateProjectForm"
+                        [placeholder]="'createProject.entrepreneurNumber' | translate"
                         [formControlName]="'ConstrctorEntrepreneurNumber'"></app-regular-input>
                 </div>
             </div>
             <div class="row">
                 <div class="row col-md-4"></div>
                 <div class="col-md-4">
-                    <app-regular-input [title]="'מנהל הפרויקט'" [formGroup]="CreateProjectForm"
-                        [formControlName]="'ProjectManager'" [placeholder]="'מנהל הפרויקט'"></app-regular-input>
+                    <app-regular-input [title]="'createProject.projectManager' | translate" [formGroup]="CreateProjectForm"
+                        [formControlName]="'ProjectManager'" [placeholder]="'createProject.projectManager' | translate"></app-regular-input>
                     <div class="row col-md-4"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="row col-md-6">
                     <div class="inputs-headline-container">
-                        <h3>נתוני הפרויקט</h3>
+                        <h3>{{ 'createProject.projectDataSection' | translate }}</h3>
                     </div>
                     <div class="col-md-12">
-                        <app-regular-input [title]="'מקום הפרויקט'" [formGroup]="CreateProjectForm"
-                            [formControlName]="'ProjectLocation'" [placeholder]="'שם מקום העבודה'"></app-regular-input>
+                        <app-regular-input [title]="'createProject.projectLocation' | translate" [formGroup]="CreateProjectForm"
+                            [formControlName]="'ProjectLocation'" [placeholder]="'createProject.projectLocationPlaceholder' | translate"></app-regular-input>
                     </div>
                     <div class="col-md-12">
-                        <app-regular-input [title]="'המתכנן'" [formGroup]="CreateProjectForm"
-                            [formControlName]="'ConstrctorName'" [placeholder]="'שם המתכנן'"></app-regular-input>
+                        <app-regular-input [title]="'createProject.planner' | translate" [formGroup]="CreateProjectForm"
+                            [formControlName]="'ConstrctorName'" [placeholder]="'createProject.plannerPlaceholder' | translate"></app-regular-input>
                     </div>
                     <div class="col-md-12">
-                        <app-regular-input [title]="'מספר חוזה'" [formGroup]="CreateProjectForm"
-                            [placeholder]="'מספר חוזה'" [formControlName]="'WorkContractNumber'"></app-regular-input>
+                        <app-regular-input [title]="'createProject.contractNumber' | translate" [formGroup]="CreateProjectForm"
+                            [placeholder]="'createProject.contractNumber' | translate" [formControlName]="'WorkContractNumber'"></app-regular-input>
                     </div>
                     <div class="col-md-12">
-                        <app-date-picker [formGroup]="CreateProjectForm" [title]="'תאריך תחילת חוזה'"
+                        <app-date-picker [formGroup]="CreateProjectForm" [title]="'createProject.startContractDate' | translate"
                             [formControlName]="'StartContractDate'"
-                            [placeholder]="'תאריך תחילת חוזה'"></app-date-picker>
+                            [placeholder]="'createProject.startContractDate' | translate"></app-date-picker>
                     </div>
                     <div class="col-md-12">
-                        <app-date-picker [formGroup]="CreateProjectForm" [title]="'תאריך סוף חוזה'"
-                            [formControlName]="'EndContractDate'" [placeholder]="'תאריך סוף חוזה'"></app-date-picker>
+                        <app-date-picker [formGroup]="CreateProjectForm" [title]="'createProject.endContractDate' | translate"
+                            [formControlName]="'EndContractDate'" [placeholder]="'createProject.endContractDate' | translate"></app-date-picker>
                     </div>
                 </div>
                 <div class="row col-md-6">
                     <div class="inputs-headline-container">
-                        <h3>נתוני עובד</h3>
+                        <h3>{{ 'createProject.employeeDataSection' | translate }}</h3>
                     </div>
                     <div class="col-md-12">
-                        <app-regular-input [title]="'מספר חשבון'" [formGroup]="CreateProjectForm"
-                            [formControlName]="'AccountNumber'" [placeholder]="'מספר חשבון'"></app-regular-input>
+                        <app-regular-input [title]="'createProject.accountNumber' | translate" [formGroup]="CreateProjectForm"
+                            [formControlName]="'AccountNumber'" [placeholder]="'createProject.accountNumber' | translate"></app-regular-input>
                     </div>
                     <div class="col-md-12">
-                        <app-regular-input [title]="'נושא הפרויקט'" [formGroup]="CreateProjectForm"
-                            [placeholder]="'נושא הפרויקט'" [formControlName]="'ProjectSubject'"></app-regular-input>
+                        <app-regular-input [title]="'createProject.projectSubject' | translate" [formGroup]="CreateProjectForm"
+                            [placeholder]="'createProject.projectSubject' | translate" [formControlName]="'ProjectSubject'"></app-regular-input>
                     </div>
                     <div class="col-md-12">
-                        <app-regular-input [title]="'שם העובד'" [formGroup]="CreateProjectForm"
-                            [placeholder]="'שם העובד'" [formControlName]="'WorkerName'"></app-regular-input>
+                        <app-regular-input [title]="'createProject.workerName' | translate" [formGroup]="CreateProjectForm"
+                            [placeholder]="'createProject.workerName' | translate" [formControlName]="'WorkerName'"></app-regular-input>
                     </div>
                     <div class="col-md-12 row">
                         <div class="col-md-6">
-                            <app-regular-input [title]="'סוג תעריף'" [formGroup]="CreateProjectForm"
-                                [placeholder]="'סוג תעריף'" [formControlName]="'WorkKindRate'"></app-regular-input>
+                            <app-regular-input [title]="'createProject.rateType' | translate" [formGroup]="CreateProjectForm"
+                                [placeholder]="'createProject.rateType' | translate" [formControlName]="'WorkKindRate'"></app-regular-input>
                         </div>
                         <div class="col-md-6">
-                            <app-regular-input [title]="'רמת תעריף'" [formGroup]="CreateProjectForm"
-                                [placeholder]="'רמת תעריף'" [formControlName]="'WorkRate'"></app-regular-input>
+                            <app-regular-input [title]="'createProject.rateLevel' | translate" [formGroup]="CreateProjectForm"
+                                [placeholder]="'createProject.rateLevel' | translate" [formControlName]="'WorkRate'"></app-regular-input>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <app-regular-input [title]="'היחידה המעסיקה'" [formGroup]="CreateProjectForm"
-                            [placeholder]="'היחידה המעסיקה'"
+                        <app-regular-input [title]="'createProject.employingUnit' | translate" [formGroup]="CreateProjectForm"
+                            [placeholder]="'createProject.employingUnit' | translate"
                             [formControlName]="'EmployeeSectionName'"></app-regular-input>
                     </div>
                 </div>
             </div>
         </section>
-        <app-submit-btn matStepperNext *ngIf="!CurrProject" [btnTitle]="'צור פרויקט'"></app-submit-btn>
-        <app-submit-btn matStepperNext *ngIf="CurrProject" [btnTitle]="'עדכן נתוני פרויקט'"></app-submit-btn>
+        <app-submit-btn matStepperNext *ngIf="!CurrProject" [btnTitle]="'createProject.createBtn' | translate"></app-submit-btn>
+        <app-submit-btn matStepperNext *ngIf="CurrProject" [btnTitle]="'createProject.updateBtn' | translate"></app-submit-btn>
     </form>
 </section>
