@@ -1,23 +1,122 @@
 {
-    "app": {
-        "title": "Lus - מוני ג'ובס",
-        "subTitle": "The municipal section of Israel is calling you",
-        "welcome": "Welcome to Lus, the first platform in Israel where you can view local government tenders, apply and keep up to date with everything that is happening in the municipal sector.",
-        "ChangeLangTitle": "Select language",
-        "nav": {
-            "Home": "Home",
-            "About": "About",
-            "Contact": "Contact us",
-            "Signin": "Signin"
-        }
+  "app": {
+    "title": "Lus - Muni Jobs",
+    "subTitle": "The municipal section of Israel is calling you",
+    "welcome": "Welcome to Lus, the first platform in Israel where you can view local government tenders, apply and keep up to date with everything that is happening in the municipal sector.",
+    "ChangeLangTitle": "Select language",
+    "nav": {
+      "Home": "Home",
+      "About": "About",
+      "Contact": "Contact us",
+      "Signin": "Signin"
+    }
+  },
+  "Sitetitle": "Angular Multi Language Site",
+  "Name": "Name",
+  "NameError": "I am sure you must have a name!",
+  "Email": "Email address",
+  "PhoneNo": "Phone No",
+  "Password": "Password",
+  "Bio": "Enter bio",
+  "TermsConditions": "I agree to terms and conditions.",
+  "Submit": "Submit",
+
+  "common": {
+    "appName": "Luz System",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search",
+    "loading": "Loading...",
+    "or": "or",
+    "help": "Help",
+    "logout": "Log out",
+    "themeToggle": "Light / dark mode"
+  },
+  "nav": {
+    "home": "Home",
+    "history": "Data history",
+    "help": "Help",
+    "currentWorkDate": "Current work date"
+  },
+  "home": {
+    "title": "Welcome to the Luz system",
+    "manageTime": "Manage time"
+  },
+  "auth": {
+    "login": {
+      "subtitle": "Sign in to the system",
+      "email": "Email",
+      "emailPlaceholder": "name@example.com",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "noAccount": "Don't have an account? Register",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "success": "Signed in successfully.",
+      "genericError": "A sign-in error occurred. Please try again later.",
+      "googleError": "Google sign-in failed. Please try again.",
+      "errors": {
+        "userNotFound": "User not found.",
+        "notConfirmed": "The user is not verified yet.",
+        "wrongCredentials": "Incorrect username or password.",
+        "passwordExpired": "Your password has expired. Please reset it.",
+        "captchaFailed": "Security verification failed. Please try again.",
+        "lockedWithTime": "Account locked. Try again in {{minutes}} minutes.",
+        "locked": "The account is temporarily locked due to multiple sign-in attempts.",
+        "generic": "Sign-in failed. Check your details and try again."
+      }
     },
-    "Sitetitle": "Angular Multi Language Site",
-    "Name": "Name",
-    "NameError": "I am sure you must have a name!",
-    "Email": "Email address",
-    "PhoneNo": "Phone No",
-    "Password": "Password",
-    "Bio": "Enter bio",
-    "TermsConditions": "I agree to terms and conditions.",
-    "Submit": "Submit"
+    "register": {
+      "subtitle": "Create a new account",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "idNumber": "ID number",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Register",
+      "submitting": "Registering...",
+      "haveAccount": "Already have an account? Sign in",
+      "acceptTermsPrefix": "I agree to the ",
+      "termsLink": "Terms of Service",
+      "and": " and ",
+      "privacyLink": "Privacy Policy",
+      "mismatch": "Passwords do not match.",
+      "termsRequired": "You must accept the Terms of Service and Privacy Policy."
+    }
+  },
+  "validation": {
+    "required": "Required field",
+    "emailRequired": "Please enter an email address.",
+    "emailInvalid": "The email address is invalid.",
+    "passwordRequired": "Please enter a password.",
+    "firstNameRequired": "Please enter a first name.",
+    "lastNameRequired": "Please enter a last name.",
+    "confirmRequired": "Please confirm the password.",
+    "passwordMinLength": "The password must be at least 6 characters.",
+    "passwordPattern": "The password must include an uppercase letter, a lowercase letter, a digit and a special character.",
+    "invalidValue": "Invalid value"
+  },
+  "notifications": {
+    "connectionError": "Server connection problem. Check your connection and try again.",
+    "serverError": "A server error occurred. Please try again later.",
+    "sessionExpired": "Your session has expired. Please sign in again.",
+    "badRequest": "The request sent is invalid.",
+    "notFound": "The requested resource was not found.",
+    "generic": "An error occurred. Please try again.",
+    "projectCreated": "The project was created successfully.",
+    "projectUpdated": "Project details saved successfully.",
+    "projectCreateFailed": "Creating the project failed. Please try again.",
+    "projectUpdateFailed": "Updating the project failed.",
+    "hoursSaved": "Hours data saved successfully.",
+    "hoursSaveFailed": "Saving the hours data failed. Please try again.",
+    "hoursRowDeleted": "Hours row deleted successfully."
+  }
 }

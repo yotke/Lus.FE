@@ -45,6 +45,7 @@ import { GenericModalComponent } from '../Shared/generic-modal/generic-modal.com
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { SvgIconsManagerComponent } from './Icons/svg-icons-manager/svg-icons-manager.component';
 import { ICONS_BASE_PATH } from 'src/app/Infrastructure/Services/icons/svg-icon.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [SignatureInputComponent, DatePickerComponent, AutoCompleteComponent, CheckboxInputComponent, RegularInputComponent, TimePickerComponent, MonthPickerComponent,
@@ -69,6 +70,7 @@ import { ICONS_BASE_PATH } from 'src/app/Infrastructure/Services/icons/svg-icon.
     MatButtonModule,      // Import Angular Material Button module (optional)
     TablesModule,
     MatIconModule,
+    TranslateModule,
   ],
 
   exports: [SignatureInputComponent, DatePickerComponent, AutoCompleteComponent, CheckboxInputComponent, RegularInputComponent, TimePickerComponent, MonthPickerComponent,
@@ -76,7 +78,8 @@ import { ICONS_BASE_PATH } from 'src/app/Infrastructure/Services/icons/svg-icon.
     AddBtnComponent, SaveBtnComponent, RegularBtnComponent, IconBtnComponent, EditBtnComponent, DeleteBtnComponent, NextBtnComponent, BackBtnComponent, ExcelBtnComponent, MinusBtnComponent, ReturnBtnComponent, SubmitBtnComponent,
     MainHeadlineComponent, RegularHeadlineComponent, BtnsContainerComponent, EditOverlayComponent, TriangleButtonComponent,
     InputsRowComponent, GenericModalComponent, TackBtnComponent, MultiSelectComponent, MultiSelectCheckboxComponent,
-    SvgIconsManagerComponent
+    SvgIconsManagerComponent,
+    TranslateModule
   ],
   providers: [
     DatePipe,

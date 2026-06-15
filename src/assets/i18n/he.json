@@ -1,22 +1,121 @@
 {
-    "app": {
-        "title": "Lus - מוני ג'ובס",
-        "subTitle": "בואו להיות חלק מהמגזר המוניציפלי של ישראל",
-        "welcome": "ברוכים הבאים למערכת Lus, המערכת הראשונה בישראל בה ניתן לצפות במכרזי הרשויות המקומיות, להגיש מועמדות ולהתעדכן בכל מה שקורה במגזר המוניציפלי.",
-        "ChangeLangTitle": "בחר/י שפה",
-        "nav": {
-            "Home": "בית",
-            "About": "מי אנחנו",
-            "Contact": "צור/צרי קשר",
-            "Signin": "כניסה"
-        }
+  "app": {
+    "title": "Lus - מוני ג'ובס",
+    "subTitle": "בואו להיות חלק מהמגזר המוניציפלי של ישראל",
+    "welcome": "ברוכים הבאים למערכת Lus, המערכת הראשונה בישראל בה ניתן לצפות במכרזי הרשויות המקומיות, להגיש מועמדות ולהתעדכן בכל מה שקורה במגזר המוניציפלי.",
+    "ChangeLangTitle": "בחר/י שפה",
+    "nav": {
+      "Home": "בית",
+      "About": "מי אנחנו",
+      "Contact": "צור/צרי קשר",
+      "Signin": "כניסה"
+    }
+  },
+  "Name": "שם",
+  "NameError": "בטוח יש לך שם כלשהו...",
+  "Email": "דואר אלקטרוני",
+  "PhoneNo": "מס' נייד",
+  "Password": "סיסמא",
+  "Bio": "הכנס תוכן",
+  "TermsConditions": "אני מסכים לתנאים",
+  "Submit": "שלח",
+
+  "common": {
+    "appName": "מערכת לוז",
+    "close": "סגור",
+    "save": "שמירה",
+    "cancel": "ביטול",
+    "delete": "מחיקה",
+    "edit": "עריכה",
+    "back": "חזרה",
+    "next": "הבא",
+    "search": "חיפוש",
+    "loading": "טוען...",
+    "or": "או",
+    "help": "עזרה",
+    "logout": "התנתקות",
+    "themeToggle": "מצב יום / לילה"
+  },
+  "nav": {
+    "home": "מסך בית",
+    "history": "היסטורית נתונים",
+    "help": "עזרה",
+    "currentWorkDate": "תאריך עבודה נוכחי"
+  },
+  "home": {
+    "title": "ברוכים הבאים למערכת לוז",
+    "manageTime": "נהל את הזמן"
+  },
+  "auth": {
+    "login": {
+      "subtitle": "התחברות למערכת",
+      "email": "דוא\"ל",
+      "emailPlaceholder": "name@example.com",
+      "password": "סיסמה",
+      "submit": "התחברות",
+      "submitting": "מתחבר...",
+      "noAccount": "אין לך חשבון? הרשמה",
+      "showPassword": "הצג סיסמה",
+      "hidePassword": "הסתר סיסמה",
+      "success": "התחברת בהצלחה.",
+      "genericError": "אירעה שגיאה בהתחברות. נסו שוב מאוחר יותר.",
+      "googleError": "ההתחברות עם Google נכשלה. נסו שוב.",
+      "errors": {
+        "userNotFound": "משתמש לא נמצא.",
+        "notConfirmed": "המשתמש טרם אומת.",
+        "wrongCredentials": "שם משתמש או סיסמה שגויים.",
+        "passwordExpired": "תוקף הסיסמה פג. יש לאפס סיסמה.",
+        "captchaFailed": "אימות אבטחה נכשל. נסו שוב.",
+        "lockedWithTime": "החשבון ננעל. נסו שוב בעוד {{minutes}} דקות.",
+        "locked": "החשבון ננעל זמנית עקב ניסיונות התחברות מרובים.",
+        "generic": "ההתחברות נכשלה. בדקו את הפרטים ונסו שוב."
+      }
     },
-    "Name": "שם",
-    "NameError": "בטוח יש לך שם כלשהו...",
-    "Email": "דואר אלקטרוני",
-    "PhoneNo": "מס' נייד",
-    "Password": "סיסמא",
-    "Bio": "הכנס תוכן",
-    "TermsConditions": "אני מסכים לתנאים",
-    "Submit": "שלח"
+    "register": {
+      "subtitle": "יצירת חשבון חדש",
+      "firstName": "שם פרטי",
+      "lastName": "שם משפחה",
+      "email": "דוא\"ל",
+      "phone": "טלפון",
+      "idNumber": "תעודת זהות",
+      "password": "סיסמה",
+      "confirmPassword": "אימות סיסמה",
+      "submit": "הרשמה",
+      "submitting": "נרשם...",
+      "haveAccount": "כבר יש לך חשבון? התחברות",
+      "acceptTermsPrefix": "אני מסכים/ה ל",
+      "termsLink": "תנאי השימוש",
+      "and": " ול",
+      "privacyLink": "מדיניות הפרטיות",
+      "mismatch": "הסיסמאות אינן תואמות.",
+      "termsRequired": "יש לאשר את תנאי השימוש ומדיניות הפרטיות."
+    }
+  },
+  "validation": {
+    "required": "שדה חובה",
+    "emailRequired": "יש להזין כתובת דוא\"ל.",
+    "emailInvalid": "כתובת הדוא\"ל אינה תקינה.",
+    "passwordRequired": "יש להזין סיסמה.",
+    "firstNameRequired": "יש להזין שם פרטי.",
+    "lastNameRequired": "יש להזין שם משפחה.",
+    "confirmRequired": "יש לאמת את הסיסמה.",
+    "passwordMinLength": "הסיסמה חייבת להכיל לפחות 6 תווים.",
+    "passwordPattern": "הסיסמה חייבת לכלול אות גדולה, אות קטנה, ספרה ותו מיוחד.",
+    "invalidValue": "ערך לא תקין"
+  },
+  "notifications": {
+    "connectionError": "בעיית תקשורת עם השרת. בדקו את החיבור ונסו שוב.",
+    "serverError": "אירעה שגיאה בשרת. אנא נסו שוב מאוחר יותר.",
+    "sessionExpired": "פג תוקף ההתחברות. אנא התחברו מחדש.",
+    "badRequest": "הבקשה שנשלחה אינה תקינה.",
+    "notFound": "המשאב המבוקש לא נמצא.",
+    "generic": "אירעה שגיאה. אנא נסו שוב.",
+    "projectCreated": "הפרויקט נוצר בהצלחה.",
+    "projectUpdated": "פרטי הפרויקט נשמרו בהצלחה.",
+    "projectCreateFailed": "יצירת הפרויקט נכשלה. אנא נסו שוב.",
+    "projectUpdateFailed": "עדכון הפרויקט נכשל.",
+    "hoursSaved": "נתוני השעות נשמרו בהצלחה.",
+    "hoursSaveFailed": "שמירת נתוני השעות נכשלה. אנא נסו שוב.",
+    "hoursRowDeleted": "שורת השעות נמחקה בהצלחה."
+  }
 }

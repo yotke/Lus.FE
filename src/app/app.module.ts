@@ -7,7 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
-import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -44,6 +46,11 @@ import { HttpErrorInterceptor } from './Adapters/Interceptors/error/http-error-i
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 export function getBaseUrl(): string {
   return AppConsts.baseUrl;
+}
+
+// Loads translation JSON from /assets/i18n/<lang>.json
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 declare var $: any;
 
@@ -87,7 +94,15 @@ declare var $: any;
     JwtModule,
     MatStepperModule,
     // RecaptchaModule,
-    CommonHelpersModule
+    CommonHelpersModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      defaultLanguage: 'he',
+    })
 
   ],
   providers: [
