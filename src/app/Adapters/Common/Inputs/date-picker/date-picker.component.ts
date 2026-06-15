@@ -38,11 +38,9 @@ export class DatePickerComponent implements ControlValueAccessor {
   }
 
   get combinedClasses(): string {
-    // If classes are provided, combine them with default classes
-    if (this.classes) {
-      return `mat-mdc-form-field-infix ${this.classes}`;
-    }
-    return 'mat-mdc-form-field-infix';
+    // Never put the inner `mat-mdc-form-field-infix` class on the root field —
+    // it doubles the height. Just pass through caller-provided classes.
+    return this.classes ?? '';
   }
   formatDate(date: Date): string | null {
     return this.datePipe.transform(date, 'dd/MM/yyyy');

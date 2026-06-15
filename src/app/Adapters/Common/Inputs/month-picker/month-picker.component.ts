@@ -37,11 +37,10 @@ export class MonthPickerComponent implements ControlValueAccessor {
   constructor(private datePipe: DatePipe) { }
 
   get combinedClasses(): string {
-    // If classes are provided, combine them with default classes
-    if (this.classes) {
-      return `mat-mdc-form-field-infix ${this.classes}`;
-    }
-    return 'mat-mdc-form-field-infix';
+    // NOTE: never add `mat-mdc-form-field-infix` here — putting that inner
+    // Material class on the root mat-form-field doubles the field height. Just
+    // pass through any caller-provided classes (e.g. padding-zero / system-date).
+    return this.classes ?? '';
   }
   get control(): FormControl | null {
     if (this.formControlName) {
