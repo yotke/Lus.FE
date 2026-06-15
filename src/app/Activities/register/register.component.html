@@ -1,56 +1,59 @@
 <div class="register-page" dir="rtl">
   <div class="register-card">
     <div class="register-header">
-      <h1 class="register-title">מערכת לוז</h1>
-      <p class="register-subtitle">יצירת חשבון חדש</p>
+      <h1 class="register-title">{{ 'common.appName' | translate }}</h1>
+      <p class="register-subtitle">{{ 'auth.register.subtitle' | translate }}</p>
     </div>
 
     <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
       <div class="register-row">
         <app-regular-input class="register-field" [formGroup]="registerForm" [formControlName]="'firstName'"
-          [title]="'שם פרטי'" [placeholder]="'שם פרטי'" [autocomplete]="'given-name'"></app-regular-input>
+          [title]="'auth.register.firstName' | translate" [placeholder]="'auth.register.firstName' | translate"
+          [autocomplete]="'given-name'"></app-regular-input>
 
         <app-regular-input class="register-field" [formGroup]="registerForm" [formControlName]="'lastName'"
-          [title]="'שם משפחה'" [placeholder]="'שם משפחה'" [autocomplete]="'family-name'"></app-regular-input>
+          [title]="'auth.register.lastName' | translate" [placeholder]="'auth.register.lastName' | translate"
+          [autocomplete]="'family-name'"></app-regular-input>
       </div>
 
       <app-regular-input class="register-field" [formGroup]="registerForm" [formControlName]="'email'"
-        [title]="'דוא&quot;ל'" [placeholder]="'name@example.com'" [inputType]="'email'" [prefixIcon]="'mail'"
-        [autocomplete]="'username'"></app-regular-input>
+        [title]="'auth.register.email' | translate" [placeholder]="'auth.login.emailPlaceholder' | translate"
+        [inputType]="'email'" [prefixIcon]="'mail'" [autocomplete]="'username'"></app-regular-input>
 
       <div class="register-row">
         <app-regular-input class="register-field" [formGroup]="registerForm" [formControlName]="'phone'"
-          [title]="'טלפון'" [placeholder]="'טלפון'" [inputType]="'tel'" [autocomplete]="'tel'"></app-regular-input>
+          [title]="'auth.register.phone' | translate" [placeholder]="'auth.register.phone' | translate"
+          [inputType]="'tel'" [autocomplete]="'tel'"></app-regular-input>
 
         <app-regular-input class="register-field" [formGroup]="registerForm" [formControlName]="'idNumber'"
-          [title]="'תעודת זהות'" [placeholder]="'תעודת זהות'"></app-regular-input>
+          [title]="'auth.register.idNumber' | translate" [placeholder]="'auth.register.idNumber' | translate"></app-regular-input>
       </div>
 
       <app-regular-input class="register-field" [formGroup]="registerForm" [formControlName]="'password'"
-        [title]="'סיסמה'" [inputType]="hidePassword ? 'password' : 'text'" [prefixIcon]="'lock'"
+        [title]="'auth.register.password' | translate" [inputType]="hidePassword ? 'password' : 'text'" [prefixIcon]="'lock'"
         [suffixIcon]="hidePassword ? 'eye-off' : 'eye'" (suffixIconClicked)="hidePassword = !hidePassword"
         [autocomplete]="'new-password'"
-        [errorMessages]="{ minlength: 'הסיסמה חייבת להכיל לפחות 6 תווים', pattern: 'הסיסמה חייבת לכלול אות גדולה, אות קטנה, ספרה ותו מיוחד' }"></app-regular-input>
+        [errorMessages]="{ minlength: ('validation.passwordMinLength' | translate), pattern: ('validation.passwordPattern' | translate) }"></app-regular-input>
 
       <app-regular-input class="register-field" [formGroup]="registerForm" [formControlName]="'confirmPassword'"
-        [title]="'אימות סיסמה'" [inputType]="hideConfirmPassword ? 'password' : 'text'" [prefixIcon]="'lock'"
+        [title]="'auth.register.confirmPassword' | translate" [inputType]="hideConfirmPassword ? 'password' : 'text'" [prefixIcon]="'lock'"
         [suffixIcon]="hideConfirmPassword ? 'eye-off' : 'eye'"
         (suffixIconClicked)="hideConfirmPassword = !hideConfirmPassword"
         [autocomplete]="'new-password'"></app-regular-input>
 
       <div class="register-mismatch" *ngIf="registerForm.hasError('passwordMismatch') && confirmPassword?.touched">
-        הסיסמאות אינן תואמות.
+        {{ 'auth.register.mismatch' | translate }}
       </div>
 
       <label class="register-terms">
         <mat-checkbox formControlName="acceptTerms" color="primary"></mat-checkbox>
         <span>
-          אני מסכים/ה ל<a routerLink="/Terms" target="_blank">תנאי השימוש</a>
-          ול<a routerLink="/Privacy" target="_blank">מדיניות הפרטיות</a>.
+          {{ 'auth.register.acceptTermsPrefix' | translate }}<a routerLink="/Terms" target="_blank">{{ 'auth.register.termsLink' | translate }}</a>
+          {{ 'auth.register.and' | translate }}<a routerLink="/Privacy" target="_blank">{{ 'auth.register.privacyLink' | translate }}</a>.
         </span>
       </label>
       <div class="register-terms-error" *ngIf="acceptTerms?.hasError('required') && acceptTerms?.touched">
-        יש לאשר את תנאי השימוש ומדיניות הפרטיות.
+        {{ 'auth.register.termsRequired' | translate }}
       </div>
 
       <div class="register-error" *ngIf="errorMessage">
@@ -70,15 +73,15 @@
         class="register-submit"
         [disabled]="isSubmitting"
       >
-        <span *ngIf="!isSubmitting">הרשמה</span>
+        <span *ngIf="!isSubmitting">{{ 'auth.register.submit' | translate }}</span>
         <span *ngIf="isSubmitting" class="register-submit-loading">
           <mat-spinner diameter="20"></mat-spinner>
-          נרשם...
+          {{ 'auth.register.submitting' | translate }}
         </span>
       </button>
 
       <button mat-button type="button" class="register-login-link" (click)="goToLogin()">
-        כבר יש לך חשבון? התחברות
+        {{ 'auth.register.haveAccount' | translate }}
       </button>
     </form>
   </div>

@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { Router } from '@angular/router';
 import { AuthService } from '../../Infrastructure/Services/Auth/auth.service';
 import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,8 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private translate: TranslateService
   ) {
     this.registerForm = this.fb.group(
       {
@@ -99,9 +101,9 @@ export class RegisterComponent {
           this.isSubmitting = false;
           const isSuccess = response?.isSuccess ?? response?.IsSuccess;
           if (isSuccess) {
-            this.successMessage =
-              'נרשמת בהצלחה! שלחנו אליך דוא"ל לאימות החשבון. יש לאמת לפני ההתחברות.';
-            this.notify.success(this.successMessage);
+            const msg = this.translate.instant('auth.register.successEmail') as string;
+            this.successMessage = msg;
+            this.notify.success(msg);
             this.registerForm.disable();
             setTimeout(() => this.router.navigateByUrl('/Login'), 4000);
           } else {
@@ -111,8 +113,9 @@ export class RegisterComponent {
         },
         error: () => {
           this.isSubmitting = false;
-          this.errorMessage = 'אירעה שגיאה בהרשמה. נסו שוב מאוחר יותר.';
-          this.notify.error(this.errorMessage);
+          const msg = this.translate.instant('auth.register.genericError') as string;
+          this.errorMessage = msg;
+          this.notify.error(msg);
         },
       });
   }
@@ -127,13 +130,13 @@ export class RegisterComponent {
 
     switch (exceptionId) {
       case 10:
-        return 'הפרטים שהוזנו אינם תקינים.';
+        return this.translate.instant('auth.register.errors.invalidDetails');
       case 17:
-        return 'כתובת הדוא"ל כבר רשומה במערכת.';
+        return this.translate.instant('auth.register.errors.emailExists');
       case 41:
-        return 'אימות אבטחה נכשל. נסו שוב.';
+        return this.translate.instant('auth.register.errors.captchaFailed');
       default:
-        return serverMessage || 'ההרשמה נכשלה. בדקו את הפרטים ונסו שוב.';
+        return serverMessage || this.translate.instant('auth.register.errors.generic');
     }
   }
 }

@@ -93,7 +93,15 @@
       "and": " and ",
       "privacyLink": "Privacy Policy",
       "mismatch": "Passwords do not match.",
-      "termsRequired": "You must accept the Terms of Service and Privacy Policy."
+      "termsRequired": "You must accept the Terms of Service and Privacy Policy.",
+      "successEmail": "Registered successfully! We've sent you a verification email. Please verify before signing in.",
+      "genericError": "A registration error occurred. Please try again later.",
+      "errors": {
+        "invalidDetails": "The details entered are invalid.",
+        "emailExists": "This email is already registered.",
+        "captchaFailed": "Security verification failed. Please try again.",
+        "generic": "Registration failed. Check your details and try again."
+      }
     }
   },
   "validation": {
