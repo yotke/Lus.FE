@@ -5,6 +5,7 @@ import { ProjectTemplate } from 'src/app/Infrastructure/Classes & Models/Classes
 import { ProjectTime, TimeRow, TimesArray } from 'src/app/Infrastructure/Classes & Models/Classes/project-time';
 import { ProjectTemplateService } from 'src/app/Infrastructure/Services/projectTemplateService/project-template.service';
 import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-project-validator',
@@ -31,7 +32,8 @@ export class ProjectValidatorComponent implements OnInit {
     private projectTemplateSvc: ProjectTemplateService,
     private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private translate: TranslateService
   ) { }
 
 
@@ -74,7 +76,7 @@ export class ProjectValidatorComponent implements OnInit {
                 }
               }
             },
-            error: err => this.notify.errorFrom(err, 'טעינת נתוני הבדיקה נכשלה. אנא נסו שוב.')
+            error: err => this.notify.errorFrom(err, this.translate.instant('validator.loadCheckFailed'))
           })
       }
     });
@@ -107,13 +109,13 @@ export class ProjectValidatorComponent implements OnInit {
     if (this.AllProjectsTimesArrayTotMonthForm.length > 0) {
       this.hasCollisionTot = true;
       this.hasCollisionEmiter.emit(true);
-      this.notify.warning('נמצאו התנגשויות שעות בחודש הנבחר. יש לתקן לפני ייצוא.');
+      this.notify.warning(this.translate.instant('validator.conflictsBeforeExport'));
     }
     else {
       this.hasCollisionTot = false;
 
       this.hasCollisionEmiter.emit(false);
-      this.notify.success('בדיקת השעות הסתיימה ללא התנגשויות.');
+      this.notify.success(this.translate.instant('validator.checkOk'));
     }
   }
   pushData() {
@@ -201,7 +203,7 @@ export class ProjectValidatorComponent implements OnInit {
         const endTime2 = this.parseTime(group2.controls['EndTime'].value);
         if (startTime1 < endTime2 && startTime2 < endTime1) {
           this.hasCollision = true;
-          this.notify.warning('נמצאה התנגשות שעות. בדקו את שורות הזמן.');
+          this.notify.warning(this.translate.instant('validator.conflictFoundRows'));
 
           return true;  // There's a collision
         }

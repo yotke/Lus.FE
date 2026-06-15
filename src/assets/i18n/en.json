@@ -124,7 +124,20 @@
   },
   "validator": {
     "conflictDay": "There is a conflict on this day:",
-    "conflictDates": "Note: there is a conflict between dates:"
+    "conflictDates": "Note: there is a conflict between dates:",
+    "loadCheckFailed": "Loading the validation data failed. Please try again.",
+    "conflictsBeforeExport": "Time conflicts were found in the selected month. Please fix before exporting.",
+    "checkOk": "The hours check completed with no conflicts.",
+    "conflictFoundRows": "A time conflict was found. Check the time rows."
+  },
+  "breadcrumb": {
+    "home": "Home page",
+    "login": "Sign in",
+    "register": "Register",
+    "privacy": "Privacy policy",
+    "terms": "Terms of use",
+    "timeManagement": "Project management",
+    "history": "View project history"
   },
   "dataLoader": {
     "heading": "Time management",

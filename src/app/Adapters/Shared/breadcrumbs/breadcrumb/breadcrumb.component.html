@@ -10,7 +10,7 @@
     </li> -->
     <li *ngFor="let breadcrumb of getBreadcRumbsData()">
         <a [routerLink]="breadcrumb.url">
-            {{ breadcrumb.label }}
+            {{ breadcrumb.label | translate }}
         </a>
     </li>
 </ol>

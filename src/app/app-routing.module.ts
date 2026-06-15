@@ -11,18 +11,18 @@ import { authGuard } from './Infrastructure/Services/Auth/AuthGuard/auth-guard';
 
 const routes: Routes = [
   // Default: send to login; the guard forwards authenticated users on to Home.
-  { path: '', redirectTo: 'Home', pathMatch: 'full', data: { breadcrumb: 'דף הבית', roles: [] } },
+  { path: '', redirectTo: 'Home', pathMatch: 'full', data: { breadcrumb: 'breadcrumb.home', roles: [] } },
 
   // Public — the only routes reachable without a session.
-  { path: 'Login', component: LoginComponent, data: { breadcrumb: 'התחברות', roles: [] } },
-  { path: 'Register', component: RegisterComponent, data: { breadcrumb: 'הרשמה', roles: [] } },
-  { path: 'Privacy', component: PrivacyComponent, data: { breadcrumb: 'מדיניות פרטיות', roles: [] } },
-  { path: 'Terms', component: TermsComponent, data: { breadcrumb: 'תנאי שימוש', roles: [] } },
+  { path: 'Login', component: LoginComponent, data: { breadcrumb: 'breadcrumb.login', roles: [] } },
+  { path: 'Register', component: RegisterComponent, data: { breadcrumb: 'breadcrumb.register', roles: [] } },
+  { path: 'Privacy', component: PrivacyComponent, data: { breadcrumb: 'breadcrumb.privacy', roles: [] } },
+  { path: 'Terms', component: TermsComponent, data: { breadcrumb: 'breadcrumb.terms', roles: [] } },
 
   // Everything below requires authentication.
-  { path: 'Home', component: HomeComponent, canActivate: [authGuard], data: { breadcrumb: 'דף הבית', roles: [] } },
-  { path: 'TimeManagement', component: ProjectsManagerComponent, canActivate: [authGuard], data: { breadcrumb: 'ניהול פרויקטים', roles: [] } },
-  { path: 'History', component: HistoryProjectsComponent, canActivate: [authGuard], data: { breadcrumb: 'צפייה בהיסטורית פרויקטים', roles: [] } },
+  { path: 'Home', component: HomeComponent, canActivate: [authGuard], data: { breadcrumb: 'breadcrumb.home', roles: [] } },
+  { path: 'TimeManagement', component: ProjectsManagerComponent, canActivate: [authGuard], data: { breadcrumb: 'breadcrumb.timeManagement', roles: [] } },
+  { path: 'History', component: HistoryProjectsComponent, canActivate: [authGuard], data: { breadcrumb: 'breadcrumb.history', roles: [] } },
 
   // Unknown routes -> login (which forwards to Home if already authenticated).
   { path: '**', redirectTo: 'Login' },
