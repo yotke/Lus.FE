@@ -1,5 +1,5 @@
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -15,12 +15,40 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   // here would cause logout -> 401 -> logout loops, so we skip them.
   private readonly skipPatterns = ['/api/auth/', '/csrf-token', '/connect/'];
 
+  /**
+   * CIRCULAR-DI LAW: an interceptor must NEVER take an HttpClient-dependent service as a
+   * constructor parameter.
+   *
+   * Two of these were cycles:
+   *
+   *   HttpClient -> HTTP_INTERCEPTORS -> HttpErrorInterceptor -> AuthService      -> HttpClient
+   *                                                           -> TranslateService -> HttpClient
+   *
+   * (`TranslateService`'s loader IS `TranslateHttpLoader`, which injects `HttpClient`.)
+   *
+   * Angular threw NG0200, HttpClient never constructed, and every HttpClient call in the app
+   * silently died — the UI rendered raw i18n keys with no request for assets/i18n/he.json ever
+   * appearing in the network log (2026-08-18).
+   *
+   * `Router` and `NotificationService` (MatSnackBar) have no HTTP dependency and stay eager.
+   * Pinned by http-error-interceptor.di.spec.ts.
+   */
+  private authServiceRef?: AuthService;
+  private translateRef?: TranslateService;
+
   constructor(
     private router: Router,
-    private authService: AuthService,
     private notify: NotificationService,
-    private translate: TranslateService
+    private injector: Injector
   ) { }
+
+  private get authService(): AuthService {
+    return (this.authServiceRef ??= this.injector.get(AuthService));
+  }
+
+  private get translate(): TranslateService {
+    return (this.translateRef ??= this.injector.get(TranslateService));
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(

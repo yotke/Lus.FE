@@ -1,0 +1,110 @@
+<div class="excel-canvas" [dir]="dir" [class.busy]="busy">
+
+  <!-- Before an exemplar exists there is no shape to draw. Say so plainly rather than
+       rendering an empty grid that looks broken. -->
+  <div class="canvas-empty" *ngIf="!hasTemplate && rows.length === 0">
+    <span class="material-icons empty-icon">table_view</span>
+    <p class="empty-title">{{ 'docBuilder.canvas.empty.title' | translate }}</p>
+    <p class="empty-hint">{{ 'docBuilder.canvas.empty.hint' | translate }}</p>
+  </div>
+
+  <div class="canvas-scroll" *ngIf="hasTemplate || rows.length > 0">
+    <!-- A preview of the finished document, not a bare grid: the same title band,
+         letterhead, table, totals and billing block the exported workbook prints. -->
+    <div class="doc-sheet">
+
+      <div class="doc-band doc-org" *ngIf="template?.OrgName">{{ template?.OrgName }}</div>
+      <div class="doc-band doc-title" *ngIf="template?.Title">{{ template?.Title }}</div>
+
+      <div class="doc-letterhead" *ngIf="template?.PlannerName || template?.ClientName || draft?.AccountNumber">
+        <div class="lh-row" *ngIf="template?.PlannerName">
+          <span class="lh-label">{{ 'docBuilder.canvas.letterhead.planner' | translate }}</span>
+          <span class="lh-value">{{ template?.PlannerName }}</span>
+        </div>
+        <div class="lh-row" *ngIf="template?.ClientName">
+          <span class="lh-label">{{ 'docBuilder.canvas.letterhead.client' | translate }}</span>
+          <span class="lh-value">{{ template?.ClientName }}</span>
+        </div>
+        <div class="lh-row" *ngIf="draft?.AccountNumber">
+          <span class="lh-label">{{ 'docBuilder.canvas.letterhead.account' | translate }}</span>
+          <span class="lh-value">{{ draft?.AccountNumber }}</span>
+        </div>
+      </div>
+
+      <div class="canvas-grid" [style.grid-template-columns]="gridTemplate">
+        <!-- Header band -->
+        <div class="cell head" *ngFor="let h of headerLabels">
+          {{ h.text ? h.text : (h.key | translate) }}
+        </div>
+        <div class="cell head actions-head"></div>
+
+        <!-- Data band -->
+        <ng-container *ngFor="let row of rows; let i = index; trackBy: trackByIndex">
+          <div class="cell" *ngFor="let col of columns" [class.derived]="col.derived">
+            <span class="derived-value" *ngIf="col.derived">
+              {{ dayKey(row) ? (dayKey(row) | translate) : '' }}
+            </span>
+            <input *ngIf="!col.derived" class="cell-input" [attr.type]="col.type === 'date' ? 'date' : 'text'"
+              [attr.inputmode]="col.type === 'number' ? 'decimal' : null" [value]="display(row, col)"
+              [disabled]="busy" (blur)="onCommit(i, col, $any($event.target).value)"
+              (keydown.enter)="$any($event.target).blur()" />
+          </div>
+          <div class="cell actions-cell">
+            <!-- Who wrote this row: a hand edit or the agent that produced it. -->
+            <span class="row-source" *ngIf="row.Source" [class.by-user]="isUserRow(row)"
+              [title]="(sourceLabelKey(row) ? (sourceLabelKey(row)! | translate) : sourceFallback(row))">
+              <span class="material-icons">{{ sourceIcon(row) }}</span>
+            </span>
+            <button type="button" class="row-remove" [disabled]="busy" (click)="removeRow.emit(i)"
+              [attr.aria-label]="'docBuilder.canvas.removeRow' | translate">
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+        </ng-container>
+
+        <!-- Totals row: the workbook highlights this band, so the preview does too. -->
+        <ng-container *ngIf="draft?.Totals as totals">
+          <div class="cell total-band">{{ 'docBuilder.canvas.totals.rowLabel' | translate }}</div>
+          <div class="cell total-band"></div>
+          <div class="cell total-band num">{{ totals.Hours }}</div>
+          <div class="cell total-band num">{{ totals.CarryIn }}</div>
+          <div class="cell total-band num">{{ totals.Remaining }}</div>
+          <div class="cell total-band"></div>
+        </ng-container>
+      </div>
+
+      <button type="button" class="add-row" [disabled]="busy" (click)="addRow.emit()">
+        <span class="material-icons">add</span>
+        {{ 'docBuilder.canvas.addRow' | translate }}
+      </button>
+
+      <!-- Billing block, in the document's own wording where the importer learned it. -->
+      <div class="doc-billing">
+        <div class="billing-line" *ngFor="let line of billingLines" [class.grand]="line.labelKey === 'docBuilder.canvas.totals.total'"
+          [class.missing]="line.input === 'totals.hourlyRate' && missingRate">
+          <span class="billing-label">{{ line.label ? line.label : (line.labelKey | translate) }}</span>
+          <span class="billing-value" *ngIf="line.derived">{{ line.value }}</span>
+          <input *ngIf="!line.derived" class="billing-input" inputmode="decimal" [disabled]="busy"
+            [value]="draft?.Totals?.HourlyRate ?? ''"
+            [attr.placeholder]="'docBuilder.canvas.totals.ratePlaceholder' | translate"
+            (blur)="onTotalsCommit('totals.hourlyRate', $any($event.target).value, draft?.Totals?.HourlyRate)"
+            (keydown.enter)="$any($event.target).blur()" />
+        </div>
+
+        <div class="billing-line secondary">
+          <span class="billing-label">{{ 'docBuilder.canvas.totals.carryIn' | translate }}</span>
+          <input class="billing-input" inputmode="decimal" [disabled]="busy" [value]="draft?.Totals?.CarryIn"
+            (blur)="onTotalsCommit('totals.carryIn', $any($event.target).value, draft?.Totals?.CarryIn)"
+            (keydown.enter)="$any($event.target).blur()" />
+        </div>
+
+        <p class="rate-warning" *ngIf="missingRate">
+          <span class="material-icons">error_outline</span>
+          {{ 'docBuilder.canvas.totals.missingRate' | translate }}
+        </p>
+      </div>
+
+      <p class="doc-declaration" *ngIf="template?.DeclarationText">{{ template?.DeclarationText }}</p>
+    </div>
+  </div>
+</div>

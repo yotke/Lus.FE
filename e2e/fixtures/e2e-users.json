@@ -1,0 +1,9 @@
+{
+  "defaultUser": "dev",
+  "users": {
+    "dev": {
+      "username": "israel@test.com",
+      "password": "AaUu123456@!"
+    }
+  }
+}

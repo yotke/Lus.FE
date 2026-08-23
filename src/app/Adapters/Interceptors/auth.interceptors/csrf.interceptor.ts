@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap, take } from 'rxjs/operators';
@@ -10,7 +10,30 @@ const CSRF_SKIP = ['/csrf-token', '/connect/'];
 
 @Injectable()
 export class CsrfInterceptor implements HttpInterceptor {
-  constructor(private csrf: CsrfService) { }
+  /**
+   * CIRCULAR-DI LAW: an interceptor must NEVER take an HttpClient-dependent service as a
+   * constructor parameter.
+   *
+   * `CsrfService` injects `HttpClient`. Taking it here created:
+   *
+   *   HttpClient -> HTTP_INTERCEPTORS -> CsrfInterceptor -> CsrfService -> HttpClient
+   *                                                              ^_____________|
+   *
+   * Angular threw NG0200 and HttpClient never constructed, so EVERY HttpClient call in the app
+   * silently died — including @ngx-translate's loader, which is why the UI rendered raw keys
+   * ("common.appName", "auth.login.email") with no request for assets/i18n/he.json ever appearing
+   * in the network log (2026-08-18).
+   *
+   * The Injector is resolved eagerly (it has no HTTP dependency); `CsrfService` is pulled lazily
+   * on first use, by which time HttpClient exists. Pinned by csrf.interceptor.di.spec.ts.
+   */
+  private csrfService?: CsrfService;
+
+  constructor(private injector: Injector) { }
+
+  private get csrf(): CsrfService {
+    return (this.csrfService ??= this.injector.get(CsrfService));
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.shouldAddCsrf(req)) {

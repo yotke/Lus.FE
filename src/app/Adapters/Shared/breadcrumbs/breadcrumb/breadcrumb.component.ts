@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
-import { IBreadCrumb } from '../../../../Infastructure/Classes/interfaces/IBreadCrumb/ibread-crumb';
+import { IBreadCrumb } from '../../../../Infrastructure/Classes & Models/Interfaces/IBreadCrumb/ibread-crumb';
 
 @Component({
   selector: 'app-breadcrumb',

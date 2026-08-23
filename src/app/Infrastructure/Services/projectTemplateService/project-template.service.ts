@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Subject, tap } from 'rxjs';
 import { ProjectTemplate } from 'src/app/Infrastructure/Classes & Models/Classes/project-template';
 import { ExtendedHttpClient } from 'src/app/Infrastructure/Classes & Models/customClasses/extendedHttpClient';
-import { API_BASE_URL } from 'src/app/app.module';
+import { API_BASE_URL } from 'src/app/Infrastructure/Classes & Models/customClasses/api-base-url.token';
 import { environment } from 'src/environments/environment';
 import { HttpRequestService } from '../httpRequestService';
 

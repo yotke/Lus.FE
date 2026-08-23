@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../../Infastructure/material/material.module';
+import { MaterialModule } from '../../Infrastructure/material/material.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BreadcrumbComponent } from './breadcrumbs/breadcrumb/breadcrumb.component';

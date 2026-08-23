@@ -4,12 +4,14 @@ import { of, throwError } from 'rxjs';
 import { DataLoaderComponent } from './data-loader.component';
 import { ProjectTemplate } from 'src/app/Infrastructure/Classes & Models/Classes/project-template';
 import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 describe('DataLoaderComponent', () => {
   let component: DataLoaderComponent;
   let projectTimeSvc: any;
   let projectSvc: any;
   let notify: jasmine.SpyObj<NotificationService>;
+  let translate: jasmine.SpyObj<TranslateService>;
 
   beforeEach(() => {
     projectTimeSvc = {
@@ -21,7 +23,9 @@ describe('DataLoaderComponent', () => {
       GetAllProjects: of([]),
     };
     notify = jasmine.createSpyObj<NotificationService>('NotificationService', ['success', 'info', 'errorFrom']);
-    component = new DataLoaderComponent(projectTimeSvc, projectSvc, new FormBuilder(), new DatePipe('he-IL'), notify);
+    translate = jasmine.createSpyObj<TranslateService>('TranslateService', ['instant', 'get']);
+    translate.instant.and.callFake((key: any) => key);
+    component = new DataLoaderComponent(projectTimeSvc, projectSvc, new FormBuilder(), new DatePipe('he-IL'), notify, translate);
     component.CurrProject = { Id: 1, ProjectTimes: [] } as unknown as ProjectTemplate;
     component.ProjectId = 1;
     component.initProjectForm(component.CurrProject);

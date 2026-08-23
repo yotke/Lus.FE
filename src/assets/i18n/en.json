@@ -20,7 +20,6 @@
   "Bio": "Enter bio",
   "TermsConditions": "I agree to terms and conditions.",
   "Submit": "Submit",
-
   "common": {
     "appName": "Luz System",
     "close": "Close",
@@ -57,7 +56,8 @@
     "title": "My time management",
     "lead1": "Here you can manage your time exactly how you want — easily and without mistakes.",
     "lead2": "So you never have to worry again, we've built you a perfect way to manage your time.",
-    "manageTime": "Manage time"
+    "manageTime": "Manage time",
+    "start": "Get started"
   },
   "createProject": {
     "heading": "Create project",
@@ -137,7 +137,8 @@
     "privacy": "Privacy policy",
     "terms": "Terms of use",
     "timeManagement": "Project management",
-    "history": "View project history"
+    "history": "View project history",
+    "documentBuilder": "Document builder"
   },
   "dataLoader": {
     "heading": "Time management",
@@ -246,5 +247,141 @@
     "rowRemovedFromForm": "The row was removed from the form.",
     "logoutSuccess": "Logged out successfully.",
     "logoutFailed": "Logout failed. Please try again."
+  },
+  "progressToast": {
+    "preparing": "Preparing…",
+    "done": "Done",
+    "error": "Error",
+    "stepsCompleted": "steps completed"
+  },
+  "docBuilder": {
+    "progress": {
+      "starting": "Starting to build the document…"
+    },
+    "agents": {
+      "templateReader": {
+        "name": "Template reader",
+        "desc": "Learns the structure of the file you uploaded"
+      },
+      "carryForward": {
+        "name": "Carry forward",
+        "desc": "Carries balances over from the previous document"
+      },
+      "echo": {
+        "name": "Echo",
+        "desc": "Health check for the Python bridge"
+      },
+      "schemaPlanner": {
+        "name": "Schema planner",
+        "desc": "Identifies the document's columns"
+      },
+      "rowExtractor": {
+        "name": "Row extractor",
+        "desc": "Turns what you dictated into rows"
+      },
+      "formatter": {
+        "name": "Totals",
+        "desc": "Computes hours, VAT and the total"
+      },
+      "reviewer": {
+        "name": "Reviewer",
+        "desc": "Reads the document and finds gaps"
+      },
+      "validator": {
+        "name": "Validator",
+        "desc": "Checks the document is consistent and complete"
+      },
+      "questionPlanner": {
+        "name": "Question planner",
+        "desc": "Picks the next question to ask"
+      },
+      "advisor": {
+        "name": "Advisor",
+        "desc": "Suggests improvements to the document"
+      },
+      "router": {
+        "name": "Intent router",
+        "desc": "Decides what to do with your request"
+      }
+    },
+    "title": "Build a document with AI",
+    "undo": "Undo",
+    "redo": "Redo",
+    "upload": {
+      "button": "Upload an example file",
+      "dropHint": "Drop here to learn the template"
+    },
+    "errors": {
+      "generic": "Something went wrong. Try again.",
+      "missingRate": "No hourly rate — the document would print 0.00. Enter a rate before exporting.",
+      "emptyDocument": "The document has no rows."
+    },
+    "chat": {
+      "intro": "Upload an example workbook, then dictate what to add.",
+      "placeholder": "Dictate a row, or answer the question…",
+      "send": "Send"
+    },
+    "canvas": {
+      "empty": {
+        "title": "No document yet",
+        "hint": "Upload an example workbook so its structure can be learned"
+      },
+      "untitledSheet": "Untitled sheet",
+      "dataBandFrom": "Data starts at row",
+      "merges": "merges",
+      "addRow": "Add row",
+      "removeRow": "Remove row",
+      "columns": {
+        "date": "Date",
+        "day": "Day",
+        "hours": "Hours",
+        "location": "Location",
+        "subject": "Subject"
+      },
+      "days": {
+        "1": "Sun",
+        "2": "Mon",
+        "3": "Tue",
+        "4": "Wed",
+        "5": "Thu",
+        "6": "Fri",
+        "7": "Sat"
+      },
+      "totals": {
+        "hours": "Total hours",
+        "rate": "Rate",
+        "vat": "VAT",
+        "total": "Total",
+        "derivedHint": "Derived values — edit the rows to change them",
+        "missingRate": "Rate missing",
+        "carryIn": "Carried in",
+        "ratePlaceholder": "rate",
+        "rowLabel": "Total",
+        "subtotal": "Subtotal"
+      },
+      "letterhead": {
+        "planner": "Planner",
+        "client": "Client",
+        "account": "Account no."
+      },
+      "source": {
+        "user": "Edited by you"
+      }
+    },
+    "export": "Export to Excel"
+  },
+  "createChooser": {
+    "title": "How would you like to create your report?",
+    "subtitle": "Both paths end in the same workbook — pick the one that fits you.",
+    "close": "Close",
+    "classic": {
+      "title": "Fill it in yourself",
+      "description": "The familiar form: enter a project, dates and hours — step by step, fully in your control."
+    },
+    "ai": {
+      "title": "AI Copilot",
+      "description": "Upload an example workbook, dictate what to record, and watch it build itself — answer a few quick questions and you're done.",
+      "badge": "New"
+    }
   }
 }

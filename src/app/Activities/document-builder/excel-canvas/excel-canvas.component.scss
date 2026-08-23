@@ -1,0 +1,297 @@
+@use '../../../../styleToPage/basicStyle/variables/variables' as variables;
+
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.excel-canvas {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+
+  @include variables.theme-dark {
+    background: #14161c;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  &.busy .cell-input {
+    opacity: 0.7;
+  }
+}
+
+.canvas-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.55);
+
+  @include variables.theme-dark { color: rgba(255, 255, 255, 0.6); }
+
+  .empty-icon { font-size: 2.5rem; width: 2.5rem; height: 2.5rem; opacity: 0.5; }
+  .empty-title { margin: 0; font-weight: 600; }
+  .empty-hint { margin: 0; font-size: 0.85rem; opacity: 0.8; }
+}
+
+
+/* ── The document preview ───────────────────────────────────────────────────────
+   Modelled on the real workbook: a yellow banner and title, a letterhead grid, a
+   black-ruled table, a highlighted totals band and a right-aligned billing block.
+   Close enough that the user recognises their own report before exporting it. */
+
+.doc-sheet {
+  background: #fff;
+  color: #111;
+  padding: 1rem;
+  min-width: max-content;
+
+  /* The printed document is always light; a dark app chrome must not repaint the
+     paper, or the preview stops matching the file that comes out. */
+  @include variables.theme-dark {
+    background: #f7f7f5;
+    color: #111;
+  }
+}
+
+.doc-band {
+  border: 1px solid #000;
+  background: #ffff00;
+  text-align: center;
+  font-weight: 700;
+  font-style: italic;
+  padding: 0.3rem 0.5rem;
+}
+
+.doc-org { font-size: 1rem; }
+.doc-title { font-size: 0.95rem; border-block-start: 0; }
+
+.doc-letterhead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border: 1px solid #000;
+  border-block-start: 0;
+  margin-block-end: 0.75rem;
+
+  .lh-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.6rem;
+    border-inline-end: 1px solid #000;
+    font-size: 0.8rem;
+
+    &:last-child { border-inline-end: 0; }
+  }
+
+  .lh-label { font-weight: 700; }
+}
+
+.canvas-grid {
+  display: grid;
+  min-width: max-content;
+  border: 2px solid #000;
+}
+
+.cell {
+  border-inline-end: 1px solid #444;
+  border-block-end: 1px solid #444;
+  min-height: 1.9rem;
+  display: flex;
+  align-items: center;
+
+  &.head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0.35rem 0.5rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-align: center;
+    justify-content: center;
+    background: #fff;
+    border-block-end: 2px solid #000;
+  }
+
+  &.derived { background: rgba(0, 0, 0, 0.02); }
+
+  /* The workbook highlights the totals band in yellow; so does the preview. */
+  &.total-band {
+    background: #ffff00;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+    border-block-start: 2px solid #000;
+
+    &.num { justify-content: center; font-variant-numeric: tabular-nums; }
+  }
+}
+
+.derived-value {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  text-align: center;
+  width: 100%;
+}
+
+.cell-input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0.3rem 0.5rem;
+  font: inherit;
+  font-size: 0.82rem;
+  color: inherit;
+  outline: none;
+
+  &:focus {
+    background: rgba(63, 81, 181, 0.1);
+    box-shadow: inset 0 0 0 2px rgba(63, 81, 181, 0.5);
+  }
+}
+
+.actions-cell,
+.actions-head {
+  justify-content: center;
+  gap: 0.15rem;
+  border-inline-end: 0;
+}
+
+/* Provenance marker: AI-written rows are muted, hand edits are marked in the brand colour
+   so the user's own corrections stand out when reviewing before signing. */
+.row-source {
+  display: inline-flex;
+  opacity: 0.4;
+  color: #555;
+
+  &.by-user {
+    opacity: 0.9;
+    color: var(--org-primary-color, #0f766e);
+  }
+
+  .material-icons { font-size: 0.9rem; width: 0.9rem; height: 0.9rem; }
+}
+
+.row-remove {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.35;
+  display: flex;
+  padding: 0.2rem;
+
+  &:hover:not(:disabled) { opacity: 1; color: #b3261e; }
+  &:disabled { cursor: default; }
+
+  .material-icons { font-size: 1rem; width: 1rem; height: 1rem; }
+}
+
+.add-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-block-start: 0.5rem;
+  border: 1px dashed rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+  background: transparent;
+  padding: 0.22rem 0.6rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: inherit;
+  cursor: pointer;
+
+  &:hover:not(:disabled) { border-style: solid; }
+  &:disabled { opacity: 0.5; cursor: default; }
+
+  .material-icons { font-size: 1rem; width: 1rem; height: 1rem; }
+}
+
+/* Billing block: label/value pairs stacked, as the workbook prints them. */
+.doc-billing {
+  margin-block-start: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: min(28rem, 100%);
+}
+
+.billing-line {
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  border-block-end: 0;
+  font-size: 0.85rem;
+
+  &:last-of-type { border-block-end: 1px solid #000; }
+
+  .billing-label {
+    flex: 1 1 auto;
+    padding: 0.3rem 0.6rem;
+    font-weight: 700;
+    border-inline-end: 1px solid #000;
+  }
+
+  .billing-value,
+  .billing-input {
+    width: 9rem;
+    padding: 0.3rem 0.6rem;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .billing-input {
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 0.85rem;
+    color: inherit;
+
+    &:focus { outline: none; background: rgba(63, 81, 181, 0.1); }
+    &:disabled { opacity: 0.6; }
+  }
+
+  &.grand {
+    background: #ffff00;
+    font-weight: 700;
+  }
+
+  &.missing .billing-input {
+    background: rgba(179, 38, 30, 0.08);
+    box-shadow: inset 0 0 0 2px #b3261e;
+  }
+
+  &.secondary {
+    margin-block-start: 0.5rem;
+    border: 1px dashed rgba(0, 0, 0, 0.35);
+    opacity: 0.85;
+  }
+}
+
+.rate-warning {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0.4rem 0 0;
+  color: #b3261e;
+  font-size: 0.78rem;
+
+  .material-icons { font-size: 0.95rem; width: 0.95rem; height: 0.95rem; }
+}
+
+.doc-declaration {
+  margin-block-start: 1.25rem;
+  padding-block-start: 0.5rem;
+  border-block-start: 1px solid #000;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}

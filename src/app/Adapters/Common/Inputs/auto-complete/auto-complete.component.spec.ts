@@ -49,7 +49,7 @@ describe('AutoCompleteComponent', () => {
 
   it('should emit selectedValueChange when value changes', () => {
     spyOn(component.selectedValueChange, 'emit');
-    component.setValue('newValue');
+    component.onNgSelectChange('newValue');
     fixture.detectChanges();
 
     expect(component.selectedValueChange.emit).toHaveBeenCalledWith('newValue');
@@ -59,7 +59,7 @@ describe('AutoCompleteComponent', () => {
     const onChangeSpy = jasmine.createSpy('onChange');
     component.registerOnChange(onChangeSpy);
 
-    component.setValue('newValue');
+    component.onNgSelectChange('newValue');
     fixture.detectChanges();
 
     expect(onChangeSpy).toHaveBeenCalledWith('newValue');

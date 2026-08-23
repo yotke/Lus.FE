@@ -3,11 +3,13 @@ import { of, throwError } from 'rxjs';
 import { CreateProjectComponent } from './create-project.component';
 import { ProjectTemplate } from 'src/app/Infrastructure/Classes & Models/Classes/project-template';
 import { NotificationService } from 'src/app/Infrastructure/Services/notification/notification.service';
+import { TranslateService } from '@ngx-translate/core';
 
 describe('CreateProjectComponent', () => {
   let component: CreateProjectComponent;
   let projectSvc: any;
   let notify: jasmine.SpyObj<NotificationService>;
+  let translate: jasmine.SpyObj<TranslateService>;
 
   beforeEach(() => {
     projectSvc = {
@@ -15,7 +17,9 @@ describe('CreateProjectComponent', () => {
       ModifyProject: jasmine.createSpy('ModifyProject'),
     };
     notify = jasmine.createSpyObj<NotificationService>('NotificationService', ['success', 'errorFrom']);
-    component = new CreateProjectComponent(new FormBuilder(), projectSvc, notify);
+    translate = jasmine.createSpyObj<TranslateService>('TranslateService', ['instant', 'get']);
+    translate.instant.and.callFake((key: any) => key);
+    component = new CreateProjectComponent(new FormBuilder(), projectSvc, notify, translate);
   });
 
   it('should create', () => {

@@ -25,3 +25,16 @@
         padding: 1rem;
     }
 }
+
+/* Two lanes, side by side: fill it in yourself, or build it by talking to it. */
+.home-page-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.home-page-button.secondary {
+  background: transparent;
+  border: 1px solid currentColor;
+}

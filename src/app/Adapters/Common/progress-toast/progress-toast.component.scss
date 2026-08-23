@@ -1,0 +1,392 @@
+@use '../../../../styleToPage/basicStyle/variables/variables' as variables;
+
+:host {
+  display: block;
+  position: fixed;
+  bottom: 24px;
+  /* USER 2026-08-01: shifted inward past the accessibility widget's corner (RIGHT in RTL,
+     LEFT in LTR — inline-end grows inward), aligned with the mini-toast loader. */
+  inset-inline-end: 88px;
+  /* USER 2026-08-01: progress narration must sit above everything, incl. the third-party
+     accessibility widget — just under the boot splash (2147483000), above the mini-toast (…997). */
+  z-index: 2147482998;
+  pointer-events: none;
+}
+
+.progress-toast {
+  width: 360px;
+  max-width: calc(100vw - 48px);
+  background: #1e1b4b;
+  color: white;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(30, 27, 75, 0.45), 0 2px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: toastSlideUp 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  font-family: inherit;
+  pointer-events: auto;
+  transition: box-shadow 0.2s, background 0.3s;
+
+  @include variables.theme-dark {
+    background: #1a1640;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  &.completed {
+    background: #064e3b;
+    box-shadow: 0 8px 32px rgba(6, 78, 59, 0.45);
+  }
+
+  &.has-error {
+    background: #7f1d1d;
+    box-shadow: 0 8px 32px rgba(127, 29, 29, 0.45);
+  }
+
+  // ---- Compact bar ----
+  .toast-compact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  .toast-icon-wrap {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    transition: background 0.3s;
+  }
+
+  .toast-icon {
+    font-size: 18px;
+    transition: color 0.3s, transform 0.3s;
+
+    &.pulsing {
+      animation: pulse-icon 1.8s ease-in-out infinite;
+    }
+
+    &.done {
+      color: #6ee7b7;
+    }
+
+    &.error {
+      color: #fca5a5;
+    }
+  }
+
+  .toast-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .toast-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0.95;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .toast-title-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .toast-counter {
+    font-weight: 500;
+    opacity: 0.75;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1px 6px;
+    border-radius: 8px;
+  }
+
+  .toast-count {
+    font-weight: 400;
+    opacity: 0.7;
+    font-size: 0.78rem;
+  }
+
+  .toast-percent {
+    font-size: 0.72rem;
+    font-weight: 700;
+    opacity: 0.7;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1px 5px;
+    border-radius: 6px;
+  }
+
+  .toast-actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  .toast-chevron,
+  .toast-close {
+    font-size: 18px;
+    opacity: 0.6;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 2px;
+    transition: opacity 0.15s, background 0.15s;
+
+    &:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  // ---- Mini progress bar ----
+  .toast-progress-track {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .toast-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #a78bfa, #818cf8);
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0 2px 2px 0;
+
+    &.completed {
+      background: linear-gradient(90deg, #34d399, #6ee7b7);
+      transition: width 0.5s ease;
+    }
+
+    &.indeterminate {
+      width: 30% !important;
+      animation: indeterminate-progress 1.5s ease-in-out infinite;
+    }
+  }
+
+  // ---- Expanded detail panel ----
+  .toast-detail {
+    padding: 8px 14px 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    max-height: 280px;
+    overflow-y: auto;
+    animation: fadeIn 0.2s ease;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+    }
+  }
+
+  // Error detail section
+  .toast-error-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    border-inline-start: 3px solid #fca5a5;
+
+    .error-detail-icon {
+      font-size: 16px;
+      color: #fca5a5;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .error-detail-text {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+  }
+
+  .toast-stage {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+    font-size: 0.75rem;
+    transition: opacity 0.3s;
+
+    &.completed {
+      opacity: 0.55;
+    }
+
+    &.current {
+      font-weight: 600;
+      opacity: 0.95;
+    }
+
+    .stage-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+
+      &.pulsing {
+        animation: pulse-icon 1.8s ease-in-out infinite;
+      }
+
+      &.done-icon {
+        color: #6ee7b7;
+        font-size: 13px;
+      }
+    }
+
+    .stage-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stage-counter {
+      opacity: 0.65;
+      font-weight: 400;
+      font-size: 0.7rem;
+    }
+  }
+
+  // Description paragraph
+  .toast-description {
+    font-size: 0.72rem;
+    opacity: 0.6;
+    padding: 4px 0 6px 22px;
+    line-height: 1.4;
+  }
+
+  // Completion summary
+  .toast-summary {
+    padding: 8px 0 4px;
+
+    .summary-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(110, 231, 183, 0.15);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #6ee7b7;
+
+      .summary-icon {
+        font-size: 16px;
+      }
+    }
+  }
+
+  // ---- Action buttons ----
+  .toast-detail-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .toast-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+
+    .material-icons {
+      font-size: 15px;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+
+    &.view-btn {
+      flex: 1;
+    }
+
+    &.go-btn {
+      background: rgba(110, 231, 183, 0.2);
+      border-color: rgba(110, 231, 183, 0.4);
+
+      &:hover {
+        background: rgba(110, 231, 183, 0.35);
+      }
+    }
+  }
+}
+
+@keyframes toastSlideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-icon {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.92);
+  }
+}
+
+@keyframes indeterminate-progress {
+  0% {
+    margin-inline-start: -30%;
+  }
+  100% {
+    margin-inline-start: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

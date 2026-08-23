@@ -44,7 +44,7 @@ describe('CheckboxInputComponent', () => {
   });
 
   it('should call onChange when checkbox value changes', () => {
-    spyOn(component, 'onChange');
+    spyOn<any>(component, 'onChange');
 
     const control = new FormControl(false);
     component.formGroup = new FormGroup({ checkbox: control });
@@ -55,11 +55,11 @@ describe('CheckboxInputComponent', () => {
     checkboxElement.click();
     fixture.detectChanges();
 
-    expect(component.onChange).toHaveBeenCalledWith(true);
+    expect(component['onChange']).toHaveBeenCalledWith(true);
   });
 
   it('should call onTouched when checkbox is touched', () => {
-    spyOn(component, 'onTouched');
+    spyOn<any>(component, 'onTouched');
 
     const control = new FormControl(false);
     component.formGroup = new FormGroup({ checkbox: control });
@@ -70,7 +70,7 @@ describe('CheckboxInputComponent', () => {
     checkboxElement.dispatchEvent(new Event('blur'));
     fixture.detectChanges();
 
-    expect(component.onTouched).toHaveBeenCalled();
+    expect(component['onTouched']).toHaveBeenCalled();
   });
 
   it('should update the view when writeValue is called', () => {

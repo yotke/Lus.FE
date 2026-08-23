@@ -8,6 +8,7 @@ import { RegisterComponent } from './Activities/register/register.component';
 import { PrivacyComponent } from './Activities/legal/privacy.component';
 import { TermsComponent } from './Activities/legal/terms.component';
 import { authGuard } from './Infrastructure/Services/Auth/AuthGuard/auth-guard';
+import { DocumentBuilderComponent } from './Activities/document-builder/document-builder.component';
 
 const routes: Routes = [
   // Default: send to login; the guard forwards authenticated users on to Home.
@@ -22,6 +23,9 @@ const routes: Routes = [
   // Everything below requires authentication.
   { path: 'Home', component: HomeComponent, canActivate: [authGuard], data: { breadcrumb: 'breadcrumb.home', roles: [] } },
   { path: 'TimeManagement', component: ProjectsManagerComponent, canActivate: [authGuard], data: { breadcrumb: 'breadcrumb.timeManagement', roles: [] } },
+
+  // The AI lane. The manual lane above is unchanged — both end in the same workbook.
+  { path: 'DocumentBuilder', component: DocumentBuilderComponent, canActivate: [authGuard], data: { breadcrumb: 'breadcrumb.documentBuilder', roles: [] } },
   { path: 'History', component: HistoryProjectsComponent, canActivate: [authGuard], data: { breadcrumb: 'breadcrumb.history', roles: [] } },
 
   // Unknown routes -> login (which forwards to Home if already authenticated).

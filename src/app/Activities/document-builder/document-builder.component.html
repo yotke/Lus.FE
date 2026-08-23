@@ -1,0 +1,52 @@
+<section class="builder-page">
+
+  <header class="builder-header">
+    <h1 class="builder-title">{{ 'docBuilder.title' | translate }}</h1>
+
+    <div class="builder-actions">
+      <label class="upload-btn" [class.disabled]="state.busy$ | async">
+        <span class="material-icons">upload_file</span>
+        {{ 'docBuilder.upload.button' | translate }}
+        <input type="file" accept=".xlsx,.xlsm" hidden [disabled]="(state.busy$ | async) || false"
+          (change)="onFileChosen($event)" />
+      </label>
+
+      <button type="button" class="icon-btn" (click)="onExport()" [disabled]="(state.busy$ | async) || false"
+        [attr.aria-label]="'docBuilder.export' | translate">
+        <span class="material-icons">download</span>
+      </button>
+
+      <button type="button" class="icon-btn" (click)="onUndo()" [disabled]="(state.busy$ | async) || false"
+        [attr.aria-label]="'docBuilder.undo' | translate">
+        <span class="material-icons">undo</span>
+      </button>
+      <button type="button" class="icon-btn" (click)="onRedo()" [disabled]="(state.busy$ | async) || false"
+        [attr.aria-label]="'docBuilder.redo' | translate">
+        <span class="material-icons">redo</span>
+      </button>
+    </div>
+  </header>
+
+  <p class="builder-error" *ngIf="state.error$ | async as error">
+    <span class="material-icons">error_outline</span>
+    <span>{{ error | translate }}</span>
+  </p>
+
+  <!-- Drop target wraps the whole workspace: an exemplar can be dropped anywhere. -->
+  <div class="builder-body" [class.drag-over]="dragOver" (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave()" (drop)="onDrop($event)">
+
+    <div class="drop-hint" *ngIf="dragOver">
+      <span class="material-icons">file_download</span>
+      {{ 'docBuilder.upload.dropHint' | translate }}
+    </div>
+
+    <app-excel-canvas class="canvas-pane" [draft]="state.draft$ | async"
+      [busy]="(state.busy$ | async) || false" (cellEdit)="onCellEdit($event)" (totalsEdit)="onTotalsEdit($event)" (addRow)="onAddRow()"
+      (removeRow)="onRemoveRow($event)"></app-excel-canvas>
+
+    <app-builder-chat-rail class="chat-pane" [messages]="(state.messages$ | async) || []"
+      [question]="state.question$ | async" [warnings]="(state.warnings$ | async) || []"
+      [busy]="(state.busy$ | async) || false" (send)="onSend($event)"></app-builder-chat-rail>
+  </div>
+</section>

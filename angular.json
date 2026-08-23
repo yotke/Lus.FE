@@ -112,7 +112,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "exclude": [
+              "src/app/Adapters/Common/Filters/**"
+            ]
           }
         }
       }

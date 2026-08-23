@@ -41,6 +41,12 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Playwright
+/playwright-report/
+/test-results/
+/e2e/.auth/
+.env.e2e
+
 # build artifacts
 /dist
 dist.zip

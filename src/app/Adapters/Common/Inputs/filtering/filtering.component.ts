@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, Input, ViewChild, Output, EventEm
 import { MatMenuTrigger } from '@angular/material/menu';
 import { FilterEvent } from './classes/filter-event';
 import { Subscription } from "rxjs";
-import { Emitters } from 'src/app/Infastracture/Emitters/Emitters';
+import { Emitters } from 'src/app/Infrastructure/Emitters/Emitters';
 
 @Component({
   selector: 'app-filtering',

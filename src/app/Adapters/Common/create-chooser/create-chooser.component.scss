@@ -1,0 +1,145 @@
+/* Ported from ArmyLuz's create-chooser (choose-organization.component.scss).
+   Lus already defines every token this uses — --bg-card, --text-secondary,
+   --border-default, --org-primary-color — so the rules carry over unchanged.
+   The resume-card variant is dropped: it resumes a half-built organization,
+   which has no counterpart here. */
+
+.create-chooser-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(3px);
+}
+
+.create-chooser-panel {
+  position: relative;
+  width: min(680px, 100%);
+  border-radius: var(--theme-border-radius, 16px);
+  background: var(--bg-card, #ffffff);
+  color: var(--text-primary, #1f2937);
+  border: 1px solid var(--border-default, #e5e7eb);
+  box-shadow: var(--shadow-lg, 0 18px 48px rgba(0, 0, 0, 0.22));
+  padding: 24px;
+}
+
+.create-chooser-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+
+  .create-chooser-title {
+    margin: 0 0 6px;
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+
+  .create-chooser-subtitle {
+    margin: 0;
+    color: var(--text-secondary, #6b7280);
+    font-size: 0.95rem;
+  }
+}
+
+.create-chooser-close {
+  position: absolute;
+  top: -6px;
+  inset-inline-end: -6px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: var(--bg-muted, #f3f4f6);
+  color: var(--text-secondary, #6b7280);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--bg-subtle, #e5e7eb);
+    color: var(--text-primary, #1f2937);
+  }
+}
+
+.create-chooser-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.create-chooser-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 26px 20px;
+  border-radius: var(--theme-border-radius, 14px);
+  border: 1.5px solid var(--border-default, #e5e7eb);
+  background: var(--bg-elevated, #ffffff);
+  color: var(--text-primary, #1f2937);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--org-primary-color, #4f46e5);
+    box-shadow: var(--shadow-md, 0 8px 22px rgba(0, 0, 0, 0.12));
+    outline: none;
+  }
+
+  .create-chooser-card-icon {
+    /* ArmyLuz rendered this through <app-svg-icon>, which brought its own box.
+       Lus inlines the SVG, so the wrapper has to establish one. */
+    display: grid;
+    place-items: center;
+    color: var(--org-primary-color, #4f46e5);
+  }
+
+  .create-chooser-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .create-chooser-card-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary, #6b7280);
+    line-height: 1.45;
+  }
+}
+
+.create-chooser-card--ai {
+  border-color: color-mix(in srgb, var(--org-primary-color, #4f46e5) 45%, transparent);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--org-primary-color, #4f46e5) 7%, transparent),
+      transparent 65%),
+    var(--bg-elevated, #ffffff);
+
+  .create-chooser-card-badge {
+    position: absolute;
+    top: 10px;
+    inset-inline-start: 10px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #ffffff;
+    background: var(--org-primary-color, #4f46e5);
+  }
+}
+
+/* Dark: the backdrop deepens; cards already ride the token cascade. */
+
+:host-context([data-theme="dark"]),
+:host-context(.dark-theme) {
+  .create-chooser-backdrop {
+    background: rgba(2, 6, 23, 0.62);
+  }
+}

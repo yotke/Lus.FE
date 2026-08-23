@@ -6,7 +6,10 @@
             <p dir="rtl">{{ 'home.lead1' | translate }}</p>
             <p dir="rtl">{{ 'home.lead2' | translate }}</p>
         </div>
-        <button (click)="navigateToTimeManagement()" class="home-page-button">{{ 'home.manageTime' | translate }}</button>
+        <button (click)="openChooser()" class="home-page-button">{{ 'home.start' | translate }}</button>
     </section>
+
+<app-create-chooser [open]="chooserOpen" (closed)="closeChooser()"
+    (chooseClassic)="navigateToTimeManagement()" (chooseAi)="navigateToDocumentBuilder()"></app-create-chooser>
 
 </section>

@@ -1,4 +1,4 @@
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,8 +20,13 @@ import { AuthService } from './Infrastructure/Services/Auth/auth.service';
 import { JWT_OPTIONS, JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { environment } from 'src/environments/environment';
-import { HttpRequestInterceptor } from './Adapters/Interceptors/blockUI-request/http-request-interceptor';
-import { AppConsts } from './Infrastructure/Classes & Models/customClasses/app-consts';
+import { LoadingInterceptor } from './Adapters/Interceptors/loading/loading.interceptor';
+import { ProgressToastComponent } from './Adapters/Common/progress-toast/progress-toast.component';
+import { CreateChooserComponent } from './Adapters/Common/create-chooser/create-chooser.component';
+import { DocumentBuilderComponent } from './Activities/document-builder/document-builder.component';
+import { ExcelCanvasComponent } from './Activities/document-builder/excel-canvas/excel-canvas.component';
+import { BuilderChatRailComponent } from './Activities/document-builder/builder-chat-rail/builder-chat-rail.component';
+import { API_BASE_URL, getBaseUrl } from './Infrastructure/Classes & Models/customClasses/api-base-url.token';
 import { HomeComponent } from './Adapters/HomePageComponents/home/home.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { HeaderComponent } from './Adapters/HomePageComponents/header/header.component';
@@ -43,10 +48,9 @@ import { HttpErrorInterceptor } from './Adapters/Interceptors/error/http-error-i
 // import { RECAPTCHA_V3_SITE_KEY, ReCaptchaV3Service, RecaptchaModule } from 'ng-recaptcha';
 
 
-export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
-export function getBaseUrl(): string {
-  return AppConsts.baseUrl;
-}
+// Re-exported so existing `from './app.module'` imports keep working; the token itself
+// now lives outside the module to keep services from importing the module back.
+export { API_BASE_URL, getBaseUrl } from './Infrastructure/Classes & Models/customClasses/api-base-url.token';
 
 // Loads translation JSON from /assets/i18n/<lang>.json
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -72,6 +76,11 @@ declare var $: any;
     RegisterComponent,
     PrivacyComponent,
     TermsComponent,
+    ProgressToastComponent,
+    CreateChooserComponent,
+    DocumentBuilderComponent,
+    ExcelCanvasComponent,
+    BuilderChatRailComponent,
 
   ],
   imports: [
@@ -110,7 +119,7 @@ declare var $: any;
     { provide: API_BASE_URL, useFactory: getBaseUrl },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService,
     // { provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptcha.siteKey },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     provideHttpClient(
       withInterceptorsFromDi()  // Enable DI-based interceptors
   ),

@@ -1,0 +1,76 @@
+<!-- ============================================================
+   Side progress toast — renders every visible reporter from the
+   ProgressReporterRegistry (HTTP loading, Document Builder, ...).
+   Each reporter is an independent card with its own expand/dismiss.
+   ============================================================ -->
+<ng-container *ngFor="let r of (registry.visibleReporters$ | async); trackBy: trackByKey">
+  <div class="progress-toast" [class.expanded]="r.isExpanded" [class.completed]="r.state === 'completed'"
+    [class.has-error]="r.state === 'error'" [dir]="(langSvc.dir$ | async) || 'rtl'">
+
+    <!-- Compact bar -->
+    <div class="toast-compact" (click)="toggleReporterExpanded(r.key)">
+      <div class="toast-icon-wrap">
+        <span class="material-icons toast-icon pulsing" *ngIf="r.state === 'active'">
+          {{ r.progress?.icon || 'sync' }}
+        </span>
+        <span class="material-icons toast-icon done" *ngIf="r.state === 'completed'">check_circle</span>
+        <span class="material-icons toast-icon error" *ngIf="r.state === 'error'">error</span>
+      </div>
+
+      <div class="toast-info">
+        <span class="toast-title" *ngIf="r.state === 'active'">
+          <span class="toast-title-text">{{ (r.progress?.title || 'progressToast.preparing') | translate }}</span>
+          <span class="toast-counter" *ngIf="r.progress?.details as d">
+            <ng-container *ngIf="d['current'] && d['count']">{{ d['current'] }} / {{ d['count'] }}</ng-container>
+            <ng-container *ngIf="!d['current'] && d['count']">({{ d['count'] }})</ng-container>
+          </span>
+        </span>
+        <span class="toast-title" *ngIf="r.state === 'completed'">{{ 'progressToast.done' | translate }}</span>
+        <span class="toast-title" *ngIf="r.state === 'error'">{{ 'progressToast.error' | translate }}</span>
+        <span class="toast-percent" *ngIf="r.progress?.percentComplete as pct">{{ pct }}%</span>
+      </div>
+
+      <div class="toast-actions">
+        <span class="material-icons toast-chevron">{{ r.isExpanded ? 'expand_more' : 'expand_less' }}</span>
+        <span class="material-icons toast-close"
+          (click)="dismissReporter(r.key); $event.stopPropagation()">close</span>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="toast-progress-track" *ngIf="r.state === 'active'">
+      <div class="toast-progress-fill" [style.width.%]="r.progress?.percentComplete || 0"
+        [class.indeterminate]="!(r.progress?.percentComplete)"></div>
+    </div>
+    <div class="toast-progress-track" *ngIf="r.state === 'completed'">
+      <div class="toast-progress-fill completed" style="width: 100%"></div>
+    </div>
+
+    <!-- Expanded detail panel -->
+    <div class="toast-detail" *ngIf="r.isExpanded">
+      <div class="toast-error-detail" *ngIf="r.state === 'error' && r.errorMessage">
+        <span class="material-icons error-detail-icon">warning</span>
+        <span class="error-detail-text">{{ r.errorMessage }}</span>
+      </div>
+
+      <div class="toast-stage completed" *ngFor="let stage of r.completedStages">
+        <span class="material-icons stage-icon done-icon">check_circle</span>
+        <span class="stage-label">{{ stage | translate }}</span>
+      </div>
+
+      <div class="toast-stage current" *ngIf="r.state === 'active' && r.progress as prog">
+        <span class="material-icons stage-icon pulsing">{{ prog.icon || 'sync' }}</span>
+        <span class="stage-label">{{ (prog.message || prog.title) | translate }}</span>
+      </div>
+
+      <div class="toast-description" *ngIf="r.progress?.description as desc">{{ desc }}</div>
+
+      <div class="toast-summary" *ngIf="r.state === 'completed'">
+        <div class="summary-badge">
+          <span class="material-icons summary-icon">check_circle</span>
+          <span>{{ r.completedStages.length }} {{ 'progressToast.stepsCompleted' | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

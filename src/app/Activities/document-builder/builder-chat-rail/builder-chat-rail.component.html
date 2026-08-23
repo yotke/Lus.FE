@@ -1,0 +1,38 @@
+<div class="chat-rail">
+  <div class="chat-log">
+    <p class="chat-intro" *ngIf="messages.length === 0">
+      {{ 'docBuilder.chat.intro' | translate }}
+    </p>
+
+    <div class="chat-message" *ngFor="let m of messages; trackBy: trackByIndex" [class.from-user]="m.Role === 'user'"
+      [class.from-system]="m.Role === 'system'">
+      <span class="bubble">{{ m.Text }}</span>
+    </div>
+  </div>
+
+  <!-- Validator findings: what still blocks a correct document. -->
+  <div class="warnings" *ngIf="warnings.length">
+    <div class="warning" *ngFor="let w of warnings; trackBy: trackByIndex">
+      <span class="material-icons">warning</span>
+      <span>{{ w.Message }}</span>
+    </div>
+  </div>
+
+  <!-- One question at a time; the document waits for the answer. -->
+  <div class="question" *ngIf="question">
+    <p class="question-text">{{ question.Text }}</p>
+    <div class="chips" *ngIf="question.Chips?.length">
+      <button type="button" class="chip" *ngFor="let chip of question.Chips; trackBy: trackByIndex"
+        [disabled]="busy" (click)="chooseChip(chip)">{{ chip }}</button>
+    </div>
+  </div>
+
+  <form class="composer" (ngSubmit)="submit()">
+    <input class="composer-input" name="builderText" [(ngModel)]="draftText" [disabled]="busy"
+      [attr.placeholder]="'docBuilder.chat.placeholder' | translate" autocomplete="off" />
+    <button type="submit" class="composer-send" [disabled]="busy || !draftText.trim()"
+      [attr.aria-label]="'docBuilder.chat.send' | translate">
+      <span class="material-icons">send</span>
+    </button>
+  </form>
+</div>

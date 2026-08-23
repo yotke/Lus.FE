@@ -1,0 +1,151 @@
+@use '../../../../styleToPage/basicStyle/variables/variables' as variables;
+
+:host { display: block; min-height: 0; }
+
+.chat-rail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  gap: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 0.6rem;
+  background: #fff;
+
+  @include variables.theme-dark {
+    background: #14161c;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.chat-log {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.chat-intro {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+.chat-message {
+  display: flex;
+
+  .bubble {
+    max-width: 85%;
+    padding: 0.4rem 0.65rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    background: rgba(0, 0, 0, 0.05);
+    white-space: pre-wrap;
+
+    @include variables.theme-dark { background: rgba(255, 255, 255, 0.08); }
+  }
+
+  &.from-user {
+    justify-content: flex-end;
+    .bubble { background: rgba(63, 81, 181, 0.14); }
+  }
+
+  &.from-system .bubble { font-style: italic; opacity: 0.8; }
+}
+
+.warnings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .warning {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: #8a5300;
+    background: rgba(255, 176, 32, 0.14);
+    border-radius: 6px;
+    padding: 0.3rem 0.5rem;
+
+    @include variables.theme-dark { color: #ffcf70; }
+
+    .material-icons { font-size: 1rem; width: 1rem; height: 1rem; }
+  }
+}
+
+.question {
+  border-block-start: 1px solid rgba(0, 0, 0, 0.08);
+  padding-block-start: 0.5rem;
+
+  @include variables.theme-dark { border-color: rgba(255, 255, 255, 0.08); }
+
+  .question-text {
+    margin: 0 0 0.4rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.chip {
+  border: 1px solid rgba(63, 81, 181, 0.4);
+  background: transparent;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: inherit;
+  cursor: pointer;
+
+  &:hover:not(:disabled) { background: rgba(63, 81, 181, 0.12); }
+  &:disabled { opacity: 0.5; cursor: default; }
+}
+
+.composer {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.composer-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+  font: inherit;
+  font-size: 0.85rem;
+  background: transparent;
+  color: inherit;
+
+  &:focus { outline: none; border-color: rgba(63, 81, 181, 0.7); }
+
+  @include variables.theme-dark { border-color: rgba(255, 255, 255, 0.2); }
+}
+
+.composer-send {
+  border: 0;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(63, 81, 181, 0.9);
+  color: #fff;
+  cursor: pointer;
+
+  &:disabled { opacity: 0.4; cursor: default; }
+
+  .material-icons { font-size: 1.05rem; width: 1.05rem; height: 1.05rem; }
+}

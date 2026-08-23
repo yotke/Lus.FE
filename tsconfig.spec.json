@@ -10,5 +10,20 @@
   "include": [
     "src/**/*.spec.ts",
     "src/**/*.d.ts"
+  ],
+  /*
+   * DEAD CODE THAT CANNOT COMPILE.
+   *
+   * `Adapters/Common/Filters/filter/filter.component.ts` imports
+   * `Infastructure/Services/Filters/generic-filters/generic-filter.service` — a path that exists
+   * nowhere in the repo (the service was deleted; the typo'd folder name never existed either).
+   * The component has ZERO references, so `ng build` never touches it, but the spec tsconfig's
+   * `src/**` glob pulls it in and its compile error blocks the ENTIRE Karma run.
+   *
+   * Excluded so the suite can run. It should be deleted outright — kept out rather than removed
+   * here only because deleting source is the repo owner's call.
+   */
+  "exclude": [
+    "src/app/Adapters/Common/Filters/**"
   ]
 }

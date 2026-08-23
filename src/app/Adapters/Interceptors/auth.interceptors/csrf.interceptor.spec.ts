@@ -2,12 +2,22 @@ import { HttpErrorResponse, HttpHandler, HttpRequest } from '@angular/common/htt
 import { of, throwError } from 'rxjs';
 import { CsrfInterceptor } from './csrf.interceptor';
 import { CsrfService } from 'src/app/Infrastructure/Services/Auth/csrf.service';
+import { Injector } from '@angular/core';
+
+/**
+ * CsrfInterceptor resolves CsrfService LAZILY from the Injector — taking it as a constructor
+ * parameter closes an NG0200 cycle through HttpClient (see interceptor-di.spec.ts). These tests
+ * therefore hand it a minimal Injector that serves the spy.
+ */
+function injectorFor(csrf: CsrfService): Injector {
+  return { get: () => csrf } as unknown as Injector;
+}
 
 describe('CsrfInterceptor', () => {
   it('adds CSRF header to unsafe API requests', (done) => {
     const csrf = jasmine.createSpyObj<CsrfService>('CsrfService', ['getToken', 'refreshToken']);
     csrf.getToken.and.returnValue(of('token-1'));
-    const interceptor = new CsrfInterceptor(csrf);
+    const interceptor = new CsrfInterceptor(injectorFor(csrf));
     const next = jasmine.createSpyObj<HttpHandler>('HttpHandler', ['handle']);
     next.handle.and.returnValue(of({} as any));
 
@@ -22,7 +32,7 @@ describe('CsrfInterceptor', () => {
     const csrf = jasmine.createSpyObj<CsrfService>('CsrfService', ['getToken', 'refreshToken']);
     csrf.getToken.and.returnValue(of('token-1'));
     csrf.refreshToken.and.returnValue(of('token-2'));
-    const interceptor = new CsrfInterceptor(csrf);
+    const interceptor = new CsrfInterceptor(injectorFor(csrf));
     const next = jasmine.createSpyObj<HttpHandler>('HttpHandler', ['handle']);
     next.handle.and.returnValues(
       throwError(() => new HttpErrorResponse({ status: 403 })),
