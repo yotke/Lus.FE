@@ -135,6 +135,54 @@ describe('BuilderStateService', () => {
     expect(api.turn).toHaveBeenCalledWith(0, '3 שעות במשרד', null);
   });
 
+  // One click, two rows: the HTTP response and the hub's DraftPatched event both carry the
+  // same batch, and whichever loses the race was being applied a second time.
+  it('applies a batch once even when the hub echoes it', async () => {
+    api.canvasEdit.and.returnValue(of(turn({
+      Version: 1, Ops: [{ Op: 'AddRow', Path: 'rows', Value: {} }],
+    })) as any);
+
+    await state.addRow();
+    // The hub delivers the same versioned batch a moment later.
+    hub.draftPatched$.next({
+      SessionId: 's', Version: 1, Timestamp: '',
+      Ops: [{ Op: 'AddRow', Path: 'rows', Value: {} }],
+    });
+
+    expect(state.draft.Rows.length).toBe(1);
+  });
+
+  it('applies a batch once when the hub wins the race', async () => {
+    // Event first...
+    hub.draftPatched$.next({
+      SessionId: 's', Version: 1, Timestamp: '',
+      Ops: [{ Op: 'AddRow', Path: 'rows', Value: {} }],
+    });
+    // ...then the HTTP response for the same batch.
+    api.canvasEdit.and.returnValue(of(turn({
+      Version: 1, Ops: [{ Op: 'AddRow', Path: 'rows', Value: {} }],
+    })) as any);
+    await state.addRow();
+
+    expect(state.draft.Rows.length).toBe(1);
+  });
+
+  it('undo still applies although it moves the version backwards', async () => {
+    api.canvasEdit.and.returnValue(of(turn({
+      Version: 1, Ops: [{ Op: 'AddRow', Path: 'rows', Value: {} }],
+    })) as any);
+    await state.addRow();
+    expect(state.draft.Rows.length).toBe(1);
+
+    api.undo.and.returnValue(of(turn({
+      Version: 0, Ops: [{ Op: 'RemoveRow', Path: 'rows[0]' }],
+    })) as any);
+    await state.undo();
+
+    expect(state.draft.Rows.length).toBe(0);
+    expect(state.version).toBe(0);
+  });
+
   it('sends a cell edit as an UpdateRow op at the current version', async () => {
     api.canvasEdit.and.returnValue(of(turn({ Version: 2, Ops: [] })) as any);
 

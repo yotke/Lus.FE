@@ -29,7 +29,8 @@ export default defineConfig({
     { name: 'setup', testMatch: /auth\.setup\.ts/ },
     {
       name: 'api',
-      testMatch: /document-builder-api\.spec\.ts/,
+      // Both API-only suites: the smoke spec and the data-logic flows.
+      testMatch: /document-builder-(api|flow)\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
       dependencies: ['setup'],
     },
@@ -40,7 +41,7 @@ export default defineConfig({
         storageState: 'e2e/.auth/user.json',
       },
       dependencies: ['setup'],
-      testIgnore: /document-builder-api\.spec\.ts/,
+      testIgnore: /document-builder-(api|flow)\.spec\.ts/,
     },
   ],
 });

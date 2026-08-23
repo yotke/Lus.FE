@@ -5,6 +5,7 @@ import { DocumentBuilderSignalrService } from './document-builder-signalr.servic
 import { applyOps } from './draft-patcher';
 import {
   DocumentBuilderMessage,
+  DocumentBuilderTurnResponse,
   DocumentDraft,
   DocumentQuestion,
   DocumentWarning,
@@ -76,10 +77,7 @@ export class BuilderStateService {
     await this.hub.connect();
 
     this.hub.draftPatched$.subscribe(e => {
-      // Ops for a version we already hold (our own turn's HTTP response beat the event)
-      // must not be applied twice.
-      if (!e || e.Version <= this._draft.value.Version) return;
-      this._draft.next({ ...applyOps(this._draft.value, e.Ops as DraftPatchOp[]), Version: e.Version });
+      if (e) this.absorb(e.Version, e.Ops as DraftPatchOp[]);
     });
 
     this.hub.questionAsked$.subscribe(e => {
@@ -113,9 +111,7 @@ export class BuilderStateService {
     try {
       const result = await firstValueFrom(this.api.turn(this.version, trimmed, answering));
       this.absorb(result.Version, result.Ops);
-      this._warnings.next(result.Warnings ?? []);
-      if (result.Question) this._question.next(result.Question);
-      for (const message of result.Messages ?? []) this.pushMessage(message);
+      this.applyInterview(result);
       this.hub.endTurn({ rows: this._draft.value.Rows?.length ?? 0 });
     } catch (error) {
       const described = this.describe(error);
@@ -192,12 +188,12 @@ export class BuilderStateService {
 
   async undo(): Promise<void> {
     const result = await firstValueFrom(this.api.undo());
-    this.absorb(result.Version, result.Ops);
+    this.rewind(result.Version, result.Ops);
   }
 
   async redo(): Promise<void> {
     const result = await firstValueFrom(this.api.redo());
-    this.absorb(result.Version, result.Ops);
+    this.rewind(result.Version, result.Ops);
   }
 
   private async sendOps(ops: DraftPatchOp[]): Promise<void> {
@@ -207,6 +203,9 @@ export class BuilderStateService {
     try {
       const result = await firstValueFrom(this.api.canvasEdit(this.version, ops));
       this.absorb(result.Version, result.Ops);
+      // Editing a cell can answer the open question — or raise the next one. Keeping the
+      // interview in step with the canvas is what makes the two halves feel like one tool.
+      this.applyInterview(result);
     } catch (error: any) {
       if (error?.status === 409) {
         // Someone else advanced the draft. The server's copy wins; re-read it.
@@ -219,18 +218,55 @@ export class BuilderStateService {
     }
   }
 
+  /**
+   * Undo/redo, which absorb() cannot handle: undo moves the version DOWN, so a
+   * version-is-newer guard would discard it. Safe to apply unconditionally because the
+   * orchestrator does not raise DraftPatched for undo or redo — there is no second copy
+   * of these ops in flight.
+   */
+  private rewind(version: number, ops: DraftPatchOp[] | undefined): void {
+    if (!ops?.length) {
+      this._draft.next({ ...this._draft.value, Version: version });
+      return;
+    }
+    this._draft.next({ ...applyOps(this._draft.value, ops), Version: version });
+  }
+
   private async resync(): Promise<void> {
     const session = await firstValueFrom(this.api.session());
     this._draft.next(normalize(session?.Draft, session?.Version ?? 0));
   }
 
+  /**
+   * Applies one versioned batch, from whichever transport delivered it first.
+   *
+   * Every write reaches the client TWICE — once as the HTTP response and once as the hub's
+   * DraftPatched event — and either can win the race. The version is the idempotency key:
+   * a batch whose version we already hold has already been applied, so applying it again is
+   * how one "add row" click produced two rows.
+   */
   private absorb(version: number, ops: DraftPatchOp[] | undefined): void {
+    if (version <= this._draft.value.Version) return;
+
     if (!ops?.length) {
-      if (version > this._draft.value.Version)
-        this._draft.next({ ...this._draft.value, Version: version });
+      this._draft.next({ ...this._draft.value, Version: version });
       return;
     }
+
     this._draft.next({ ...applyOps(this._draft.value, ops), Version: version });
+  }
+
+  /**
+   * Absorbs the conversational half of any response: warnings, the next question, and any
+   * assistant lines. Shared by turns and canvas edits so both keep the interview current.
+   *
+   * A response with no question CLEARS the open one — that is how "you already answered
+   * this" is expressed, and leaving a stale question on screen invites answering it twice.
+   */
+  private applyInterview(result: DocumentBuilderTurnResponse): void {
+    this._warnings.next(result.Warnings ?? []);
+    this._question.next(result.Question ?? null);
+    for (const message of result.Messages ?? []) this.pushMessage(message);
   }
 
   private pushMessage(message: DocumentBuilderMessage): void {
